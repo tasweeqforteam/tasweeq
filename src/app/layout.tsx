@@ -4,7 +4,7 @@ import SmoothScroll from "@/components/SmoothScroll";
 import Providers, { themeInitScript } from "@/components/Providers";
 import "./globals.css";
 
-const SITE = "https://tasweeq.studio";
+const SITE = "https://tasweeq-agency.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),

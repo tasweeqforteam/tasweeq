@@ -6,6 +6,7 @@ import { ArrowUpRight, Menu, Moon, Sun, X } from "lucide-react";
 import Logo from "@/components/ui/Logo";
 import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
 import { useLanguage, useTheme } from "@/components/Providers";
+import { gtmEvent } from "@/lib/gtm";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -88,6 +89,9 @@ export default function Navbar() {
               href="https://wa.me/201014300054"
               target="_blank"
               rel="noopener noreferrer"
+              data-gtm="whatsapp_click"
+              data-gtm-location="nav_cta"
+              onClick={() => gtmEvent("whatsapp_click", { location: "nav_cta" })}
               className="group ms-1 hidden items-center gap-2 rounded-full bg-cyan px-5 py-2.5 text-[0.82rem] font-semibold text-black transition-transform duration-300 hover:scale-[1.03] sm:inline-flex"
             >
               {t.cta.start}
@@ -115,6 +119,9 @@ export default function Navbar() {
             href="https://wa.me/201014300054"
             target="_blank"
             rel="noopener noreferrer"
+            data-gtm="whatsapp_click"
+            data-gtm-location="floating_button"
+            onClick={() => gtmEvent("whatsapp_click", { location: "floating_button" })}
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
@@ -167,7 +174,9 @@ export default function Navbar() {
                 href="https://wa.me/201014300054"
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => setOpen(false)}
+                data-gtm="whatsapp_click"
+                data-gtm-location="mobile_menu"
+                onClick={() => { gtmEvent("whatsapp_click", { location: "mobile_menu" }); setOpen(false); }}
                 className="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-cyan px-6 py-3 text-sm font-semibold text-black"
               >
                 {t.cta.start} <ArrowUpRight size={16} />

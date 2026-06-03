@@ -4,6 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import RevealText from "@/components/ui/RevealText";
 import Logo from "@/components/ui/Logo";
 import { useLanguage } from "@/components/Providers";
+import { gtmEvent } from "@/lib/gtm";
 
 const SOCIAL_HREFS = [
   "https://www.instagram.com/tasweeq_agency/",
@@ -34,6 +35,9 @@ export default function FinalCTA() {
               href="https://wa.me/201014300054"
               target="_blank"
               rel="noopener noreferrer"
+              data-gtm="whatsapp_click"
+              data-gtm-location="footer_cta"
+              onClick={() => gtmEvent("whatsapp_click", { location: "footer_cta" })}
               className="group inline-flex items-center gap-3 rounded-full bg-cyan px-8 py-4 text-base font-semibold text-black transition-transform duration-300 hover:scale-[1.02]"
             >
               {t.footer.cta}

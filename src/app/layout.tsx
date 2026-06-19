@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { newBlack, inter, plexArabic, thmanyah } from "@/lib/fonts";
 import SmoothScroll from "@/components/SmoothScroll";
 import Providers, { themeInitScript } from "@/components/Providers";
@@ -96,6 +97,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <Providers>
           <SmoothScroll>{children}</SmoothScroll>
         </Providers>
+        <Analytics />
       </body>
     </html>
   );

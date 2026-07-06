@@ -32,13 +32,13 @@ function applyTheme(theme: Theme) {
 }
 
 export default function Providers({ children }: { children: React.ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("en");
+  const [lang, setLangState] = useState<Lang>("ar");
   const [theme, setThemeState] = useState<Theme>("light");
 
   // Hydrate from the values the pre-paint script already applied to <html>
   useEffect(() => {
     const el = document.documentElement;
-    const initialLang = (el.lang === "ar" ? "ar" : "en") as Lang;
+    const initialLang = (el.lang === "en" ? "en" : "ar") as Lang;
     const initialTheme = (el.dataset.theme === "dark" ? "dark" : "light") as Theme;
     setLangState(initialLang);
     setThemeState(initialTheme);
@@ -105,7 +105,7 @@ export const themeInitScript = `(function(){try{
 var ls=localStorage.getItem('theme');
 var t=ls||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
 document.documentElement.dataset.theme=t;
-var l=localStorage.getItem('lang')||'en';
+var l=localStorage.getItem('lang')||'ar';
 document.documentElement.lang=l;
 document.documentElement.dir=(l==='ar'?'rtl':'ltr');
 }catch(e){}})();`;

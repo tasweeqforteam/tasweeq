@@ -17,6 +17,16 @@ const NEEMO_SLIDES = Array.from({ length: 33 }, (_, i) => {
   return `/work/neemo/neemo-${n}.png`;
 });
 
+const SAKAN_SLIDES = Array.from({ length: 26 }, (_, i) => {
+  const n = String(i + 1).padStart(2, "0");
+  return `/work/sakan/sakan-${n}.png`;
+});
+
+const GALLERY_SLIDES: Record<string, string[]> = {
+  neemo: NEEMO_SLIDES,
+  sakan: SAKAN_SLIDES,
+};
+
 type Props = { slug: "sakan" | "neemo" };
 
 export default function CaseStudyPage({ slug }: Props) {
@@ -232,8 +242,8 @@ export default function CaseStudyPage({ slug }: Props) {
           </div>
         </section>
 
-        {/* ─── Presentation Gallery (Neemo only) ─── */}
-        {slug === "neemo" && (
+        {/* ─── Presentation Gallery ─── */}
+        {GALLERY_SLIDES[slug] && (
           <section className="bg-ink py-[clamp(3rem,6vw,5rem)]">
             <div className="container-editorial mb-10">
               <span className="eyebrow text-gray-2">
@@ -244,11 +254,11 @@ export default function CaseStudyPage({ slug }: Props) {
               </h2>
             </div>
             <div className="container-editorial flex flex-col gap-8">
-              {NEEMO_SLIDES.map((src, i) => (
+              {GALLERY_SLIDES[slug].map((src, i) => (
                 <GallerySlide
                   key={src}
                   src={src}
-                  alt={`Neemo brand presentation slide ${i + 1}`}
+                  alt={`${study.slug} brand presentation slide ${i + 1}`}
                   priority={i < 2}
                 />
               ))}

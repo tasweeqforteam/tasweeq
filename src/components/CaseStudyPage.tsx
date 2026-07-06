@@ -12,7 +12,7 @@ import { caseStudies, caseStudyI18n } from "@/lib/case-studies";
 import { fadeUp, stagger } from "@/lib/motion";
 import { useEffect, useRef, useState } from "react";
 
-const NEEMO_SLIDES = Array.from({ length: 33 }, (_, i) => {
+const NEEMO_SLIDES = Array.from({ length: 34 }, (_, i) => {
   const n = String(i + 1).padStart(2, "0");
   return `/work/neemo/neemo-${n}.png`;
 });

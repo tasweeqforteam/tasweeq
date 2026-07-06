@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Logo from "@/components/ui/Logo";
@@ -9,6 +10,11 @@ import RevealText from "@/components/ui/RevealText";
 import { useLanguage } from "@/components/Providers";
 import { caseStudies, caseStudyI18n } from "@/lib/case-studies";
 import { fadeUp, stagger } from "@/lib/motion";
+
+const NEEMO_SLIDES = Array.from({ length: 33 }, (_, i) => {
+  const n = String(i + 1).padStart(2, "0");
+  return `/work/neemo/neemo-${n}.png`;
+});
 
 type Props = { slug: "sakan" | "neemo" };
 
@@ -224,6 +230,35 @@ export default function CaseStudyPage({ slug }: Props) {
             </p>
           </div>
         </section>
+
+        {/* ─── Presentation Gallery (Neemo only) ─── */}
+        {slug === "neemo" && (
+          <section className="bg-ink py-[clamp(3rem,6vw,5rem)]">
+            <div className="container-editorial mb-10">
+              <span className="eyebrow text-gray-2">
+                {lang === "en" ? "Brand Presentation" : "عرض الهوية البصرية"}
+              </span>
+              <h2 className="font-display mt-3 text-[clamp(1.6rem,3vw,2.2rem)] font-extrabold tracking-[-0.03em] text-paper">
+                {lang === "en" ? "Full Slide Deck" : "ملف العرض الكامل"}
+              </h2>
+            </div>
+            <div className="flex flex-col">
+              {NEEMO_SLIDES.map((src, i) => (
+                <div key={src} className="relative w-full">
+                  <Image
+                    src={src}
+                    alt={`Neemo brand presentation slide ${i + 1}`}
+                    width={1920}
+                    height={1080}
+                    sizes="100vw"
+                    className="w-full object-contain"
+                    priority={i < 3}
+                  />
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* ─── Brandbook CTA ─── */}
         <section className="border-t border-line bg-paper py-[clamp(3rem,6vw,5rem)]">

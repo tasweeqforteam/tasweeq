@@ -32,7 +32,16 @@ const PROJECT_META: ProjectMeta[] = [
     accentHover: "group-hover:border-[#7F59B0] group-hover:shadow-[0_30px_80px_-30px_rgba(127,89,176,0.45)]",
     shadowHover: "group-hover:text-[#7F59B0]/[0.12]",
   },
+  {
+    letter: "M",
+    href: "/work/mawaeidk",
+    linkLabel: "View Case Study",
+    accentHover: "group-hover:border-[#004D43] group-hover:shadow-[0_30px_80px_-30px_rgba(0,77,67,0.45)]",
+    shadowHover: "group-hover:text-[#004D43]/[0.12]",
+  },
 ];
+
+const PROJECT_SLUGS = ["sakan", "neemo", "mawaeidk"];
 
 export default function Showcase() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -129,7 +138,7 @@ export default function Showcase() {
                 </h3>
                 <p className="mt-4 max-w-md text-[0.95rem] leading-relaxed text-gray-1">{p.copy}</p>
                 <Link
-                  href={`/work/${["sakan", "neemo"][i]}`}
+                  href={`/work/${PROJECT_SLUGS[i]}`}
                   className="group/link mt-6 inline-flex items-center gap-2 text-sm font-semibold text-ink"
                 >
                   <span className="link-reveal">{t.showcase.caseStudy}</span>

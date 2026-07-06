@@ -22,19 +22,38 @@ const SAKAN_SLIDES = Array.from({ length: 27 }, (_, i) => {
   return `/work/sakan/sakan-${n}.png`;
 });
 
+const MAWAEIDK_SLIDES = Array.from({ length: 21 }, (_, i) => {
+  const n = String(i + 1).padStart(2, "0");
+  return `/work/mawaeidk/mawaeidk-${n}.png`;
+});
+
 const GALLERY_SLIDES: Record<string, string[]> = {
   neemo: NEEMO_SLIDES,
   sakan: SAKAN_SLIDES,
+  mawaeidk: MAWAEIDK_SLIDES,
 };
 
-type Props = { slug: "sakan" | "neemo" };
+const TITLES: Record<"sakan" | "neemo" | "mawaeidk", string> = {
+  sakan: "Sakan",
+  neemo: "Neemo",
+  mawaeidk: "Mawaeidk",
+};
+
+const ARABIC_NAMES: Record<"sakan" | "neemo" | "mawaeidk", string> = {
+  sakan: "سكن",
+  neemo: "نيمو",
+  mawaeidk: "مواعيدك",
+};
+
+type Props = { slug: "sakan" | "neemo" | "mawaeidk" };
 
 export default function CaseStudyPage({ slug }: Props) {
   const { lang, dir } = useLanguage();
   const dict = caseStudyI18n[lang];
   const studies = caseStudies[lang];
   const study = studies.find((s) => s.slug === slug)!;
-  const otherStudy = studies.find((s) => s.slug !== slug)!;
+  const studyIndex = studies.findIndex((s) => s.slug === slug);
+  const otherStudy = studies[(studyIndex + 1) % studies.length];
 
   const metaEntries = [
     { label: dict.deliverableCol === "Deliverable" ? "Project Type" : "نوع المشروع", value: study.meta.type },
@@ -78,14 +97,14 @@ export default function CaseStudyPage({ slug }: Props) {
               className="eyebrow block"
               style={{ color: study.accentColor }}
             >
-              {lang === "en" ? `CASE STUDY 0${slug === "sakan" ? 1 : 2}` : `دراسة حالة 0${slug === "sakan" ? 1 : 2}`}
+              {lang === "en" ? `CASE STUDY 0${studyIndex + 1}` : `دراسة حالة 0${studyIndex + 1}`}
             </motion.span>
 
             {/* title */}
             <RevealText
               as="h1"
               forceEn
-              lines={[slug === "sakan" ? "Sakan" : "Neemo"]}
+              lines={[TITLES[slug]]}
               className="font-display fluid-xl display-tight mt-4 font-extrabold uppercase text-ink"
             />
 
@@ -97,7 +116,7 @@ export default function CaseStudyPage({ slug }: Props) {
               className="mt-2 text-3xl font-black"
               style={{ color: study.accentColor, fontFamily: "var(--font-serif), serif" }}
             >
-              {slug === "sakan" ? "سكن" : "نيمو"}
+              {ARABIC_NAMES[slug]}
             </motion.p>
 
             {/* subtitle */}
@@ -293,7 +312,7 @@ export default function CaseStudyPage({ slug }: Props) {
             >
               <div>
                 <h3 data-font-en className="font-display text-[clamp(2.5rem,6vw,5rem)] font-extrabold uppercase leading-[0.9] tracking-[-0.04em] text-ink transition-colors group-hover:text-gray-1">
-                  {otherStudy.slug === "sakan" ? "Sakan" : "Neemo"}
+                  {TITLES[otherStudy.slug]}
                 </h3>
                 <p className="mt-3 text-sm text-gray-1">{otherStudy.meta.industry}</p>
               </div>

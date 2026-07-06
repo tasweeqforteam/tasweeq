@@ -1,7 +1,7 @@
 import type { Lang } from "./i18n";
 
 export type CaseStudy = {
-  slug: "sakan" | "neemo";
+  slug: "sakan" | "neemo" | "mawaeidk";
   letter: string;
   accentColor: string;
   meta: { type: string; industry: string; scope: string; duration: string };
@@ -171,6 +171,61 @@ export const caseStudies: Record<Lang, CaseStudy[]> = {
       siteUrl: "https://www.neemo-store.com",
       siteLabel: "neemo-store.com",
     },
+    {
+      slug: "mawaeidk",
+      letter: "M",
+      accentColor: "#004D43",
+      meta: {
+        type: "Brand Identity Redesign",
+        industry: "Healthcare / Digital Health",
+        scope: "Full identity system + brand strategy",
+        duration: "5-6 weeks",
+      },
+      brief: [
+        "Mawaeidk is a digital healthcare platform built for Qatar and the wider GCC, letting people book medical appointments for themselves and their families in a few taps. The founders came to us with a platform that already worked, but a brand identity that didn't match the experience they were building - it looked corporate and clinical in a category that needed to feel human.",
+        "The opportunity was clear: healthcare booking in the region is still dominated by phone calls, walk-ins, and confusing hospital portals. Mawaeidk wanted to be the calm, modern alternative - and needed a brand that made that promise visible before a user ever opened the app.",
+      ],
+      challenge: [
+        "Healthcare brands tend to fall into one of two traps: overly clinical and cold, or overly corporate and sales-driven. Neither builds the kind of trust a healthcare platform actually needs - the trust of someone booking a scan for their child or a checkup for an elderly parent.",
+        "Mawaeidk needed an identity that felt human, calm, and reliable without leaning on tired medical cliches - no crosses, no stethoscopes, no sterile blues. It needed to read as a modern tech brand first, and a healthcare brand second, while never losing warmth or clarity in the process.",
+      ],
+      thinking: {
+        intro:
+          "We anchored the entire identity in a single archetype: the Caregiver, supported by the Sage. Every decision - color, type, tone - had to answer one question: does this feel like someone who genuinely wants to help you, not sell to you?",
+        points: [
+          "We rebuilt the logo from the ground up - retiring the old dark teal icon with its Arabic wordmark and orange checkmark accent for a solid, confident teal mark paired with an abstract yellow-green monogram symbol",
+          "We chose Deep Teal as the anchor color to signal calm and trust, paired with a Lime/Yellow-Green accent that keeps the system feeling modern and alive rather than clinical",
+          "We selected a custom Arabic-and-Latin type system (KO Sans, in Thin, Medium, and Bold) that reads as approachable and contemporary rather than institutional",
+          "We wrote tone-of-voice guidelines around plain language - warm, confident, and reassuring, with an explicit rule against medical jargon and fear-based messaging",
+          "We designed the visual language around softness - rounded UI, soft gradients, generous white space - so the brand feels like relief, not a hospital corridor",
+        ],
+      },
+      deliverables: [
+        { name: "Logo System", detail: "Redesigned primary mark, monogram symbol, Arabic and English lockups, responsive variations" },
+        { name: "Color & Typography", detail: "Deep Teal and Lime color system with usage ratios, KO Sans typeface family, Arabic/Latin pairing rules" },
+        { name: "Brand Guidelines", detail: "Complete usage document - logo construction, color codes, typography hierarchy, tone of voice, do's and don'ts" },
+        { name: "Brand Strategy", detail: "Positioning, brand archetype (Caregiver/Sage), messaging pillars, tagline direction" },
+        { name: "Verbal Identity", detail: "Tone of voice guidelines, messaging pillars (Save Time, Book Easily, Stay Organized, Feel Confident), tagline options" },
+        { name: "Brand Applications", detail: "App interface direction, social media templates, digital collateral mockups" },
+      ],
+      outcome: {
+        intro:
+          "Mawaeidk emerged with an identity that finally matches its product - modern, calm, and unmistakably human in a category that defaults to cold and corporate. The new mark and color system give the brand a visual language it can grow into as it expands from appointment booking into a fuller healthcare ecosystem.",
+        points: [
+          "A complete identity system built around a single, disciplined archetype - the Caregiver - across every touchpoint",
+          "A logo redesign that traded a busy, ornamental mark for a confident, simplified symbol built for app icons and small-scale digital use",
+          "A tone-of-voice framework the team can apply consistently across app copy, notifications, and marketing without sounding clinical",
+          "A visual foundation designed to scale as Mawaeidk grows into telemedicine and medical records, not just appointment booking",
+        ],
+      },
+      designDecision: {
+        title: "Choosing warmth over clinical convention.",
+        body: "Every instinct in healthcare branding pulls toward sterile blues and medical iconography. We went the other way - deep teal and lime, rounded shapes, human language - because Mawaeidk's real competitor isn't another app, it's the anxiety of booking healthcare at all. The brand had to feel like a Caregiver before it felt like software.",
+      },
+      brandBookUrl: "https://drive.google.com/file/d/1d2ukuLoNKJCnyRC_U5WsveJiDcPfAdz1/view?usp=sharing",
+      siteUrl: "",
+      siteLabel: "",
+    },
   ],
 
   ar: [
@@ -277,6 +332,59 @@ export const caseStudies: Record<Lang, CaseStudy[]> = {
       brandBookUrl: "https://drive.google.com/file/d/1hyov3jDWJbzqqfgP1vQ71H0ji8SJwYtc/view?usp=sharing",
       siteUrl: "https://www.neemo-store.com",
       siteLabel: "neemo-store.com",
+    },
+    {
+      slug: "mawaeidk",
+      letter: "M",
+      accentColor: "#004D43",
+      meta: {
+        type: "إعادة تصميم الهوية البصرية",
+        industry: "الرعاية الصحية / الصحة الرقمية",
+        scope: "نظام هوية كامل + استراتيجية العلامة",
+        duration: "5-6 أسابيع",
+      },
+      brief: [
+        "مواعيدك هي منصّة رعاية صحية رقمية مبنية لقطر ودول الخليج، تتيح للناس حجز مواعيد طبية لأنفسهم ولعائلاتهم بضغطات قليلة. جاءنا المؤسّسون بمنصّة تعمل بالفعل، لكن هوية بصرية لا تتطابق مع التجربة التي يبنونها - بدت رسمية وسريرية في فئة تحتاج أن تبدو إنسانية.",
+        "الفرصة كانت واضحة: حجز الرعاية الصحية في المنطقة ما زال يهيمن عليه الاتّصال الهاتفي والحضور المباشر وبوابات المستشفيات المُربكة. أرادت مواعيدك أن تكون البديل الهادئ والحديث - واحتاجت هوية تُظهر هذا الوعد قبل أن يفتح المستخدم التطبيق حتى.",
+      ],
+      challenge: [
+        "علامات الرعاية الصحية غالبًا ما تقع في أحد فخّين: باردة وسريرية بإفراط، أو رسمية وترويجية بإفراط. لا شيء منهما يبني نوع الثقة التي تحتاجها منصّة رعاية صحية فعليًّا - ثقة شخص يحجز أشعة لطفله أو فحصًا لوالد مسنّ.",
+        "احتاجت مواعيدك هوية تبدو إنسانية وهادئة وموثوقة دون الاتّكاء على كليشيهات طبية مُتعبة - بلا صلبان، بلا سمّاعات طبية، بلا أزرق معقّم. كان عليها أن تُقرأ كعلامة تقنية حديثة أولاً، وعلامة رعاية صحية ثانيًا، دون أن تفقد الدفء أو الوضوح في هذه العملية.",
+      ],
+      thinking: {
+        intro: "أرسينا الهوية بأكملها على أرشيتايب واحد: الراعي، مدعومًا بالحكيم. كل قرار - اللون، الخط، النبرة - كان عليه أن يجيب سؤالًا واحدًا: هل يبدو هذا كشخص يريد مساعدتك فعلاً، لا بيعك شيئًا؟",
+        points: [
+          "أعدنا بناء الشعار من الصفر - متخلّين عن الأيقونة التركوازية الداكنة القديمة وشعارها العربي وإشارة الصح البرتقالية لصالح علامة تركوازية واثقة مقترنة برمز أحادي مجرّد أخضر ليموني",
+          "اخترنا التركوازي الغامق كلون أساسي للدلالة على الهدوء والثقة، مقترنًا بلمسة أخضر ليموني تُبقي النظام يبدو حديثًا وحيويًّا لا سريريًّا",
+          "اخترنا نظام خطوط عربي ولاتيني مخصّص (KO Sans، بأوزان Thin وMedium وBold) يُقرأ كودود ومعاصر لا كمؤسّساتي",
+          "كتبنا إرشادات نبرة الصوت حول لغة بسيطة - دافئة وواثقة ومطمئنة، مع قاعدة صريحة ضدّ المصطلحات الطبية والرسائل القائمة على الخوف",
+          "صمّمنا اللغة البصرية حول النعومة - واجهات مستديرة، تدرّجات لونية ناعمة، مساحات بيضاء سخيّة - لتشعر العلامة بالراحة لا بممرّ المستشفى",
+        ],
+      },
+      deliverables: [
+        { name: "نظام الشعار", detail: "علامة رئيسية مُعاد تصميمها، رمز أحادي، صياغات عربية وإنجليزية، تنويعات متجاوبة" },
+        { name: "الألوان والطباعة", detail: "نظام ألوان تركوازي وأخضر ليموني بنسب استخدام، عائلة خط KO Sans، قواعد تناسق عربي/لاتيني" },
+        { name: "دليل العلامة", detail: "وثيقة استخدام شاملة - بناء الشعار، أكواد الألوان، تسلسل الخطوط، نبرة الصوت، الصواب والخطأ" },
+        { name: "استراتيجية العلامة", detail: "التموضع، أرشيتايب العلامة (الراعي/الحكيم)، ركائز الرسائل، اتجاه الشعار الترويجي" },
+        { name: "الهوية اللفظية", detail: "إرشادات نبرة الصوت، ركائز الرسائل (توفير الوقت، حجز سهل، تنظيم، الشعور بالثقة)، خيارات الشعار الترويجي" },
+        { name: "تطبيقات العلامة", detail: "اتجاه واجهة التطبيق، قوالب تواصل اجتماعي، نماذج مواد رقمية" },
+      ],
+      outcome: {
+        intro: "خرجت مواعيدك بهوية تُطابق منتجها أخيرًا - حديثة، هادئة، وإنسانية بلا لبس في فئة تميل افتراضيًّا للبرود والرسمية. يمنح النظام اللوني والشعار الجديد العلامة لغة بصرية يمكنها النموّ معها مع توسّعها من حجز المواعيد إلى منظومة رعاية صحية أشمل.",
+        points: [
+          "نظام هوية كامل مبني حول أرشيتايب واحد منضبط - الراعي - عبر كل نقطة تماس",
+          "إعادة تصميم شعار استبدلت علامة مزدحمة وزخرفية برمز واثق ومبسّط مُصمّم لأيقونات التطبيقات والاستخدام الرقمي الصغير",
+          "إطار نبرة صوت يمكن للفريق تطبيقه باتساق عبر نصوص التطبيق والإشعارات والتسويق دون أن يبدو سريريًّا",
+          "أساس بصري مُصمّم للتوسّع مع نموّ مواعيدك نحو الطب عن بُعد والسجلّات الطبية، لا حجز المواعيد فقط",
+        ],
+      },
+      designDecision: {
+        title: "اختيار الدفء بدلاً من العُرف السريري.",
+        body: "كل غريزة في هوية الرعاية الصحية تجذب نحو الأزرق المعقّم والأيقونات الطبية. اتّجهنا للعكس - تركوازي غامق وأخضر ليموني، أشكال مستديرة، لغة إنسانية - لأن منافس مواعيدك الحقيقي ليس تطبيقًا آخر، بل قلق حجز الرعاية الصحية أصلاً. كان على العلامة أن تشعر كراعٍ قبل أن تشعر كبرنامج.",
+      },
+      brandBookUrl: "https://drive.google.com/file/d/1d2ukuLoNKJCnyRC_U5WsveJiDcPfAdz1/view?usp=sharing",
+      siteUrl: "",
+      siteLabel: "",
     },
   ],
 };

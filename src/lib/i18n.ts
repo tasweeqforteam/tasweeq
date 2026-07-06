@@ -103,6 +103,11 @@ export const translations: Record<Lang, Dict> = {
           title: "Neemo",
           copy: "A playful, energetic e-commerce brand positioned as the \"happy store.\" Complete identity system including logo, typography (Lama Rounded), five-color palette, social media templates, app design, packaging, stationery, and storefront.",
         },
+        {
+          tag: "Healthcare · Digital Appointments",
+          title: "Mawaeidk",
+          copy: "A digital healthcare platform making medical appointment booking simple and stress-free across Qatar. Full brand identity redesign built around the Caregiver archetype — deep teal and lime color system, custom typography, and a calm, human tone of voice.",
+        },
       ],
       caseStudy: "View project",
       endLines: ["Your brand", "is next."],
@@ -180,6 +185,11 @@ export const translations: Record<Lang, Dict> = {
           tag: "التجارة الإلكترونية · التجزئة",
           title: "نيمو",
           copy: "علامة تجارة إلكترونية مرحة ونابضة بالحياة تحمل شعار «المتجر السعيد». نظام هوية متكامل يشمل الشعار، والطباعة (Lama Rounded)، ولوحة ألوان خماسية، وقوالب تواصل اجتماعي، وتصميم تطبيق، وتغليف، وقرطاسية، وواجهة متجر.",
+        },
+        {
+          tag: "الرعاية الصحية · حجز المواعيد الرقمي",
+          title: "مواعيدك",
+          copy: "منصّة رعاية صحية رقمية تجعل حجز المواعيد الطبية بسيطًا وخاليًا من التوتّر في قطر. إعادة تصميم هوية كاملة مبنية على أرشيتايب «الراعي» - نظام ألوان تركوازي غامق وأخضر ليموني، طباعة مخصّصة، ونبرة صوت هادئة وإنسانية.",
         },
       ],
       caseStudy: "عرض المشروع",

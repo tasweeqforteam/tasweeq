@@ -10,6 +10,7 @@ import RevealText from "@/components/ui/RevealText";
 import { useLanguage } from "@/components/Providers";
 import { caseStudies, caseStudyI18n } from "@/lib/case-studies";
 import { fadeUp, stagger } from "@/lib/motion";
+import { useInViewNative } from "@/lib/useInViewNative";
 
 const NEEMO_SLIDES = Array.from({ length: 33 }, (_, i) => {
   const n = String(i + 1).padStart(2, "0");
@@ -242,19 +243,14 @@ export default function CaseStudyPage({ slug }: Props) {
                 {lang === "en" ? "Full Slide Deck" : "ملف العرض الكامل"}
               </h2>
             </div>
-            <div className="flex flex-col">
+            <div className="container-editorial flex flex-col gap-8">
               {NEEMO_SLIDES.map((src, i) => (
-                <div key={src} className="relative w-full">
-                  <Image
-                    src={src}
-                    alt={`Neemo brand presentation slide ${i + 1}`}
-                    width={1920}
-                    height={1080}
-                    sizes="100vw"
-                    className="w-full object-contain"
-                    priority={i < 3}
-                  />
-                </div>
+                <GallerySlide
+                  key={src}
+                  src={src}
+                  alt={`Neemo brand presentation slide ${i + 1}`}
+                  priority={i < 2}
+                />
               ))}
             </div>
           </section>
@@ -341,5 +337,41 @@ function Section({
         {children}
       </div>
     </section>
+  );
+}
+
+/* ─── Gallery slide: scroll-reveal image ─── */
+function GallerySlide({
+  src,
+  alt,
+  priority = false,
+}: {
+  src: string;
+  alt: string;
+  priority?: boolean;
+}) {
+  const { ref, inView } = useInViewNative<HTMLDivElement>(0.15);
+
+  return (
+    <div
+      ref={ref}
+      className="relative w-full overflow-hidden rounded-[4px]"
+      style={{
+        opacity: inView ? 1 : 0,
+        transform: inView ? "translateY(0) scale(1)" : "translateY(48px) scale(0.97)",
+        transition:
+          "opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1)",
+      }}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        width={1920}
+        height={1080}
+        sizes="(min-width: 1600px) 1600px, 100vw"
+        className="h-auto w-full object-contain"
+        priority={priority}
+      />
+    </div>
   );
 }

@@ -10,7 +10,7 @@ import RevealText from "@/components/ui/RevealText";
 import { useLanguage } from "@/components/Providers";
 import { caseStudies, caseStudyI18n } from "@/lib/case-studies";
 import { fadeUp, stagger } from "@/lib/motion";
-import { useInViewNative } from "@/lib/useInViewNative";
+import { useEffect, useRef, useState } from "react";
 
 const NEEMO_SLIDES = Array.from({ length: 33 }, (_, i) => {
   const n = String(i + 1).padStart(2, "0");
@@ -350,7 +350,19 @@ function GallerySlide({
   alt: string;
   priority?: boolean;
 }) {
-  const { ref, inView } = useInViewNative<HTMLDivElement>(0.15);
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0.15 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div

@@ -17,7 +17,7 @@ const NEEMO_SLIDES = Array.from({ length: 33 }, (_, i) => {
   return `/work/neemo/neemo-${n}.png`;
 });
 
-const SAKAN_SLIDES = Array.from({ length: 26 }, (_, i) => {
+const SAKAN_SLIDES = Array.from({ length: 27 }, (_, i) => {
   const n = String(i + 1).padStart(2, "0");
   return `/work/sakan/sakan-${n}.png`;
 });

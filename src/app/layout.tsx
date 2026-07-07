@@ -9,23 +9,64 @@ const SITE = "https://tasweeq-agency.com";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
   title: {
-    default: "TASWEEQ — Next-Generation Marketing Studio",
+    default: "TASWEEQ — استوديو تسويق من الجيل الجديد",
     template: "%s · TASWEEQ",
   },
   description:
-    "TASWEEQ designs scalable digital ecosystems for ambitious brands — branding, creative direction, social systems, content production, advertising and digital growth strategy.",
+    "TASWEEQ استوديو تسويق يبني منظومات رقمية قابلة للتوسّع للعلامات الطموحة — هوية بصرية، إدارة إبداعية، أنظمة تواصل اجتماعي، إعلانات مدفوعة، واستراتيجية نمو رقمي.",
   keywords: [
-    "marketing studio",
-    "brand identity",
-    "creative direction",
-    "paid media",
-    "social media",
-    "digital growth",
+    // local (Mansoura) — Arabic
+    "وكالة تسويق في المنصورة",
+    "شركة تسويق في المنصورة",
+    "استوديو تسويق المنصورة",
+    "وكالة هوية بصرية المنصورة",
+    "شركة تصميم في المنصورة",
+    "أفضل شركة تسويق في المنصورة",
+    // local (Mansoura) — English
+    "marketing agency Mansoura",
+    "marketing company Mansoura Egypt",
+    "branding agency Mansoura",
+    "digital marketing Mansoura",
+    // brand / long-tail (Arabic)
+    "استوديو تسويق في مصر",
+    "وكالة تسويق رقمي مصر",
+    "تصميم هوية بصرية للعلامات التجارية",
+    "شركة إدارة إبداعية",
+    "إدارة السوشيال ميديا للشركات",
+    "إعلانات ممولة ميتا وتيك توك",
+    "استراتيجية نمو رقمي للعلامات",
+    "بناء علامة تجارية من الصفر",
+    "تسويق رقمي",
+    "هوية بصرية",
+    "إعلانات مدفوعة",
+    "نمو الأعمال",
+    // brand / long-tail (English)
+    "branding agency Egypt",
+    "digital marketing studio Egypt",
+    "brand identity design agency",
+    "creative direction agency MENA",
+    "paid media agency Egypt",
+    "social media management agency",
+    "growth marketing studio",
     "TASWEEQ",
   ],
   authors: [{ name: "TASWEEQ" }],
+  alternates: {
+    canonical: SITE,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+    },
+  },
   openGraph: {
     type: "website",
+    locale: "ar_EG",
+    alternateLocale: ["en_US"],
     title: "TASWEEQ — Build Brands That Move Culture",
     description:
       "A next-generation marketing studio building scalable brand systems and measurable growth.",
@@ -48,12 +89,28 @@ export const viewport: Viewport = {
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": "MarketingAgency",
   name: "TASWEEQ",
-  description: "Next-generation marketing studio.",
+  description:
+    "TASWEEQ استوديو تسويق يبني منظومات رقمية قابلة للتوسّع للعلامات الطموحة — هوية بصرية، إدارة إبداعية، أنظمة تواصل اجتماعي، إعلانات مدفوعة، واستراتيجية نمو رقمي.",
   url: SITE,
+  logo: `${SITE}/icon.svg`,
+  image: `${SITE}/opengraph-image`,
   email: "tasweeqforall@gmail.com",
   telephone: "+20 101 4300 054",
+  areaServed: [
+    { "@type": "City", name: "Mansoura" },
+    { "@type": "Country", name: "EG" },
+    "SA",
+    "QA",
+    "AE",
+  ],
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Mansoura",
+    addressRegion: "Dakahlia",
+    addressCountry: "EG",
+  },
   sameAs: ["https://www.instagram.com/tasweeq_agency/", "https://www.linkedin.com/in/tasweeq-agency/", "https://www.facebook.com/profile.php?id=100087189177148"],
 };
 

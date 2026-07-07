@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useLanguage } from "@/components/Providers";
 
@@ -15,6 +16,7 @@ type ProjectMeta = {
   linkLabel: string;
   accentHover: string;
   shadowHover: string;
+  cover?: string;
 };
 
 const PROJECT_META: ProjectMeta[] = [
@@ -24,6 +26,7 @@ const PROJECT_META: ProjectMeta[] = [
     linkLabel: "sakansa.com",
     accentHover: "group-hover:border-[#3f71e4] group-hover:shadow-[0_30px_80px_-30px_rgba(63,113,228,0.45)]",
     shadowHover: "group-hover:text-[#3f71e4]/[0.12]",
+    cover: "/work/sakan-cover.png",
   },
   {
     letter: "N",
@@ -31,6 +34,7 @@ const PROJECT_META: ProjectMeta[] = [
     linkLabel: "neemo-store.com",
     accentHover: "group-hover:border-[#7F59B0] group-hover:shadow-[0_30px_80px_-30px_rgba(127,89,176,0.45)]",
     shadowHover: "group-hover:text-[#7F59B0]/[0.12]",
+    cover: "/work/neemo-cover.png",
   },
   {
     letter: "M",
@@ -38,6 +42,7 @@ const PROJECT_META: ProjectMeta[] = [
     linkLabel: "View Case Study",
     accentHover: "group-hover:border-[#004D43] group-hover:shadow-[0_30px_80px_-30px_rgba(0,77,67,0.45)]",
     shadowHover: "group-hover:text-[#004D43]/[0.12]",
+    cover: "/work/mawaeidk-cover.png",
   },
 ];
 
@@ -106,40 +111,66 @@ export default function Showcase() {
           <p className="mt-8 max-w-sm text-sm leading-relaxed text-gray-1">{t.showcase.intro}</p>
         </div>
 
-        {/* case cards — only Sakan & Neemo */}
+        {/* case cards */}
         {t.showcase.projects.map((p, i) => {
           const meta = PROJECT_META[i];
+          const hasCover = Boolean(meta.cover);
           return (
             <article
               key={p.title}
               dir={dir}
-              className={`group relative flex h-[clamp(420px,70vh,640px)] w-[82vw] shrink-0 snap-center flex-col justify-between overflow-hidden rounded-[3px] border border-line bg-paper p-7 transition-all duration-500 ease-[var(--ease-editorial)] [scroll-snap-align:center] sm:w-[460px] lg:w-[42vw] lg:max-w-[640px] ${meta.accentHover}`}
+              className={`group relative flex h-[clamp(420px,70vh,640px)] w-[82vw] shrink-0 snap-center flex-col justify-between overflow-hidden rounded-[3px] border p-7 transition-all duration-500 ease-[var(--ease-editorial)] [scroll-snap-align:center] sm:w-[460px] lg:w-[42vw] lg:max-w-[640px] ${
+                hasCover ? "border-white/10" : "border-line bg-paper"
+              } ${meta.accentHover}`}
             >
+              {/* cover image + scrim */}
+              {hasCover && (
+                <>
+                  <Image
+                    src={meta.cover!}
+                    alt=""
+                    fill
+                    sizes="(min-width: 1024px) 42vw, 82vw"
+                    className="object-cover"
+                    priority={i < 2}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/10" />
+                </>
+              )}
+
               {/* giant letter */}
-              <span
-                aria-hidden="true"
-                dir="ltr"
-                data-font-en
-                className={`pointer-events-none absolute -bottom-[6%] end-[-2%] select-none font-display text-[clamp(16rem,34vw,30rem)] font-extrabold leading-none tracking-[-0.06em] text-ink/[0.04] transition-all duration-700 ease-[var(--ease-editorial)] ${meta.shadowHover}`}
-              >
-                {meta.letter}
-              </span>
+              {!hasCover && (
+                <span
+                  aria-hidden="true"
+                  dir="ltr"
+                  data-font-en
+                  className={`pointer-events-none absolute -bottom-[6%] end-[-2%] select-none font-display text-[clamp(16rem,34vw,30rem)] font-extrabold leading-none tracking-[-0.06em] text-ink/[0.04] transition-all duration-700 ease-[var(--ease-editorial)] ${meta.shadowHover}`}
+                >
+                  {meta.letter}
+                </span>
+              )}
 
               <div className="relative z-10 flex items-center justify-between">
-                <span className="eyebrow text-gray-1">{p.tag}</span>
-                <span className="font-display text-sm font-medium tabular-nums text-gray-2">
+                <span className={`eyebrow ${hasCover ? "text-white/70" : "text-gray-1"}`}>{p.tag}</span>
+                <span
+                  className={`font-display text-sm font-medium tabular-nums ${hasCover ? "text-white/70" : "text-gray-2"}`}
+                >
                   0{i + 1}
                 </span>
               </div>
 
               <div className="relative z-10">
-                <h3 className="font-display text-[clamp(2rem,4.5vw,3.25rem)] font-extrabold tracking-[-0.04em] text-ink">
+                <h3
+                  className={`font-display text-[clamp(2rem,4.5vw,3.25rem)] font-extrabold tracking-[-0.04em] ${hasCover ? "text-white" : "text-ink"}`}
+                >
                   {p.title}
                 </h3>
-                <p className="mt-4 max-w-md text-[0.95rem] leading-relaxed text-gray-1">{p.copy}</p>
+                <p className={`mt-4 max-w-md text-[0.95rem] leading-relaxed ${hasCover ? "text-white/80" : "text-gray-1"}`}>
+                  {p.copy}
+                </p>
                 <Link
                   href={`/work/${PROJECT_SLUGS[i]}`}
-                  className="group/link mt-6 inline-flex items-center gap-2 text-sm font-semibold text-ink"
+                  className={`group/link mt-6 inline-flex items-center gap-2 text-sm font-semibold ${hasCover ? "text-white" : "text-ink"}`}
                 >
                   <span className="link-reveal">{t.showcase.caseStudy}</span>
                   <ArrowUpRight

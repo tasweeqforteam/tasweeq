@@ -1,0 +1,42 @@
+[
+  {
+    "file": "coffee.png",
+    "asset": "photo:coffee",
+    "source": "PyPI scikit-image 0.26.0 (skimage/data); licence text quoted from skimage/data/_fetchers.py",
+    "license": "CC0",
+    "author": "Rachel Michetti (photographer), courtesy of Pikolo Espresso Bar",
+    "url": "https://scikit-image.org/docs/stable/api/skimage.data.html#skimage.data.coffee",
+    "attribution_required": false,
+    "added": "2026-10-10"
+  },
+  {
+    "file": "phosphor-coffee-bean-duotone.svg",
+    "asset": "phosphor:coffee-bean (duotone)",
+    "source": "npm @phosphor-icons/core",
+    "license": "MIT",
+    "author": "Phosphor Icons",
+    "url": "https://phosphoricons.com",
+    "attribution_required": false,
+    "added": "2026-10-10"
+  },
+  {
+    "file": "phosphor-fire-duotone.svg",
+    "asset": "phosphor:fire (duotone)",
+    "source": "npm @phosphor-icons/core",
+    "license": "MIT",
+    "author": "Phosphor Icons",
+    "url": "https://phosphoricons.com",
+    "attribution_required": false,
+    "added": "2026-10-10"
+  },
+  {
+    "file": "phosphor-bicycle-duotone.svg",
+    "asset": "phosphor:bicycle (duotone)",
+    "source": "npm @phosphor-icons/core",
+    "license": "MIT",
+    "author": "Phosphor Icons",
+    "url": "https://phosphoricons.com",
+    "attribution_required": false,
+    "added": "2026-10-10"
+  }
+]

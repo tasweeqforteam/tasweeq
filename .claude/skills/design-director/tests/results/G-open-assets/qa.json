@@ -1,0 +1,25 @@
+{
+  "input": "tests/cases/G-open-assets//index.html",
+  "generated": "2026-10-10T20:45:54.053Z",
+  "canvases": [
+    {
+      "index": 1,
+      "width": 1080,
+      "height": 1350,
+      "textBlocks": 8,
+      "images": 4
+    }
+  ],
+  "fontsUsed": [
+    "Alexandria (web font)",
+    "Inter Tight (web font)"
+  ],
+  "summary": {
+    "critical": 0,
+    "major": 0,
+    "minor": 0,
+    "info": 0
+  },
+  "verdict": "PASS",
+  "issues": []
+}

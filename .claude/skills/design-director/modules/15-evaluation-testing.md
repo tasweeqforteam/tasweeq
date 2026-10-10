@@ -26,6 +26,7 @@ bash .claude/skills/design-director/scripts/selftest.sh      # structure + tool 
 | D | Bilingual social campaign (feed + story) | AR/EN parity, bidi isolation, safe zones, shared system |
 | E | Brand identity presentation (5 slides) | narrative, layout variety on one grid, no fabricated results |
 | F | Dense information layout | grid choice for density, grouping, readable small text, hierarchy |
+| G | Open-asset integration | CC0 photo at native resolution, one icon set, generated pattern, licences logged in ASSETS.json |
 
 ## Scoring each case
 

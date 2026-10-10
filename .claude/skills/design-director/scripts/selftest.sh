@@ -34,6 +34,16 @@ else
   warn "glyph_coverage.py (pip install fonttools)"
 fi
 node scripts/render.mjs --help >/dev/null && ok "render.mjs loads Playwright" || bad "render.mjs cannot start"
+tmpp=$(mktemp -d)
+python3 scripts/pattern.py star8 --star 3 --out "$tmpp/p.svg" >/dev/null && grep -q "<polygon" "$tmpp/p.svg" && ok "pattern.py generates a star8 tile" || bad "pattern.py"
+python3 -c 'import json,pathlib; d=json.load(open("assets/open/photos/credits.json")); assert all(pathlib.Path("assets/open/photos",v["file"]).exists() and v["license"] in ("CC0","Public domain") for v in d.values())' \
+  && ok "vendored photos: every file present with a CC0/public-domain licence" || bad "assets/open/photos/credits.json"
+if python3 scripts/open_assets.py fetch >/dev/null 2>&1; then
+  python3 scripts/open_assets.py icons coffee --set tabler --limit 1 | grep -q "tabler:coffee" && ok "open_assets.py finds icons (npm sets fetched)" || bad "open_assets.py icons"
+else
+  warn "open_assets.py fetch (npm registry unreachable)"
+fi
+rm -rf "$tmpp"
 
 echo "3 · Regression fixture (every planted defect must be detected)"
 tmp=$(mktemp -d)

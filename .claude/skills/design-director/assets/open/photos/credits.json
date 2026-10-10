@@ -1,0 +1,65 @@
+{
+  "coffee": {
+    "file": "coffee.png",
+    "license": "CC0",
+    "credit": "Rachel Michetti (photographer), courtesy of Pikolo Espresso Bar",
+    "url": "https://scikit-image.org/docs/stable/api/skimage.data.html#skimage.data.coffee",
+    "notes": "cup and saucer, top-down, warm wood; small: use ≤ ~600 px wide or as a framed inset",
+    "size": "600×400",
+    "source": "PyPI scikit-image 0.26.0 (skimage/data); licence text quoted from skimage/data/_fetchers.py"
+  },
+  "cat": {
+    "file": "chelsea.png",
+    "license": "CC0",
+    "credit": "Stéfan van der Walt (photographer)",
+    "url": "https://scikit-image.org/docs/stable/api/skimage.data.html#skimage.data.chelsea",
+    "notes": "tabby cat close-up; small",
+    "size": "451×300",
+    "source": "PyPI scikit-image 0.26.0 (skimage/data); licence text quoted from skimage/data/_fetchers.py"
+  },
+  "rocket": {
+    "file": "rocket.jpg",
+    "license": "Public domain",
+    "credit": "SpaceX (DSCOVR launch on Falcon 9)",
+    "url": "https://www.flickr.com/photos/spacexphotos/16511594820/",
+    "notes": "launch, smoke column; fine for tech/launch metaphors; avoid implying SpaceX endorsement",
+    "size": "640×427",
+    "source": "PyPI scikit-image 0.26.0 (skimage/data); licence text quoted from skimage/data/_fetchers.py"
+  },
+  "hubble": {
+    "file": "hubble_deep_field.jpg",
+    "license": "Public domain",
+    "credit": "NASA / Hubble eXtreme Deep Field",
+    "url": "http://hubblesite.org/newscenter/archive/releases/2012/37/image/a/",
+    "notes": "deep-space field; good dark background texture at 1000 px; NASA media guidelines: no implied endorsement",
+    "size": "1000×872",
+    "source": "PyPI scikit-image 0.26.0 (skimage/data); licence text quoted from skimage/data/_fetchers.py"
+  },
+  "brick": {
+    "file": "brick.png",
+    "license": "CC0",
+    "credit": "CC0Textures (Bricks25), transformed by scikit-image",
+    "url": "https://cc0textures.com/view.php?tex=Bricks25",
+    "notes": "greyscale texture, tileable-ish; overlay with blend modes",
+    "size": "512×512",
+    "source": "PyPI scikit-image 0.26.0 (skimage/data); licence text quoted from skimage/data/_fetchers.py"
+  },
+  "gravel": {
+    "file": "gravel.png",
+    "license": "CC0",
+    "credit": "CC0Textures (Gravel04), transformed by scikit-image",
+    "url": "https://cc0textures.com/view.php?tex=Gravel04",
+    "notes": "greyscale grain/texture overlay",
+    "size": "512×512",
+    "source": "PyPI scikit-image 0.26.0 (skimage/data); licence text quoted from skimage/data/_fetchers.py"
+  },
+  "grass": {
+    "file": "grass.png",
+    "license": "CC0",
+    "credit": "linolafett (DeviantArt, Grass-01), transformed by scikit-image",
+    "url": "https://www.deviantart.com/linolafett/art/Grass-01-434853879",
+    "notes": "greyscale texture",
+    "size": "512×512",
+    "source": "PyPI scikit-image 0.26.0 (skimage/data); licence text quoted from skimage/data/_fetchers.py"
+  }
+}

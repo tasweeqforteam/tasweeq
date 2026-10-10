@@ -1,0 +1,61 @@
+<!doctype html>
+<!--
+  TEST G · Open-asset integration · Arabic café post · 1080×1350
+  Assets (all licence-logged in assets/ASSETS.json by scripts/open_assets.py):
+    photo   coffee.png: CC0, Rachel Michetti, via scikit-image (600×400 → shown at native size, never upscaled)
+    icons   Phosphor duotone (MIT): coffee-bean, fire, bicycle (one set only; coloured with the accent)
+    pattern pattern-star8.svg: original {8/3} star-and-cross tiling from scripts/pattern.py (no third-party licence)
+  Concept: the neighbourhood café as a place. The geometric tiling evokes a tiled courtyard;
+  the photo sits on its edge like a cup placed on the threshold.
+  v1 review: photo's dark top-left corner read as a defect; «تحميص طازج كل / يوم» runt; ~200 px dead band above the footer.
+  v2: object-view-box crop at 1:1, wider feature column + text-wrap: balance, band/photo/features moved down.
+  Grid: 6 cols RTL, margins 72, gutter 24. Pattern band 0–640 (ground, 22% stroke opacity);
+  photo cols 4–6 (left, inline-end) straddling the band edge; features cols 1–2 (right).
+  Lead principles: figure–ground (pattern recedes, photo leads) · proximity (icon + label) · RTL movement.
+-->
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="dd:canvas" content="1080x1350">
+<meta name="dd:safe" content="64,64,64,64">
+<meta name="dd:copy" content="copy.json">
+<link rel="stylesheet" href="../../../templates/base.css">
+<style>
+  :root { --paper: #f6f0e6; --ink: #1e1611; --accent: #8f3a1b; --muted: #5c4c40; --band: #eadfcd; }
+  .band { position: absolute; inset: 0 0 auto 0; height: 640px; background: var(--band) url(assets/pattern-star8.svg) 0 0 / 120px repeat; }
+  .brand { position: absolute; top: 72px; inset-inline-start: 72px; font-family: var(--ff-ar-display); font-weight: 700; font-size: 40px; line-height: 1.3; }
+  .headline { position: absolute; top: 160px; inset-inline-start: 72px; inset-inline-end: 72px; font-size: 124px; line-height: 1.3; }
+  .headline span { display: block; }
+  .headline .l2 { color: var(--accent); }
+  /* object-view-box crops the photo's dark top-left corner at 1:1 (546×364 of the 600×400 source): no upscaling */
+  .photo { position: absolute; top: 540px; inset-inline-end: 72px; width: 546px; height: 364px; border-radius: 28px; object-fit: cover;
+           object-view-box: inset(36px 0 0 54px);
+           box-shadow: 0 30px 60px -20px rgba(30, 22, 17, .45); }
+  .features { position: absolute; top: 700px; inset-inline-start: 72px; width: 366px; list-style: none; display: grid; row-gap: 52px; }
+  .features li { display: grid; grid-template-columns: 56px 1fr; column-gap: 16px; align-items: start; }
+  .features img { width: 56px; height: 56px; }
+  .features p { font-size: 30px; line-height: 1.5; padding-top: 4px; text-wrap: balance; }
+  .foot { position: absolute; inset-inline: 72px; bottom: 72px; padding-top: 32px; border-top: 3px solid var(--ink);
+          display: flex; justify-content: space-between; align-items: baseline; }
+  .cta { font-family: var(--ff-ar-display); font-weight: 700; font-size: 60px; line-height: 1.3; color: var(--accent); }
+  .url { font-family: var(--ff-la-text); font-size: 28px; color: var(--muted); }
+</style>
+</head>
+<body>
+<section class="canvas">
+  <div class="band" aria-hidden="true"></div>
+  <p class="brand" data-copy="brand">قهوة الحيّ</p>
+  <h1 class="headline display-ar"><span data-copy="headline_1">صباحك يبدأ</span><span class="l2" data-copy="headline_2">من هنا</span></h1>
+  <img class="photo" src="assets/coffee.png" alt="فنجان قهوة على طاولة خشب (CC0)">
+  <ul class="features">
+    <li><img src="assets/phosphor-coffee-bean-duotone.svg" alt=""><p data-copy="f1">حبوب مختصة من مزارع صغيرة</p></li>
+    <li><img src="assets/phosphor-fire-duotone.svg" alt=""><p data-copy="f2">تحميص طازج كل يوم</p></li>
+    <li><img src="assets/phosphor-bicycle-duotone.svg" alt=""><p data-copy="f3">توصيل داخل الحي</p></li>
+  </ul>
+  <div class="foot">
+    <p class="cta" data-copy="cta">زورونا اليوم</p>
+    <p class="url" dir="ltr" lang="en" data-copy="url">alhay.example</p>
+  </div>
+</section>
+</body>
+</html>

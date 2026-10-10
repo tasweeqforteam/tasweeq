@@ -45,6 +45,7 @@ a good design solution.
 | review, approval, fixing (always before delivery) | `modules/13-quality-assurance.md` |
 | saving or recalling references, feedback | `modules/14-reference-library.md` |
 | changing this skill | `modules/15-evaluation-testing.md` |
+| free images, icons, patterns, textures (no client assets) | `modules/16-open-assets.md` |
 
 ## 2. Workflow for substantial work
 
@@ -69,6 +70,7 @@ a two-line note. Research or concept requests get the analysis.
 - **Rendering**: `node scripts/render.mjs <html> --out <prefix> [--scale 2] [--grid] [--pdf]`. Chromium/HarfBuzz shapes Arabic correctly. The output is flattened PNG or a PDF with live text. It is not layered or CMYK.
 - **Automated QA**: `node scripts/qa.mjs <html> [--copy copy.json] [--json report.json]`. Configure it with `<meta name="dd:canvas|dd:safe|dd:min-text|dd:copy">`.
 - **Default typefaces (user rule)**: **Alexandria** for Arabic and **Inter Tight** for English. Both are variable 100–900, OFL, and bundled in `assets/fonts/`. They are the default `--ff-*` stacks in `templates/base.css`. Alexandria is registered for the Arabic range only, so Latin inside Arabic text renders in Inter Tight. A client's brand fonts override this only when the brief supplies them. Opt-in alternates: thmanyah serif display, IBM Plex Sans Arabic and NewBlack (`src/fonts`). DejaVu is fallback only. `font-synthesis: none` is enforced, so a missing weight never gets faked. QA reports it instead.
+- **Open assets**: `python3 scripts/open_assets.py fetch|icons|copy|patterns|pattern|photos|photo|credits` (licence logged per design in `ASSETS.json`); `python3 scripts/pattern.py star8|rosette|kufi` for original Islamic-geometric tiles.
 - **Library**: `python3 scripts/library.py search|add|validate|stats|stale`.
 - **Self-test**: `bash scripts/selftest.sh`.
 
@@ -80,6 +82,7 @@ a two-line note. Research or concept requests get the analysis.
 - Arabic: no letter-spacing, no presentation-form or reversed strings, `dir="rtl"`, and verify the render visually.
 - Never reproduce another creator's composition, artwork or signature device (module 12 §2 similarity check).
 - Recompose for each placement. Never just crop.
+- Images from Pinterest, Behance, Dribbble or Instagram are references to learn from, never assets to place; only licence-known open assets (module 16) or client-supplied material go into a design.
 - Uploading client assets to third-party tools (Adobe, Figma, image generators) needs the user's go-ahead.
 
 ## 5. Model and effort routing (project preference)

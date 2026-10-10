@@ -31,3 +31,7 @@ for examples). Each brief was built through the skill's own workflow. See
 **Client:** Design Systems Day (one-day conference) · **Format:** A4 portrait at 150 dpi (1240×1754) + PDF
 **Content:** 10 time slots × 3 tracks (21 sessions incl. plenaries) + three logistics blocks.
 **Requirements:** appropriate grid · readable text · strong grouping · controlled density · clear hierarchy.
+
+## G · Open-asset integration
+**Client:** قهوة الحيّ (neighbourhood café) · **Placement:** feed 1080×1350
+**Requirements:** use only licence-known open assets (CC0 photo, MIT icons, generated geometric pattern) logged in ASSETS.json · no upscaled imagery · Arabic RTL hierarchy.

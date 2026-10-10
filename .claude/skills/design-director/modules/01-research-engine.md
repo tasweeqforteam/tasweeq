@@ -12,14 +12,17 @@ ads?"), not to fill a moodboard.
 | 1 | `WebFetch` on the project page | page text, credits, tool lists, captions | the images themselves (text conversion) |
 | 2 | Browser tools (Claude in Chrome / built-in browser, if connected) | the actual images; full projects | — |
 | 3 | `WebSearch` | titles, URLs, a model-written summary of results | images; anything the summary may have got wrong |
-| 4 | User-supplied screenshots / PDFs (`Read` shows images) | real visual evidence | provenance (ask for the source URL) |
+| 4 | User-supplied screenshots / PDFs (`Read` shows images) | real visual evidence: analyse with module 02 and store as `inspected` with the source URL the user gives | provenance (ask for the source URL) |
 | 5 | Library recall (`scripts/library.py search`) | prior analysed knowledge | anything newer than `last_verified` |
 | 6 | Adobe `search_design` / `asset_search` (if authenticated) | templates/stock to study | portfolio-grade art direction; check licensing |
 
-**Measured in the build environment (2026-10-10):** shell egress (`curl`)
-returned proxy 403. `WebFetch` failed with DNS `ENOTFOUND` for behance.net,
+**Measured in the build environment (2026-10-10, re-probed later the same day):** shell egress (`curl`)
+returned proxy 403 for behance.net, pinterest.com, unsplash.com, pexels.com, commons.wikimedia.org and cdn.jsdelivr.net
+(npm registry and PyPI are allowed). `WebFetch` failed with DNS `ENOTFOUND` for behance.net,
 mahervisuals.com, fontsinuse.com and itsnicethat.com. `WebSearch` worked.
-Probe again at the start of each session; one failed host does not mean the
+To unlock rungs 1–2, the user allows the hosts under the environment's network settings
+(at least `behance.net`, `mir-s3-cdn-cf.behance.net` for Behance images, `pinterest.com`,
+`i.pinimg.com` for pin images). Probe again at the start of each session; one failed host does not mean the
 whole rung is down. If you only reach rung 3, every reference stays at status
 `search-verified` and gets **no quality score**, because nobody has seen it.
 Tell the user, and ask for screenshots if visual evidence matters to the decision.

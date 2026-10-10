@@ -1,0 +1,143 @@
+/* ==========================================================================
+   design-director — base production stylesheet
+   Fixed-canvas design system for HTML-authored layouts rendered by Chromium
+   (scripts/render.mjs). Chromium shapes Arabic with HarfBuzz, so contextual
+   forms, ligatures and bidi are handled by the engine, not faked by hand.
+
+   Font paths are relative to THIS file:
+   .claude/skills/design-director/templates/ -> repo root is ../../../../
+   ========================================================================== */
+
+/* ---------- Default typefaces (user-specified 2026-10-10) ----------
+   Arabic  → Alexandria  (variable 100–900, OFL)  assets/fonts/alexandria-arabic-wght-normal.woff2
+   English → Inter Tight (variable 100–900, OFL)  assets/fonts/inter-tight-latin*-wght-*.woff2
+   Bundled from the Fontsource npm packages @fontsource-variable/{alexandria,inter-tight}@5.3.0.
+   Alexandria is registered for the Arabic unicode range ONLY, so Latin characters
+   inside Arabic text (URLs, numbers, brand names) fall through to Inter Tight. */
+@font-face { font-family: "Alexandria"; src: url("../assets/fonts/alexandria-arabic-wght-normal.woff2") format("woff2"); font-weight: 100 900; font-style: normal;
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC; }
+@font-face { font-family: "Inter Tight"; src: url("../assets/fonts/inter-tight-latin-wght-normal.woff2") format("woff2"); font-weight: 100 900; font-style: normal;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Inter Tight"; src: url("../assets/fonts/inter-tight-latin-ext-wght-normal.woff2") format("woff2"); font-weight: 100 900; font-style: normal;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Inter Tight"; src: url("../assets/fonts/inter-tight-latin-wght-italic.woff2") format("woff2"); font-weight: 100 900; font-style: italic;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Inter Tight"; src: url("../assets/fonts/inter-tight-latin-ext-wght-italic.woff2") format("woff2"); font-weight: 100 900; font-style: italic;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+/* ---------- Alternates in this repository (src/fonts), opt-in only ----------
+   Paths are relative to THIS file: templates/ → repo root is ../../../../ */
+@font-face { font-family: "Plex Arabic"; src: url("../../../../src/fonts/IBMPlexSansArabic-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; }
+@font-face { font-family: "Thmanyah Serif Display"; src: url("../../../../src/fonts/thmanyahserifdisplay-Black.otf") format("opentype"); font-weight: 900; font-style: normal; }
+@font-face { font-family: "NewBlack"; src: url("../../../../src/fonts/NewBlackTypeface-Regular.ttf") format("truetype"); font-weight: 400; }
+@font-face { font-family: "NewBlack"; src: url("../../../../src/fonts/NewBlackTypeface-Bold.ttf") format("truetype"); font-weight: 700; }
+@font-face { font-family: "NewBlack"; src: url("../../../../src/fonts/NewBlackTypeface-ExtraBold.ttf") format("truetype"); font-weight: 800; }
+/* Inter / Inter Display and Liberation Serif are installed system-wide in the
+   render container and resolve by family name. */
+
+:root {
+  /* Type stacks — the last entry is a script-capable fallback so a missing
+     glyph renders visibly instead of as tofu. QA reports any fallback use. */
+  --ff-ar-text: "Alexandria", "Inter Tight", "DejaVu Sans", sans-serif;
+  --ff-ar-display: "Alexandria", "Inter Tight", "DejaVu Sans", sans-serif;
+  --ff-la-text: "Inter Tight", "Liberation Sans", sans-serif;
+  --ff-la-display: "Inter Tight", "Liberation Sans", sans-serif;
+  --ff-la-serif: "Liberation Serif", "DejaVu Serif", serif;   /* no serif chosen yet: draft stand-in */
+  /* opt-in alternates (house fonts in src/fonts) */
+  --ff-ar-serif-display: "Thmanyah Serif Display", "Alexandria", serif;
+  --ff-la-house-display: "NewBlack", "Inter Tight", sans-serif;
+
+  /* Grid tokens — overwrite per design with the output of scripts/grid.py */
+  --canvas-w: 1080px;
+  --canvas-h: 1350px;
+  --margin-top: 72px;
+  --margin-bottom: 72px;
+  --margin-inline-start: 72px;
+  --margin-inline-end: 72px;
+  --columns: 6;
+  --gutter: 24px;
+  --rows: 8;
+  --row-gap: 24px;
+  --baseline: 8px;
+
+  /* Neutral palette — replace with brand tokens */
+  --ink: #111111;
+  --paper: #f6f3ee;
+  --accent: #c8102e;
+  --muted: #6b6b6b;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #2a2a2a; }
+body {
+  /* Never let the engine fake bold/italic: a missing weight must be a visible
+     decision, not a smeared synthetic stroke. QA flags requested-but-missing weights. */
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+  font-kerning: normal;
+}
+
+/* ---------- Canvas: one fixed artboard per .canvas element ---------- */
+.canvas {
+  position: relative;
+  width: var(--canvas-w);
+  height: var(--canvas-h);
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--ff-la-text);
+}
+.canvas + .canvas { margin-top: 40px; }
+
+/* Live area = canvas minus margins, laid out as a CSS grid. Logical properties
+   make the same markup correct in both LTR and RTL (dir attribute decides). */
+.live {
+  position: absolute;
+  inset-block-start: var(--margin-top);
+  inset-block-end: var(--margin-bottom);
+  inset-inline-start: var(--margin-inline-start);
+  inset-inline-end: var(--margin-inline-end);
+  display: grid;
+  grid-template-columns: repeat(var(--columns), 1fr);
+  grid-template-rows: repeat(var(--rows), 1fr);
+  column-gap: var(--gutter);
+  row-gap: var(--row-gap);
+}
+
+/* ---------- Script defaults ----------
+   :lang(ar) on the canvas makes Arabic the inherited stack for the whole
+   artboard when <html lang="ar">; explicit [lang] on a block switches script. */
+.canvas:lang(ar), [lang="ar"], .ar {
+  font-family: var(--ff-ar-text);
+  /* Arabic needs vertical room for ascenders, dots and harakat. */
+  line-height: 1.6;
+  /* letter-spacing breaks cursive joining in most renderers — never track Arabic.
+     (qa.mjs flags any non-zero tracking on Arabic text.) */
+  letter-spacing: 0;
+  word-spacing: normal;
+}
+[lang="en"], .en { font-family: var(--ff-la-text); }
+/* Display defaults: both faces are variable, so any weight 100–900 is real (no synthesis). */
+.display-ar { font-family: var(--ff-ar-display); font-weight: 800; line-height: 1.3; }
+.display-en { font-family: var(--ff-la-display); font-weight: 700; letter-spacing: -0.02em; line-height: 0.95; }
+.tnum { font-variant-numeric: tabular-nums lining-nums; }
+.isolate { unicode-bidi: isolate; } /* wrap LTR runs (URLs, SKUs) inside RTL text */
+
+/* ---------- Baseline + grid overlays (render.mjs --grid toggles .show-grid) ---------- */
+.grid-overlay { display: none; }
+.show-grid .grid-overlay {
+  display: grid;
+  position: absolute;
+  inset-block-start: var(--margin-top);
+  inset-block-end: var(--margin-bottom);
+  inset-inline-start: var(--margin-inline-start);
+  inset-inline-end: var(--margin-inline-end);
+  grid-template-columns: repeat(var(--columns), 1fr);
+  column-gap: var(--gutter);
+  pointer-events: none;
+  z-index: 9999;
+  outline: 1px solid rgba(0, 160, 255, .9);
+  background-image: repeating-linear-gradient(to bottom, rgba(255, 0, 120, .22) 0 1px, transparent 1px var(--baseline));
+}
+.show-grid .grid-overlay > i { background: rgba(0, 160, 255, .12); }

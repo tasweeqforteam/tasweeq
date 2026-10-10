@@ -1,0 +1,24 @@
+{
+  "input": "tests/cases/F-dense-info//index.html",
+  "generated": "2026-10-10T20:31:07.017Z",
+  "canvases": [
+    {
+      "index": 1,
+      "width": 1240,
+      "height": 1754,
+      "textBlocks": 63,
+      "images": 0
+    }
+  ],
+  "fontsUsed": [
+    "Inter Tight (web font)"
+  ],
+  "summary": {
+    "critical": 0,
+    "major": 0,
+    "minor": 0,
+    "info": 0
+  },
+  "verdict": "PASS",
+  "issues": []
+}

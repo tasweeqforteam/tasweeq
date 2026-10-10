@@ -1,0 +1,34 @@
+<!doctype html>
+<!-- Regression fixture: every block plants one defect qa.mjs must report. Expected check ids: defects.expect -->
+<html lang="en"><head><meta charset="utf-8">
+<meta name="dd:canvas" content="1080x1080"><meta name="dd:safe" content="60,60,60,60"><meta name="dd:copy" content="copy.json">
+<link rel="stylesheet" href="../../templates/base.css">
+<style>.canvas{--canvas-w:1080px;--canvas-h:1350px;background:#ddd} .a{position:absolute}</style></head><body>
+<section class="canvas">
+ <!-- aspect: canvas 1080x1350 vs required 1080x1080 -->
+ <!-- arabic-tracking + arabic-direction + lang + weight -->
+ <h1 class="a" dir="ltr" style="top:100px;left:80px;font-family:var(--ff-ar-display);font-size:90px;letter-spacing:4px" data-copy="h">عرض خاص اليوم</h1>
+ <!-- contrast (critical) + copy-accuracy (Arabic-Indic vs Western digits) + weight -->
+ <p class="a" lang="ar" dir="rtl" style="top:260px;right:80px;width:600px;font-family:'Plex Arabic';font-weight:700;font-size:40px;color:#c4c4c4" data-copy="b">خصم ٥٠٪ على جميع المنتجات</p>
+ <!-- min-size + font-fallback + arabic-presentation-forms -->
+ <p class="a" style="top:360px;left:80px;font-size:14px">ﺍﻟﻌﺮﺑﻴﺔ tiny text here</p>
+ <!-- arabic-leading: multi-line Arabic at 1.0 -->
+ <p class="a" lang="ar" dir="rtl" style="top:400px;right:80px;width:260px;font-size:36px;line-height:1" >نص عربي طويل يلتف على عدة أسطر هنا</p>
+ <!-- clipping -->
+ <div class="a" style="top:560px;left:83px;width:300px;height:40px;overflow:hidden;font-size:36px">This line is far too long to fit inside the box ok</div>
+ <!-- safe-area + clipping at canvas edge -->
+ <p class="a" style="top:1000px;left:1000px;font-size:40px;white-space:nowrap">Off edge</p>
+ <!-- overflow: multi-column body spilling into extra columns -->
+ <div class="a" style="top:640px;left:500px;width:400px;height:60px;column-count:2;column-fill:auto;font-size:24px;line-height:30px">One two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen</div>
+ <!-- overlap -->
+ <p class="a" style="top:760px;left:80px;font-size:40px">Collision one</p>
+ <p class="a" style="top:770px;left:120px;font-size:40px">Collision two</p>
+ <!-- image-distortion + image-resolution -->
+ <img class="a" src="tiny.png" style="top:800px;left:80px;width:300px;height:300px" alt="">
+ <!-- alignment near-miss: left edges 600 vs 604 -->
+ <p class="a" style="top:880px;left:600px;width:300px;font-size:30px">Edge A aligned</p>
+ <p class="a" style="top:940px;left:604px;width:300px;font-size:30px">Edge B nearly</p>
+ <!-- empty-band: nothing between the image bottom (1100) and this line (1320) -->
+ <p class="a" style="top:1320px;left:80px;font-size:24px;line-height:1">Bottom line</p>
+ <!-- copy-missing: "cta" never placed -->
+</section></body></html>

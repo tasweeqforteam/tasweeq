@@ -1,0 +1,32 @@
+{
+  "input": "tests/cases/D-bilingual-campaign//index.html",
+  "generated": "2026-10-10T20:30:58.696Z",
+  "canvases": [
+    {
+      "index": 1,
+      "width": 1080,
+      "height": 1350,
+      "textBlocks": 11,
+      "images": 0
+    },
+    {
+      "index": 2,
+      "width": 1080,
+      "height": 1920,
+      "textBlocks": 11,
+      "images": 0
+    }
+  ],
+  "fontsUsed": [
+    "Alexandria (web font)",
+    "Inter Tight (web font)"
+  ],
+  "summary": {
+    "critical": 0,
+    "major": 0,
+    "minor": 0,
+    "info": 0
+  },
+  "verdict": "PASS",
+  "issues": []
+}

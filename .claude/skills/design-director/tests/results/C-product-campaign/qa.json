@@ -1,0 +1,46 @@
+{
+  "input": "tests/cases/C-product-campaign//index.html",
+  "generated": "2026-10-10T20:30:55.262Z",
+  "canvases": [
+    {
+      "index": 1,
+      "width": 1080,
+      "height": 1080,
+      "textBlocks": 5,
+      "images": 0
+    },
+    {
+      "index": 2,
+      "width": 1080,
+      "height": 1350,
+      "textBlocks": 6,
+      "images": 0
+    },
+    {
+      "index": 3,
+      "width": 1080,
+      "height": 1920,
+      "textBlocks": 3,
+      "images": 0
+    }
+  ],
+  "fontsUsed": [
+    "Inter Tight (web font)"
+  ],
+  "summary": {
+    "critical": 0,
+    "major": 0,
+    "minor": 1,
+    "info": 0
+  },
+  "verdict": "PASS",
+  "issues": [
+    {
+      "severity": "minor",
+      "canvas": 1,
+      "check": "headline-break",
+      "message": "headline ends with a single word on its own line — rebreak for sense and shape",
+      "where": "\"Your daily shade.\" .h"
+    }
+  ]
+}

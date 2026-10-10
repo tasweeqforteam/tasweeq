@@ -1,0 +1,60 @@
+<!doctype html>
+<!--
+  TEST F · Dense information layout · A4 portrait at 150 dpi (1240×1754)
+  Problem: 21 sessions across 3 parallel tracks + logistics on one page, readable in print.
+  Grid: modular. 12 cols (margins 72, gutter 24); time column = cols 1–2, tracks = 3 equal fields of
+  the remaining 10 cols; rows = time slots. Plenary slots span all tracks (common region).
+  Density control: grouping by space (inner 6 px, between slots 18 px), one hairline per slot,
+  track identity by a 6 px colour rule (redundant with column position and header, not colour alone).
+  v1 left a ~390 px passive band above the logistics (art-director review; QA has since gained an
+  empty-band heuristic). v2: slot rows share the page height (grid-auto-rows: 1fr), type +1–2 px.
+  Type: Inter Tight throughout (700 title); 7 sizes. Min 16 px ≈ 7.7 pt at 150 dpi.
+  Lead principles: proximity · similarity · alignment · information density.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="dd:canvas" content="1240x1754">
+<meta name="dd:safe" content="60,60,60,60">
+<meta name="dd:min-text" content="16">
+<meta name="dd:copy" content="copy.json">
+<link rel="stylesheet" href="../../../templates/base.css">
+<style>
+  :root { --canvas-w: 1240px; --canvas-h: 1754px; --paper: #ffffff; --ink: #141414; --muted: #555; --line: #d9d9d9;
+          --a: #1f5fbf; --b: #b0412e; --c: #2e7d4f; }
+  .canvas { font-family: var(--ff-la-text); }
+  .wrap { position: absolute; inset: 72px; display: flex; flex-direction: column; }
+  header { display: grid; grid-template-columns: 1fr auto; align-items: end; padding-bottom: 24px; border-bottom: 3px solid var(--ink); }
+  .event { font-family: var(--ff-la-display); font-weight: 700; font-size: 64px; line-height: 1; letter-spacing: -.03em; }
+  .meta { font-size: 19px; color: var(--muted); margin-top: 12px; }
+  .legend { display: grid; grid-template-columns: 2fr repeat(3, 3fr); column-gap: 24px; margin-top: 24px; }
+  .legend p { font-size: 16px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding-top: 10px; border-top: 6px solid; }
+  .legend .la { border-color: var(--a); } .legend .lb { border-color: var(--b); } .legend .lc { border-color: var(--c); }
+  .legend .lt { border-color: transparent; color: var(--muted); }
+  .grid { display: grid; grid-template-columns: 2fr repeat(3, 3fr); grid-auto-rows: 1fr; column-gap: 24px; margin-top: 6px; flex: 1; }
+  .grid > div { padding: 14px 0 16px; border-top: 1px solid var(--line); }
+  .time { font-size: 22px; font-weight: 600; }
+  .span-cell { grid-column: 2 / 5; background: #f4f4f2; padding-left: 16px !important; padding-right: 16px !important; }
+  .s-title { font-size: 21px; line-height: 1.3; font-weight: 600; text-wrap: balance; }
+  .s-meta { font-size: 17px; line-height: 1.35; color: var(--muted); margin-top: 4px; }
+  .cell { border-top-width: 1px; }
+  .infos { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 24px; margin-top: 36px; padding-top: 24px; border-top: 3px solid var(--ink); }
+  .info h3 { font-size: 19px; font-weight: 700; }
+  .info p { font-size: 17px; line-height: 1.45; margin-top: 6px; color: #333; }
+  .note { font-size: 16px; color: var(--muted); margin-top: 20px; }
+</style>
+</head>
+<body>
+<section class="canvas">
+  <div class="wrap">
+    <header><div><h1 class="event" data-copy="event">Design Systems Day</h1><p class="meta" data-copy="meta">Thursday 19 November 2026 · Hall 3, City Convention Centre</p></div></header>
+    <div class="legend"><p class="lt">Time</p><p class="la" data-copy="track_a">Track A · Foundations</p><p class="lb" data-copy="track_b">Track B · Type &amp; Language</p><p class="lc" data-copy="track_c">Track C · Production</p></div>
+    <div class="grid">
+      <div class="time tnum">09:00</div><div class="span-cell"><p class="s-title">Registration & coffee</p><p class="s-meta">Foyer</p></div><div class="time tnum">09:30</div><div class="span-cell"><p class="s-title">Opening keynote: Systems that survive their authors</p><p class="s-meta">Main hall · N. Farouk</p></div><div class="time tnum">10:30</div><div class="cell a"><p class="s-title">Tokens without tears</p><p class="s-meta">R. Haddad · Room 1</p></div><div class="cell b"><p class="s-title">Arabic type at small sizes</p><p class="s-meta">S. Al-Amin · Room 2</p></div><div class="cell c"><p class="s-title">From Figma to print PDF</p><p class="s-meta">J. Moreau · Room 3</p></div><div class="time tnum">11:30</div><div class="cell a"><p class="s-title">Grids for dense layouts</p><p class="s-meta">L. Okafor · Room 1</p></div><div class="cell b"><p class="s-title">Bilingual hierarchy in practice</p><p class="s-meta">H. Nasser · Room 2</p></div><div class="cell c"><p class="s-title">Colour management basics</p><p class="s-meta">P. Lindqvist · Room 3</p></div><div class="time tnum">12:30</div><div class="span-cell"><p class="s-title">Lunch</p><p class="s-meta">Terrace</p></div><div class="time tnum">13:30</div><div class="cell a"><p class="s-title">Accessible contrast, measured</p><p class="s-meta">A. Rahman · Room 1</p></div><div class="cell b"><p class="s-title">Kashida: when and when not</p><p class="s-meta">Y. Darwish · Room 2</p></div><div class="cell c"><p class="s-title">Automating QA on layouts</p><p class="s-meta">T. Becker · Room 3</p></div><div class="time tnum">14:30</div><div class="cell a"><p class="s-title">Component naming that scales</p><p class="s-meta">C. Ortiz · Room 1</p></div><div class="cell b"><p class="s-title">Pairing Arabic and Latin faces</p><p class="s-meta">M. Khalil · Room 2</p></div><div class="cell c"><p class="s-title">Image pipelines for campaigns</p><p class="s-meta">E. Novak · Room 3</p></div><div class="time tnum">15:30</div><div class="span-cell"><p class="s-title">Break</p><p class="s-meta">Foyer</p></div><div class="time tnum">16:00</div><div class="cell a"><p class="s-title">Documentation people read</p><p class="s-meta">K. Ibrahim · Room 1</p></div><div class="cell b"><p class="s-title">Type specimens as tools</p><p class="s-meta">D. Sato · Room 2</p></div><div class="cell c"><p class="s-title">Print finishing for brochures</p><p class="s-meta">G. Rossi · Room 3</p></div><div class="time tnum">17:00</div><div class="span-cell"><p class="s-title">Closing panel: What we would design differently</p><p class="s-meta">Main hall · all speakers</p></div>
+    </div>
+    <div class="infos"><div class="info"><h3>Getting there</h3><p>Metro Line 2 to Convention Centre, exit B. Limited parking on level −1; arrive before 09:00.</p></div><div class="info"><h3>Accessibility</h3><p>Step-free access to all rooms. Live captions in the main hall. Quiet room next to Room 3.</p></div><div class="info"><h3>Wi-Fi & materials</h3><p>Network DSD-Guest, no password. Slides are shared after the event with speaker consent.</p></div></div>
+    <p class="note" data-copy="note">Programme subject to change. Fictional event used as a skill test case.</p>
+  </div>
+</section>
+</body>
+</html>

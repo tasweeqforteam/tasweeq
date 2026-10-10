@@ -1,0 +1,86 @@
+<!doctype html>
+<!--
+  TEST D · Bilingual social campaign · feed portrait 1080×1350 + story 1080×1920
+  Bilingual model B (module 05 §5 / 09 §5): Arabic primary (P1), English secondary (P2).
+  Each script hangs from its own outer edge: Arabic from the right margin, English from the left.
+  Type: Alexandria 800 (AR) + Inter Tight 600 (EN), the user's defaults. AR title 132 px, sized from
+  measurement (675 px per 100 px) to stay on one line; EN title 88 px (≈0.67×), which reads as a
+  deliberate step down because Alexandria's large Arabic body already carries more visual weight.
+  Concept: the low sun sits on the horizon between the two languages, as the meeting point.
+  Grid: 6 cols, margins 72 (story: top 256 / bottom 344 safe), baseline 8.
+  Story is recomposed, not stretched: info moves into the sky in ink; land occupies the lower half.
+  Lead principles: hierarchy across scripts · figure–ground (type on calm sky) · directional movement.
+-->
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="dd:canvas" content="1080x1350,1080x1920">
+<meta name="dd:copy" content="copy.json">
+<link rel="stylesheet" href="../../../templates/base.css">
+<style>
+  :root { --ink: #24120a; --sky-1: #f6e3c4; --sky-2: #efc58f; --muted: #5a3a26; }
+  .canvas { background: linear-gradient(180deg, var(--sky-1) 0%, var(--sky-2) 62%); }
+  .dunes { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; }
+  .block { position: absolute; inset-inline: 72px; }
+  .ar-kicker { font-size: 32px; color: var(--muted); }
+  .ar-title { font-size: 132px; line-height: 1.3; margin-top: 4px; }
+  .en { direction: ltr; text-align: left; font-family: var(--ff-la-text); }
+  .en-kicker { font-size: 24px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  .en-title { font-family: var(--ff-la-display); font-weight: 600; font-size: 88px; line-height: 1; letter-spacing: -.03em; margin-top: 10px; }
+  .info { position: absolute; inset-inline: 72px; display: grid; grid-template-columns: 1fr 1fr; column-gap: 24px; color: #fbeedd; }
+  .info .ar-col { font-size: 34px; line-height: 1.55; }
+  .info .en-col { direction: ltr; text-align: left; font-family: var(--ff-la-text); font-size: 28px; line-height: 1.55; }
+  .info b { font-weight: 400; display: block; }
+  .info .en-col b { font-weight: 600; }
+  .url { position: absolute; inset-inline: 72px; text-align: center; font-family: var(--ff-la-text); font-size: 26px; color: #fbeedd; letter-spacing: .02em; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="land" viewBox="0 0 1080 760" preserveAspectRatio="none">
+    <circle cx="540" cy="250" r="120" fill="#fff3dc"/>
+    <path d="M0 250 Q270 200 540 236 T1080 214 V760 H0 Z" fill="#d9894b"/>
+    <path d="M0 330 Q300 250 600 312 T1080 290 V760 H0 Z" fill="#b8642f"/>
+    <path d="M0 430 Q360 340 700 420 T1080 400 V760 H0 Z" fill="#8a4421"/>
+    <path d="M0 540 Q420 470 760 540 T1080 520 V760 H0 Z" fill="#5e2a14"/>
+  </symbol>
+</defs></svg>
+
+<!-- Feed portrait -->
+<section class="canvas" style="--canvas-w:1080px;--canvas-h:1350px">
+  <svg class="dunes" style="height:760px" viewBox="0 0 1080 760" preserveAspectRatio="none"><use href="#land"/></svg>
+  <div class="block" style="top:72px">
+    <p class="ar-kicker" data-copy="ar_kicker">معرض فني</p>
+    <h1 class="ar-title display-ar" data-copy="ar_title">ضوء الصحراء</h1>
+  </div>
+  <div class="block en" lang="en" style="top:400px">
+    <p class="en-kicker" data-copy="en_kicker">Art exhibition</p>
+    <h2 class="en-title" data-copy="en_title">Desert Light</h2>
+  </div>
+  <div class="info" style="bottom:150px">
+    <p class="ar-col"><b data-copy="ar_dates">١٢ – ٣٠ نوفمبر ٢٠٢٦</b><span data-copy="ar_venue">دار الفنون، الرياض</span><br><span data-copy="ar_cta">الدخول مجاني</span></p>
+    <p class="en-col" lang="en"><b data-copy="en_dates">12–30 November 2026</b><span data-copy="en_venue">Dar Al Funoon, Riyadh</span><br><span data-copy="en_cta">Free entry</span></p>
+  </div>
+  <p class="url" lang="en" dir="ltr" style="bottom:72px" data-copy="url">daralfunoon.example</p>
+</section>
+
+<!-- Story -->
+<section class="canvas" data-safe="256,72,344,72" style="--canvas-w:1080px;--canvas-h:1920px">
+  <svg class="dunes" style="height:1000px" viewBox="0 0 1080 760" preserveAspectRatio="none"><use href="#land"/></svg>
+  <div class="block" style="top:272px">
+    <p class="ar-kicker">معرض فني</p>
+    <h1 class="ar-title display-ar">ضوء الصحراء</h1>
+  </div>
+  <div class="block en" lang="en" style="top:600px">
+    <p class="en-kicker">Art exhibition</p>
+    <h2 class="en-title">Desert Light</h2>
+  </div>
+  <!-- story recomposed: the tall sky holds the info in ink; the land sits lower -->
+  <div class="info" style="top:900px;color:var(--ink)">
+    <p class="ar-col"><b>١٢ – ٣٠ نوفمبر ٢٠٢٦</b><span>دار الفنون، الرياض</span><br><span>الدخول مجاني</span></p>
+    <p class="en-col" lang="en"><b>12–30 November 2026</b><span>Dar Al Funoon, Riyadh</span><br><span>Free entry</span></p>
+  </div>
+  <p class="url" lang="en" dir="ltr" style="bottom:360px">daralfunoon.example</p>
+</section>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!doctype html>
+<!--
+  TEST B · English editorial brochure spread · 2 × A4 portrait at 150 dpi = 2480×1754
+  Concept: calm, architectural editorial. The plan drawing is the hero; type is quiet and exact.
+  Grid per page: 6 columns, gutter 30; margins top 150 / bottom 180 / outer 150 / inner 100.
+  Baseline 30 px (body 21 px ≈ 10 pt on 30 px ≈ 14.4 pt). Body + standfirst + pull quote sit on it; captions exempt (18/24).
+  Lead principles: alignment · rhythm · proximity (caption to image) · scale contrast headline vs body.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="dd:canvas" content="2480x1754">
+<meta name="dd:safe" content="80,80,80,80">
+<meta name="dd:min-text" content="16">
+<meta name="dd:copy" content="copy.json">
+<link rel="stylesheet" href="../../../templates/base.css">
+<style>
+  :root {
+    --canvas-w: 2480px; --canvas-h: 1754px; --baseline: 30px; --columns: 6; --gutter: 30px;
+    --paper: #f4f1ea; --ink: #161616; --accent: #2f6b4f; --muted: #6a675f;
+    --col: 140px;                           /* (990 - 5×30) / 6 */
+  }
+  .canvas { font-family: var(--ff-la-text); }
+  .page { position: absolute; top: 0; bottom: 0; width: 1240px; }
+  .page.left { left: 0; } .page.right { left: 1240px; }
+  .gutter-shadow { position: absolute; left: 1180px; width: 120px; top: 0; bottom: 0; background: linear-gradient(90deg, transparent, rgba(0,0,0,.05) 50%, transparent); pointer-events: none; }
+  /* live areas: left page outer=left, right page outer=right */
+  .live-p { position: absolute; top: 150px; bottom: 180px; display: grid; grid-template-columns: repeat(6, 1fr); column-gap: 30px; align-content: start; }
+  .left .live-p { left: 150px; right: 100px; }
+  .right .live-p { left: 100px; right: 150px; }
+
+  .runhead { position: absolute; top: 90px; font-size: 17px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .left .runhead { left: 150px; } .right .runhead { right: 150px; }
+  .folio { position: absolute; bottom: 110px; font-size: 18px; font-feature-settings: "tnum"; color: var(--muted); }
+  .left .folio { left: 150px; } .right .folio { right: 150px; }
+
+  .kicker { grid-column: 1 / 7; font-size: 18px; line-height: 30px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+  .headline { grid-column: 1 / 7; font-family: var(--ff-la-display); font-weight: 800; font-size: 210px; line-height: 180px; letter-spacing: -.035em; margin-top: 30px; }
+  .standfirst { grid-column: 1 / 6; font-weight: 300; font-size: 40px; line-height: 60px; letter-spacing: -.01em; margin-top: 60px; }
+  .byline { grid-column: 1 / 7; font-size: 18px; line-height: 30px; margin-top: 30px; color: var(--muted); }
+  .plan { grid-column: 1 / 7; margin-top: 60px; height: 510px; background: #e9e4d8; }
+  .plan svg { display: block; width: 100%; height: 100%; }
+  .cap { font-size: 18px; line-height: 24px; color: var(--muted); margin-top: 15px; }
+  .cap-plan { grid-column: 1 / 5; }
+
+  .body { grid-column: 1 / 5; column-count: 2; column-gap: 30px; font-size: 21px; line-height: 30px; hyphens: auto; text-align: left; height: 990px; column-fill: auto; }
+  .body p { text-wrap: pretty; }  /* Chromium avoids runts on the last line */
+  .body p + p { text-indent: 1.4em; }
+  .body h3 { font-size: 21px; line-height: 30px; font-weight: 700; margin-top: 30px; break-after: avoid; }
+  .body h3 + p { text-indent: 0; }
+  .body .lead::first-letter { font-family: var(--ff-la-display); font-weight: 800; float: left; font-size: 98px; line-height: 90px; padding: 6px 10px 0 0; color: var(--accent); }
+  .side { grid-column: 5 / 7; grid-row: 1 / 3; }
+  .section { height: 330px; background: #e9e4d8; }
+  .section svg { display: block; width: 100%; height: 100%; }
+  .pull { grid-column: 1 / 5; margin-top: 60px; border-top: 3px solid var(--ink); padding-top: 27px; font-style: italic; font-weight: 500; font-size: 46px; line-height: 60px; letter-spacing: -.015em; }
+</style>
+</head>
+<body>
+<section class="canvas">
+  <div class="page left">
+    <p class="runhead" data-copy="running_head">Urban Quarterly · Issue 07</p>
+    <div class="live-p">
+      <p class="kicker" data-copy="kicker">Feature — Streets</p>
+      <h1 class="headline" data-copy="headline">The Quiet City</h1>
+      <p class="standfirst" data-copy="standfirst">A street designed for walking speed changes what people do on it. Notes on narrowing, shading and slowing the everyday street.</p>
+      <p class="byline" data-copy="byline">Words by the editors</p>
+      <figure class="plan" aria-label="Vector plan drawing of a residential grid with a shaded spine">
+        <svg viewBox="0 0 990 600" preserveAspectRatio="xMidYMid meet">
+          <rect width="990" height="600" fill="#e9e4d8"/>
+          <!-- perimeter road -->
+          <rect x="30" y="30" width="930" height="540" fill="none" stroke="#b9b2a2" stroke-width="26"/>
+          <!-- blocks -->
+          <g fill="#d8d1c1">
+            <rect x="70" y="70" width="190" height="140"/><rect x="290" y="70" width="160" height="140"/><rect x="540" y="70" width="160" height="140"/><rect x="730" y="70" width="190" height="140"/>
+            <rect x="70" y="240" width="190" height="120"/><rect x="290" y="240" width="160" height="120"/><rect x="540" y="240" width="160" height="120"/><rect x="730" y="240" width="190" height="120"/>
+            <rect x="70" y="390" width="190" height="140"/><rect x="290" y="390" width="160" height="140"/><rect x="540" y="390" width="160" height="140"/><rect x="730" y="390" width="190" height="140"/>
+          </g>
+          <!-- shaded spine -->
+          <rect x="460" y="44" width="70" height="512" fill="#cfe0d4"/>
+          <g fill="#2f6b4f">
+            <circle cx="478" cy="90" r="13"/><circle cx="512" cy="135" r="13"/><circle cx="478" cy="180" r="13"/><circle cx="512" cy="225" r="13"/><circle cx="478" cy="270" r="13"/><circle cx="512" cy="315" r="13"/><circle cx="478" cy="360" r="13"/><circle cx="512" cy="405" r="13"/><circle cx="478" cy="450" r="13"/><circle cx="512" cy="495" r="13"/><circle cx="478" cy="535" r="13"/>
+          </g>
+          <!-- squares -->
+          <rect x="400" y="246" width="190" height="108" fill="#f4f1ea" stroke="#2f6b4f" stroke-width="3"/>
+          <circle cx="495" cy="300" r="26" fill="none" stroke="#2f6b4f" stroke-width="3"/>
+          <!-- slow-street hatching -->
+          <g stroke="#161616" stroke-opacity=".35" stroke-width="2" stroke-dasharray="6 8">
+            <line x1="70" y1="225" x2="920" y2="225"/><line x1="70" y1="375" x2="920" y2="375"/>
+            <line x1="275" y1="70" x2="275" y2="530"/><line x1="715" y1="70" x2="715" y2="530"/>
+          </g>
+          <!-- north arrow + scale -->
+          <g fill="#161616"><path d="M930 470 l12 34 h-24 z"/><rect x="820" y="540" width="100" height="6"/><rect x="820" y="540" width="50" height="6" fill="#f4f1ea" stroke="#161616" stroke-width="1"/></g>
+        </svg>
+      </figure>
+      <figcaption class="cap cap-plan" data-copy="caption_plan">Fig. 1 — A residential grid re-planned around a shaded spine. Through-traffic is moved to the perimeter; the interior becomes a sequence of slow streets and small squares.</figcaption>
+    </div>
+    <p class="folio" data-copy="folio_left">14</p>
+  </div>
+
+  <div class="page right">
+    <p class="runhead">The Quiet City</p>
+    <div class="live-p">
+      <div class="body">
+        <p class="lead">Most streets are designed around a single number: the speed of the car that will use them. Lane widths, corner radii and sight lines all follow from it. Change that number and almost everything else about the street can change with it, including how long people are willing to stay.</p>
+        <p>A street built for thirty kilometres an hour needs less asphalt than one built for fifty. The surplus width is the opportunity. It can hold trees, which bring shade and make a summer walk possible. It can hold benches, which give older residents a reason to stop. It can hold a wider pavement, which lets two people walk side by side and talk.</p>
+        <h3>Narrow first, then furnish</h3>
+        <p>The order of work matters. Painting new markings on a wide carriageway rarely slows anyone down; drivers read the space, not the paint. Physically narrowing the road with kerbs, planting or parking bays changes behaviour because it changes what feels comfortable.</p>
+        <p>Once the street is narrower, furniture can follow: seating facing the sun in winter and away from it in summer, drinking fountains at corners, and lighting at the height of a face rather than a lorry.</p>
+        <h3>Shade is infrastructure</h3>
+        <p>In hot climates, shade decides whether a street is walkable at all. A continuous canopy, from trees or from buildings with deep arcades, turns a route that people avoid at noon into one they use all day. Shade should be planned as carefully as drainage, and measured as an essential part of the street rather than added as decoration.</p>
+        <p>None of this requires a new city. It asks existing streets to be redesigned one block at a time, starting where people already want to walk.</p>
+      </div>
+      <aside class="side">
+        <figure class="section" aria-label="Vector street section before and after">
+          <svg viewBox="0 0 310 330" preserveAspectRatio="xMidYMid meet">
+            <rect width="310" height="330" fill="#e9e4d8"/>
+            <text x="16" y="34" font-family="Inter Tight" font-size="17" fill="#6a675f" letter-spacing="1">BEFORE</text>
+            <rect x="16" y="110" width="278" height="10" fill="#b9b2a2"/>
+            <rect x="16" y="98" width="40" height="12" fill="#d8d1c1"/><rect x="254" y="98" width="40" height="12" fill="#d8d1c1"/>
+            <rect x="96" y="80" width="40" height="18" rx="5" fill="#161616" opacity=".7"/><rect x="174" y="80" width="40" height="18" rx="5" fill="#161616" opacity=".7"/>
+            <text x="16" y="164" font-family="Inter Tight" font-size="17" fill="#6a675f" letter-spacing="1">AFTER</text>
+            <rect x="16" y="276" width="278" height="10" fill="#b9b2a2"/>
+            <rect x="16" y="264" width="98" height="12" fill="#d8d1c1"/><rect x="196" y="264" width="98" height="12" fill="#d8d1c1"/>
+            <rect x="135" y="246" width="40" height="18" rx="5" fill="#161616" opacity=".7"/>
+            <g fill="#2f6b4f"><rect x="60" y="224" width="6" height="40"/><circle cx="63" cy="216" r="24"/><rect x="244" y="224" width="6" height="40"/><circle cx="247" cy="216" r="24"/></g>
+            <rect x="24" y="252" width="22" height="12" fill="#161616"/>
+          </svg>
+        </figure>
+        <figcaption class="cap" data-copy="caption_section">Fig. 2 — Street section, before and after. Carriageway narrowed to one lane; trees and seating take the reclaimed width.</figcaption>
+      </aside>
+      <blockquote class="pull" data-copy="pullquote">Speed is a design decision. Every metre of asphalt is an invitation to drive faster.</blockquote>
+    </div>
+    <p class="folio" data-copy="folio_right">15</p>
+  </div>
+  <div class="gutter-shadow"></div>
+</section>
+</body>
+</html>

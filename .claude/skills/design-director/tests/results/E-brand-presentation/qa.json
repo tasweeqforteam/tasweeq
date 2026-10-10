@@ -1,0 +1,53 @@
+{
+  "input": "tests/cases/E-brand-presentation//index.html",
+  "generated": "2026-10-10T20:31:03.963Z",
+  "canvases": [
+    {
+      "index": 1,
+      "width": 1920,
+      "height": 1080,
+      "textBlocks": 3,
+      "images": 0
+    },
+    {
+      "index": 2,
+      "width": 1920,
+      "height": 1080,
+      "textBlocks": 4,
+      "images": 0
+    },
+    {
+      "index": 3,
+      "width": 1920,
+      "height": 1080,
+      "textBlocks": 6,
+      "images": 0
+    },
+    {
+      "index": 4,
+      "width": 1920,
+      "height": 1080,
+      "textBlocks": 17,
+      "images": 0
+    },
+    {
+      "index": 5,
+      "width": 1920,
+      "height": 1080,
+      "textBlocks": 6,
+      "images": 0
+    }
+  ],
+  "fontsUsed": [
+    "Alexandria (web font)",
+    "Inter Tight (web font)"
+  ],
+  "summary": {
+    "critical": 0,
+    "major": 0,
+    "minor": 0,
+    "info": 0
+  },
+  "verdict": "PASS",
+  "issues": []
+}

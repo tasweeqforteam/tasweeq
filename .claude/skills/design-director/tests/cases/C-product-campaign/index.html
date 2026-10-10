@@ -1,0 +1,92 @@
+<!doctype html>
+<!--
+  TEST C · Product campaign system · 3 placements (feed square, feed portrait, story)
+  Concept: "the product is the sundial". The tube stands in low sun and throws a long shadow:
+  shade you carry with you. The sun disc is the ownable device.
+  Light rule (fixed): sun ALWAYS on the left, shadow ALWAYS falls right. (v1 placed the sun right in two
+                      placements while the shadow still fell right; caught in contact-sheet review, not by QA.)
+  System (fixed): sand ground #f1e4d3 · sun #f26b1d · ink #1d1a17 · Inter Tight 700 headline and body ·
+                  wordmark bottom inline-start · tube from ONE <symbol> (product fidelity) · shadow at 35°.
+  Variation (free): sun disc height/crop along the left edge per placement · headline per placement · tube scale.
+  Image plan: in a full AI-hybrid run the sand/sky ground would be generated per ratio (wider than the crop),
+  with the real packshot composited. Not executed in this environment; the ground is CSS/SVG and the product is a vector.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="dd:canvas" content="1080x1080,1080x1350,1080x1920">
+<meta name="dd:copy" content="copy.json">
+<link rel="stylesheet" href="../../../templates/base.css">
+<style>
+  :root { --paper: #f1e4d3; --ink: #1d1a17; --accent: #f26b1d; --muted: #5a4e45; }
+  .canvas { font-family: var(--ff-la-text); background: linear-gradient(180deg, #f6ecdf 0%, #f1e4d3 58%, #e8d6c0 100%); }
+  .sun { position: absolute; border-radius: 50%; background: radial-gradient(circle at 40% 40%, #ff8a3d, #f26b1d 60%, #e0560e); }
+  .horizon { position: absolute; left: 0; right: 0; height: 2px; background: rgba(29,26,23,.12); }
+  .scene { position: absolute; }
+  .h { position: absolute; font-family: var(--ff-la-display); font-weight: 700; letter-spacing: -.03em; line-height: .98; color: var(--ink); }
+  .sub { position: absolute; font-size: 32px; line-height: 1.4; color: var(--muted); }
+  .foot { position: absolute; display: flex; justify-content: space-between; align-items: baseline; }
+  .wordmark { font-family: var(--ff-la-display); font-weight: 800; font-size: 52px; letter-spacing: -.04em; color: var(--ink); }
+  .cta { font-size: 30px; font-weight: 600; color: var(--ink); }
+  .cta .url { font-weight: 400; color: var(--muted); }
+  .pill { background: var(--ink); color: #f6ecdf; padding: 18px 34px; border-radius: 999px; font-size: 32px; font-weight: 600; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="tube" x1="0" x2="1"><stop offset="0" stop-color="#fffaf3"/><stop offset=".45" stop-color="#f7efe4"/><stop offset="1" stop-color="#d9cbb8"/></linearGradient>
+    <linearGradient id="capg" x1="0" x2="1"><stop offset="0" stop-color="#ff8a3d"/><stop offset=".5" stop-color="#f26b1d"/><stop offset="1" stop-color="#c94f0c"/></linearGradient>
+    <linearGradient id="shade" x1="0" x2="1"><stop offset="0" stop-color="#1d1a17" stop-opacity=".32"/><stop offset="1" stop-color="#1d1a17" stop-opacity="0"/></linearGradient>
+    <!-- master product: one definition, reused in every placement -->
+    <symbol id="product" viewBox="0 0 900 640">
+      <path d="M300 600 L860 600 L640 520 L300 520 Z" fill="url(#shade)"/>
+      <path d="M232 36 Q232 20 248 20 H352 Q368 20 368 36 L380 470 H220 Z" fill="url(#tube)"/>
+      <path d="M232 36 Q232 20 248 20 H352 Q368 20 368 36" fill="none" stroke="#cdbfac" stroke-width="3"/>
+      <rect x="214" y="470" width="172" height="130" rx="14" fill="url(#capg)"/>
+      <rect x="214" y="470" width="172" height="14" fill="#000" opacity=".08"/>
+      <text x="300" y="230" text-anchor="middle" font-family="Inter Tight" font-weight="800" font-size="62" letter-spacing="-2" fill="#1d1a17" transform="rotate(-90 300 230)">halo</text>
+      <text x="300" y="400" text-anchor="middle" font-family="Inter Tight" font-weight="600" font-size="22" letter-spacing="3" fill="#f26b1d">SPF 50</text>
+      <path d="M250 60 L262 450" stroke="#fff" stroke-opacity=".7" stroke-width="10" stroke-linecap="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- 1 · Feed square 1080×1080 -->
+<section class="canvas" style="--canvas-w:1080px;--canvas-h:1080px">
+  <div class="sun" style="width:480px;height:480px;left:-250px;top:380px"></div>
+  <div class="horizon" style="top:760px"></div>
+  <svg class="scene" style="left:250px;top:360px;width:900px;height:640px"><use href="#product"/></svg>
+  <h1 class="h" style="left:72px;top:96px;width:620px;font-size:118px" data-copy="h_square">Your daily shade.</h1>
+  <div class="foot" style="left:72px;right:72px;bottom:64px">
+    <span class="wordmark" data-copy="wordmark">halo</span>
+    <span class="cta"><span data-copy="cta">Shop Halo</span> · <span class="url" data-copy="url">halo.example</span></span>
+  </div>
+</section>
+
+<!-- 2 · Feed portrait 1080×1350 -->
+<section class="canvas" style="--canvas-w:1080px;--canvas-h:1350px">
+  <div class="sun" style="width:620px;height:620px;left:-300px;top:500px"></div>
+  <div class="horizon" style="top:1010px"></div>
+  <svg class="scene" style="left:150px;top:520px;width:1100px;height:782px"><use href="#product"/></svg>
+  <h1 class="h" style="left:72px;top:96px;width:900px;font-size:112px" data-copy="h_portrait">SPF 50 that feels like nothing.</h1>
+  <p class="sub" style="left:72px;top:360px;width:560px" data-copy="sub_portrait">Weightless daily fluid. No white cast.</p>
+  <div class="foot" style="left:72px;right:72px;bottom:64px">
+    <span class="wordmark">halo</span>
+    <span class="cta"><span>Shop Halo</span> · <span class="url">halo.example</span></span>
+  </div>
+</section>
+
+<!-- 3 · Story 1080×1920 · UI-safe zones top 256 / bottom 344 (grid.py --format story) -->
+<section class="canvas" data-safe="256,72,344,72" style="--canvas-w:1080px;--canvas-h:1920px">
+  <div class="sun" style="width:760px;height:760px;left:-420px;top:640px"></div>
+  <div class="horizon" style="top:1380px"></div>
+  <svg class="scene" style="left:-40px;top:780px;width:1180px;height:839px"><use href="#product"/></svg>
+  <h1 class="h" style="left:72px;top:272px;width:880px;font-size:132px" data-copy="h_story">Shade goes where you go.</h1>
+  <div class="foot" style="left:72px;right:72px;bottom:360px;align-items:center">
+    <span class="wordmark">halo</span>
+    <span class="pill">Shop Halo</span>
+  </div>
+</section>
+</body>
+</html>

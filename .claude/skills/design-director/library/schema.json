@@ -1,0 +1,32 @@
+{
+  "$comment": "Reference record schema for references.jsonl. Validated by scripts/library.py (rules beyond this file live there: score only on inspected records; AI classification requires evidence; https URLs only).",
+  "required": ["id", "title", "url", "platform", "status", "production_method", "formats", "key_lessons", "last_verified", "source_note"],
+  "fields": {
+    "id": "REF-0001 style, assigned by `library.py add` when set to \"auto\"",
+    "title": "project title exactly as published",
+    "creator": "person/studio as credited on the original page; null if not verified",
+    "url": "original project URL actually found (never constructed or guessed)",
+    "platform": "behance | dribbble | pinterest | instagram | portfolio | publication | foundry | other",
+    "published": "YYYY-MM or YYYY-MM-DD if shown on the page",
+    "status": "lead (named in a search result only) | search-verified (title+creator+URL confirmed by a search index, page not inspected) | inspected (images and text actually viewed) | broken (URL dead/renamed)",
+    "production_method": "human | ai-generated | hybrid | ai-assisted-documented | resembles-ai-unverified | unverified",
+    "production_evidence": "quote or description of the creator's own statement/process material; required for any AI or hybrid classification",
+    "industry": ["beauty", "food", "real-estate", "healthcare", "tech", "fashion", "culture", "government", "retail", "..."],
+    "formats": ["poster", "social-post", "carousel", "story", "editorial", "brochure", "presentation", "identity", "packaging", "key-visual", "typeface"],
+    "languages": ["ar", "en", "bilingual"],
+    "techniques": ["typography-led", "photographic", "3d", "hybrid-ai", "illustration", "collage", "grid-system", "minimal", "maximal"],
+    "problems_solved": ["free text: e.g. 'bilingual lockup parity', 'dense info at small size', 'campaign variation without drift'"],
+    "observations": {
+      "concept": "", "art_direction": "", "layout_grid": "observed vs inferred — label inference",
+      "typography": "type categories; name a font only if documented", "negative_space": "", "image_treatment": "", "craft_strengths": "", "craft_weaknesses": ""
+    },
+    "score": {"concept": "0-20", "composition": "0-20", "typography": "0-15", "art_direction": "0-15", "communication": "0-15", "craft": "0-15", "total": "sum, 0-100"},
+    "indicators": {"source_credibility": "high|medium|low", "documentation_depth": "none|partial|full", "diversity_note": "what this adds that other records do not"},
+    "key_lessons": ["transferable principle, phrased as a decision rule"],
+    "do_not_copy": ["context-specific or signature elements that must not be reproduced"],
+    "applications": ["briefs where this reference helps"],
+    "limitations": ["why it may mislead"],
+    "last_verified": "YYYY-MM-DD",
+    "source_note": "how this record was obtained (tool + what was and was not seen)"
+  }
+}

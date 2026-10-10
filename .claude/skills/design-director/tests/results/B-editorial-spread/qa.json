@@ -1,0 +1,46 @@
+{
+  "input": "tests/cases/B-editorial-spread//index.html",
+  "generated": "2026-10-10T20:30:50.798Z",
+  "canvases": [
+    {
+      "index": 1,
+      "width": 2480,
+      "height": 1754,
+      "textBlocks": 19,
+      "images": 0
+    }
+  ],
+  "fontsUsed": [
+    "Inter Tight (web font)"
+  ],
+  "summary": {
+    "critical": 0,
+    "major": 0,
+    "minor": 3,
+    "info": 0
+  },
+  "verdict": "PASS",
+  "issues": [
+    {
+      "severity": "minor",
+      "canvas": 1,
+      "check": "headline-break",
+      "message": "headline ends with a single word on its own line — rebreak for sense and shape",
+      "where": "\"The Quiet City\" .headline"
+    },
+    {
+      "severity": "minor",
+      "canvas": 1,
+      "check": "widow",
+      "message": "paragraph ends with a single word (runt)",
+      "where": "\"Fig. 1 — A residential grid re-planned a\" .cap"
+    },
+    {
+      "severity": "minor",
+      "canvas": 1,
+      "check": "widow",
+      "message": "paragraph ends with a single word (runt)",
+      "where": "\"The order of work matters. Painting new \""
+    }
+  ]
+}

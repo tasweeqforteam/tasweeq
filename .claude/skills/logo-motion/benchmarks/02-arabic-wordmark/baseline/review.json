@@ -1,0 +1,21 @@
+{
+  "reviewer": "same blind critic, round-3 packet",
+  "scores": {
+    "creative_originality": {
+      "score": 1,
+      "evidence": "The whole idea is an opacity fade: t=0.00 empty, t=0.45 the complete wordmark in flat mid-grey, t=0.88 near-black, t=1.33 full black. Letters, dots and joins never move independently, so the same clip would fit any logo in any script. Nothing comes from the Arabic forms."
+    },
+    "motion_quality": {
+      "score": 4,
+      "evidence": "The fade is clean and artefact-free, but it is over by about 1.33s. Frames t=1.77 to t=3.98 (roughly 2.6s, two thirds of the clip) are identical static holds. No easing, overlap or secondary motion is visible, and the dead tail makes the pacing feel unfinished."
+    },
+    "brand_relevance": {
+      "score": 3,
+      "evidence": "Nothing contradicts a 'next-generation marketing studio', but nothing expresses it either. The fade is neutral and ignores right-to-left reading, the kashida stretch and the dot system. The wordmark appears all at once instead of being written or built."
+    },
+    "visual_clarity": {
+      "score": 9,
+      "evidence": "Every frame from t=0.45 on shows the complete, correctly joined, correctly dotted word, centred with generous margins. The final frame matches official.png exactly. The only cost is the faint grey state at t=0.45."
+    }
+  }
+}

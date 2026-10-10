@@ -1,0 +1,129 @@
+{
+  "composition": "../composition.html",
+  "rendered_at": "2026-10-10T21:01:36.573Z",
+  "meta": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 60,
+    "duration": 4,
+    "background": "#F2F2EF",
+    "markers": {
+      "letters": 1.75,
+      "settled": 2.2,
+      "reveal": 2.75
+    },
+    "hasReference": true,
+    "logoRect": {
+      "x": 576,
+      "y": 379,
+      "w": 768,
+      "h": 322
+    },
+    "timelineDuration": 2.67,
+    "title": "تسويق — Kashida"
+  },
+  "fps": 60,
+  "from": 0,
+  "to": 4,
+  "frames": 240,
+  "scale": 1,
+  "transparent": false,
+  "stills": {
+    "first": "first.png",
+    "final": "final.png",
+    "reference": "reference.png",
+    "markers": [
+      "marker-letters.png",
+      "marker-settled.png",
+      "marker-reveal.png"
+    ]
+  },
+  "outputs": {
+    "mp4": {
+      "file": "composition.mp4",
+      "probe": {
+        "ok": true,
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080,
+        "pix_fmt": "yuv420p",
+        "fps": 60,
+        "frames": 240,
+        "duration": 4,
+        "bytes": 97363
+      },
+      "encoded_color_deltaE": 0.03
+    },
+    "gif": {
+      "file": "composition.gif",
+      "probe": {
+        "ok": true,
+        "codec": "gif",
+        "width": 720,
+        "height": 405,
+        "pix_fmt": "bgra",
+        "fps": 25,
+        "frames": 100,
+        "duration": 4,
+        "bytes": 170154
+      }
+    },
+    "webm": {
+      "file": "composition.webm",
+      "probe": {
+        "ok": true,
+        "codec": "vp9",
+        "width": 1920,
+        "height": 1080,
+        "pix_fmt": "yuv420p",
+        "fps": 60,
+        "frames": null,
+        "duration": 4,
+        "bytes": 115283
+      },
+      "encoded_color_deltaE": 0.05
+    }
+  },
+  "validation": [
+    {
+      "format": "mp4",
+      "ok": true,
+      "issues": []
+    },
+    {
+      "format": "gif",
+      "ok": true,
+      "issues": []
+    },
+    {
+      "format": "webm",
+      "ok": true,
+      "issues": []
+    },
+    {
+      "format": "mp4:color",
+      "ok": true,
+      "issues": []
+    },
+    {
+      "format": "webm:color",
+      "ok": true,
+      "issues": []
+    }
+  ],
+  "determinism": {
+    "samples": [
+      192,
+      0,
+      84,
+      239,
+      144
+    ],
+    "mismatched": [],
+    "byte_identical": true,
+    "deterministic": true
+  },
+  "motion_blur_subframes": null,
+  "page_errors": [],
+  "elapsed_s": 48.678
+}

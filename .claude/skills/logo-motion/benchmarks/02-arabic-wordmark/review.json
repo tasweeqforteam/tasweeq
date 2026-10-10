@@ -1,21 +1,21 @@
 {
-  "reviewer": "agent (blind critic) | human:<name>",
+  "reviewer": "blind critic (fresh sub-agent, pixels only), round-3 packet; round 4 addressed its top fixes (sliced bowls, floating bar, grey dots), not re-reviewed",
   "scores": {
     "creative_originality": {
-      "score": null,
-      "evidence": ""
+      "score": 8,
+      "evidence": "The motion follows how the script works. At t=0.45 a baseline stroke starts at the right edge, the start of the Arabic line, and the word is revealed right-to-left (t=0.88, t=1.33). The joins are stretched like a kashida (the word is about 585px wide at t=1.33 against about 400px in the final) and then contract by t=2.22. The dots are held back until the rasm skeleton is complete and arrive in reading order: the ta dots first, then the ya dots grey at t=2.22, then the qaf dots by t=2.65."
     },
     "motion_quality": {
-      "score": null,
-      "evidence": ""
+      "score": 6,
+      "evidence": "The sequence is well structured: stroke, skeleton, elongation, contraction, dots, then a hold from t=3.10 to t=3.98. There are two rough mid-states. At t=0.88 a detached bar floats far left of the partial letters. At t=0.88 and t=1.33 the qaf bowl is sliced flat at the bottom by the reveal mask, which reads as a clipping glitch. The dots only fade in grey (t=2.22) rather than dropping or snapping in with any weight."
     },
     "brand_relevance": {
-      "score": null,
-      "evidence": ""
+      "score": 8,
+      "evidence": "Writing the line right-to-left, stretching with kashida and adding the i'jam dots last suits an Arabic wordmark. It reads as a studio that builds the word rather than a template. The contraction at t=1.77 to t=2.22 gives a confident settle."
     },
     "visual_clarity": {
-      "score": null,
-      "evidence": ""
+      "score": 8,
+      "evidence": "The final frames (t=3.10 to t=3.98) are crisp, centred and identical to the official logo, with all joins and dots in place. During t=0.45 to t=1.77 the letters have no dots, so ta, ya and qaf read ambiguously and the word is hard to read for about 1.3s. At t=1.33 the stretched word nearly fills the frame width."
     }
   }
 }

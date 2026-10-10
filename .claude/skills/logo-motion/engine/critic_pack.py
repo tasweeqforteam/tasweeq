@@ -19,14 +19,25 @@ def font(size):
             return ImageFont.truetype(p, size)
     return ImageFont.load_default()
 
-def logo_box(renders):
+def logo_box(renders, samples=24):
+    """Crop box = union of visible ink over the whole animation (not just the final logo rect),
+    so states that extend beyond the final lockup (stretch, travel, overshoot) are never cut off."""
+    import numpy as np
     m = json.load(open(os.path.join(renders, "render-manifest.json")))
-    r = (m["meta"].get("logoRect") or {})
     W, H = m["meta"]["width"], m["meta"]["height"]
-    if not r:
+    frames = sorted(glob.glob(os.path.join(renders, "frames", "*.png")))
+    f0 = np.asarray(Image.open(frames[-1]).convert("RGB")).astype(int)
+    bg = np.median(np.concatenate([f0[0], f0[-1], f0[:, 0], f0[:, -1]]), 0)
+    x0, y0, x1, y1 = W, H, 0, 0
+    for i in sorted(set(round(k * (len(frames) - 1) / (samples - 1)) for k in range(samples))):
+        a = np.asarray(Image.open(frames[i]).convert("RGB").resize((W // 4, H // 4))).astype(int)
+        ys, xs = np.nonzero(np.abs(a - bg).sum(-1) > 30)
+        if len(xs):
+            x0, y0, x1, y1 = min(x0, xs.min() * 4), min(y0, ys.min() * 4), max(x1, xs.max() * 4 + 4), max(y1, ys.max() * 4 + 4)
+    if x1 <= x0:
         return (0, 0, W, H), m
-    padx, pady = r["w"] * 0.18, r["h"] * 0.6
-    return (max(0, int(r["x"] - padx)), max(0, int(r["y"] - pady)), min(W, int(r["x"] + r["w"] + padx)), min(H, int(r["y"] + r["h"] + pady))), m
+    padx, pady = (x1 - x0) * 0.08 + 16, (y1 - y0) * 0.25 + 16
+    return (max(0, int(x0 - padx)), max(0, int(y0 - pady)), min(W, int(x1 + padx)), min(H, int(y1 + pady))), m
 
 def strip(renders, out_png, n=10, width=1400):
     box, m = logo_box(renders)
@@ -54,7 +65,7 @@ def main():
     out = os.path.abspath(a.out); os.makedirs(out, exist_ok=True)
     name = os.path.basename(out.rstrip("/"))
     labels = [chr(ord("X") + i) if i < 3 else f"C{i}" for i in range(len(a.renders))]
-    order = sorted(range(len(a.renders)), key=lambda i: hashlib.sha1(f"{name}:{i}".encode()).hexdigest())
+    order = sorted(range(len(a.renders)), key=lambda i: hashlib.sha1(f"{name}:{os.path.abspath(a.renders[i])}".encode()).hexdigest())
     key = {}
     for lab, i in zip(labels, order):
         r = os.path.abspath(a.renders[i])

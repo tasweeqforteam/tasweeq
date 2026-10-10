@@ -1,50 +1,36 @@
-# Logo analysis — source.svg
+# Logo analysis — تسويق (Arabic wordmark)
 
-> Measurements below were produced by `engine/analyze.mjs`. Everything in *italics* must be completed by the agent after LOOKING at `overview.png` and `parts.png`. Mark each statement **[measured]**, **[observed]** (seen in the image) or **[interpreted]**. Never present brand meaning as fact unless it comes from a cited source.
+Source: `logo/source.svg`. The word تسويق is set in Thmanyah Serif Display Black (the site's Arabic display face, `src/fonts`) and outlined with `outline-text.mjs --verify` (boundary F 1.000 against Chromium/HarfBuzz shaping). Ink is #0A0A0A on paper #F2F2EF. This is a *test wordmark*, not a client's official logo.
 
 ## A. Structure
-- Kind of input: svg (viewBox -4.800000190734863 101.19999694824219 1011.2000122070312 423.6000061035156)
-- Heuristic: combination mark (symbol + lettering?) — *confirm: symbol / abstract / wordmark / lettermark / emblem / mascot / combination / modular*
-- Islands: 5 · Parts: 8 · Holes (enclosed negative space): 2
-- *Visual hierarchy (what reads first, second, third):*
-
-| part | ink | bbox (x,y,w,h norm) | primitive | holes | orientation / elongation | solidity | role |
-|---|---|---|---|---|---|---|---|
-| p1 | 32% | 0.008, 0.289, 0.277, 0.692 |  | 1 | -55.3° / 1.49 | 0.649 | _role?_ |
-| p2 | 4% | 0.115, 0.054, 0.127, 0.172 |  | 0 | 0.1° / 2.24 | 0.742 | _role?_ |
-| p3 | 9% | 0.263, 0.245, 0.128, 0.462 |  | 0 | -62.3° / 2.5 | 0.748 | _role?_ |
-| p4 | 4% | 0.253, 0.774, 0.126, 0.17 |  | 0 | 0° / 2.24 | 0.743 | _role?_ |
-| p5 | 22% | 0.4, 0.291, 0.194, 0.664 |  | 1 | -86.7° / 1.57 | 0.718 | _role?_ |
-| p6 | 20% | 0.575, 0.371, 0.32, 0.336 |  | 0 | -2.1° / 3.45 | 0.64 | _role?_ |
-| p7 | 8% | 0.877, 0.245, 0.111, 0.459 |  | 0 | -67.9° / 2.76 | 0.775 | _role?_ |
-| p8 | 4% | 0.865, 0.019, 0.127, 0.172 |  | 0 | 0° / 2.24 | 0.736 | _role?_ |
+- **[measured]** 8 parts, 5 islands, 2 holes. Aspect 2.39.
+- **[observed]** Arabic wordmark, read right to left: ت (p7 + dots p8) · س (p6) · و (p5, counter h2) · ي (p3 + dots below, p4) · ق (p1, counter h1, + dots p2).
+- **[observed]** Two joined runs: **تسو** and **يق**. و does not join to its left, so there is a natural break between و and ي.
+- Hierarchy: the heavy bowls of ق and و (the largest ink, 32% and 22%), then the teeth of س, then the dots.
 
 ## B. Geometry & construction
-- Symmetry IoU — mirror (vertical axis) 0.279, mirror (horizontal axis) 0.276, 180° rotation 0.25
-- Straight-segment ratio 0.561 (1 = all straight, 0 = all curves); circle-like parts: none; polygonal parts: none; complexity medium
-- Repetition: p2≈p4 via identity (0.953, scale 1.008); p2≈p8 via identity (1, scale 1); p4≈p8 via identity (0.953, scale 0.992)
-- Shared construction lines: x=0.931 [p8.center p7.center]; x=0.99 [p7.right p8.right]; y=0.245 [p3.top p7.top]; y=0.29 [p1.top p5.top]; y=0.475 [p7.middle p3.middle]; y=0.629 [p5.middle p1.middle]; y=0.706 [p7.bottom p3.bottom p6.bottom]; y=0.95 [p4.bottom p5.bottom]
-- Balance offset of ink centroid from bbox centre: [-0.05,0.078]
-- *Hidden relationships / negative-space figures:*
-- *Possible draw paths, assembly order, natural pivot points:*
+- **[measured]** The dot pairs p2, p4 and p8 are identical (similarity 0.953–1.0). Each dot is a **diamond (a square rotated 45°)**, the mark of a broad reed pen (qalam).
+- **[measured]** Connection strokes form a continuous horizontal band at y ≈ 325–398 viewBox units (sampled across س and the joins). This is the baseline of the joined strokes.
+- **[observed]** Strong horizontal energy. The joins run along one band; the bowls of ق and و descend below it; the teeth and the ت rise above it.
+- **[measured]** Asymmetric: symmetry IoU < 0.3 on every axis, so motion should be directional (RTL).
 
-## C. Typography (if lettering present)
-- No live text elements (lettering, if any, is outlined).
-- *Typeface character, distinctive letterforms, ligatures, baseline, kerning:*
-- *Script/direction (Arabic: RTL, joining, dots/diacritics, kashida) and legibility risks:*
+## C. Typography
+- **[observed]** A display Naskh-influenced serif: high contrast, wedge terminals, rhomboid dots, deep bowls.
+- **[verified: script convention]** Arabic letters join along the baseline. The tatweel/kashida (ـ) lengthens a join and is a native justification device. Kashida lives only *inside* a joined run, never across a non-joining letter like و.
+- Risks:
+  - Never separate joined glyphs in the final state.
+  - Never letter-space.
+  - The dots must remain in place.
+  - Motion must read right to left.
 
-## D. Meaning & brand personality
-- *Verified facts (with source):*
-- *Visual interpretation (labelled as interpretation):*
-- *Audience / usage context (splash, social intro, UI loader, broadcast ident…):*
+## D. Meaning & personality
+- **[verified: repo]** تسويق means "marketing". It is the Arabic name of the studio (site tag: "استوديو تسويق من الجيل الجديد").
+- **[interpreted]** Personality of this setting: editorial, confident, calligraphic heritage in a modern cut.
 
-## E. Animation opportunities (specific to THIS logo)
-| opportunity | evidence in the logo (part ids / measurement) | why it fits this logo |
+## E. Animation opportunities
+| opportunity | evidence | why it fits |
 |---|---|---|
-| *…* | *…* | *…* |
-
-## Palette
-- #0A0A0A — 100% of ink
-
-## Warnings
-- none
+| kashida stretch → settle | joined-stroke band y 325–398; two joined runs; break after و | elongation is Arabic typography's own motion vocabulary; here it can resolve into the true word |
+| diamond dots as qalam stamps | p2/p4/p8 identical rhombi | in writing, dots (i'jam) are added after the letter bodies, with the pen's square nib |
+| rise from the baseline | letters stand on, and hang from, one band | a reveal outward from the join line keeps letterforms intact |
+| RTL wave | asymmetric, strong horizontal flow | follows the reading direction |

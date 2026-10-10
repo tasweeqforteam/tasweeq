@@ -1,8 +1,8 @@
 {
   "project": "تسويق Arabic wordmark",
-  "concept": "<chosen concept name — one line>",
-  "rationale": "<why this movement belongs to THIS logo (cite analysis evidence: part ids, measurements)>",
-  "duration": 4,
+  "concept": "Kashida — the word appears stretched on its own kashida strokes and breathes in to its true proportions; diamond dots stamped last (RTL)",
+  "rationale": "joined-stroke band y 325–398 and two joined runs (تسو, يق) with a non-joining break after و; dots p2/p4/p8 identical rhombi (qalam nib)",
+  "duration": 4.0,
   "fps": 60,
   "width": 1920,
   "height": 1080,
@@ -15,63 +15,111 @@
   },
   "stages": [
     {
-      "name": "opening",
-      "type": "intro",
-      "start": 0,
-      "end": 0.6,
+      "name": "kashida strokes RTL",
+      "type": "build",
+      "start": 0.15,
+      "end": 1.18,
       "objects": [
-        "#p1"
+        "#k1 (run تسو)",
+        "#k2 (run يق)"
       ],
-      "initial_state": "<exact opening frame: what is visible, where, at what scale/opacity>",
-      "final_state": "<state at end of stage>",
-      "changes": "<position/scale/rotation/opacity/path changes with numbers>",
-      "easing": "power2.out",
-      "anticipation": "<optional>",
-      "follow_through": "<optional>",
-      "secondary": "<optional secondary motion>",
-      "camera": null,
-      "sound": null,
-      "tracks": []
+      "initial_state": "paper, empty",
+      "final_state": "two kashida bars at band height y 330–380 in the elongated layout",
+      "changes": "k1 scaleX 0→1 from its right end (x 1130) over 0.6 s; k2 grows out of ي (right end x 220) at 0.86 s over 0.32 s",
+      "easing": "power2.inOut"
+    },
+    {
+      "name": "letters open from band",
+      "type": "build",
+      "start": 0.55,
+      "end": 1.8,
+      "objects": [
+        "#g-ta",
+        "#g-sin",
+        "#g-waw",
+        "#g-ya",
+        "#g-qaf"
+      ],
+      "initial_state": "letter bodies hidden by zero-height feathered masks at band centre y 355",
+      "final_state": "dotless rasm fully visible, elongated by 480 viewBox units",
+      "changes": "mask rect y 355→40, height 0→560, 0.7 s each, RTL stagger 0.13 s (+0.03 s at the و/ي break)",
+      "easing": "power3.out"
+    },
+    {
+      "name": "breathe in (contraction)",
+      "type": "transition",
+      "start": 1.35,
+      "end": 2.2,
+      "objects": [
+        "groups",
+        "#k1",
+        "#k2"
+      ],
+      "initial_state": "elongated (ت +240, س +80, و/ي −80, ق −240)",
+      "final_state": "official spacing; kashida bars shortened into the joins and faded once covered",
+      "changes": "group x → 0; bar x/width → final [590,890], [240,300]; kashida opacity 1→0 at 2.05–2.20",
+      "easing": "power3.inOut"
+    },
+    {
+      "name": "dot stamps RTL",
+      "type": "reveal",
+      "start": 2.05,
+      "end": 2.67,
+      "objects": [
+        "#p8",
+        "#p4",
+        "#p2"
+      ],
+      "initial_state": "dots invisible",
+      "final_state": "dots at official positions",
+      "changes": "opacity 0→1 in 0.04 s; scale 1.6→1 over 0.38 s (nib press); order ت, ي, ق at 0.12 s spacing",
+      "easing": "back.out(1.4)"
     },
     {
       "name": "final hold",
       "type": "hold",
-      "start": 2.6,
-      "end": 4,
+      "start": 2.67,
+      "end": 4.0,
       "objects": [],
-      "initial_state": "official logo, exact",
-      "final_state": "official logo, exact",
+      "initial_state": "official wordmark",
+      "final_state": "official wordmark",
       "changes": "none",
       "easing": "none"
     }
   ],
   "key_poses": [
     {
-      "t": 0,
-      "description": "<opening pose>"
+      "t": 0.0,
+      "description": "empty paper"
     },
     {
-      "t": 1.5,
-      "description": "<transformation / peak pose>"
+      "t": 1.3,
+      "description": "dotless rasm stretched on kashida"
     },
     {
-      "t": 2.6,
-      "description": "official logo complete"
+      "t": 2.2,
+      "description": "true proportions, dots arriving"
+    },
+    {
+      "t": 2.67,
+      "description": "official wordmark"
     }
   ],
   "markers": {
-    "reveal": 2.6
+    "letters": 1.75,
+    "settled": 2.2,
+    "reveal": 2.75
   },
-  "assets": [],
   "export": {
     "formats": [
       "mp4",
-      "gif"
+      "gif",
+      "webm"
     ],
     "transparent": false
   },
   "fidelity": {
-    "final_state_from": 2.6,
+    "final_state_from": 2.67,
     "compromises": []
   }
 }

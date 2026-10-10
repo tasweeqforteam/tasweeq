@@ -89,7 +89,7 @@ if (a.verify) {
     const norm = (mk, N = 400) => { const [x0, y0, w, h] = mk.box; const s = N / Math.max(w, h); const o = new Uint8Array(N * N); for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) { const sx = x0 + Math.floor(x / s), sy = y0 + Math.floor(y / s); if (sx < x0 + w && sy < y0 + h) o[y * N + x] = mk.m[sy * mk.w + sx]; } return o; };
     const el = document.getElementById('t'); const r = el.getBoundingClientRect();
     const c1 = document.createElement('canvas'); c1.width = Math.ceil(r.right + 40); c1.height = Math.ceil(r.bottom + 40); const g1 = c1.getContext('2d'); g1.fillStyle = '#fff'; g1.fillRect(0, 0, c1.width, c1.height);
-    g1.font = getComputedStyle(el).font; g1.direction = el.dir === 'rtl' ? 'rtl' : 'ltr'; g1.fillStyle = '#000'; g1.textBaseline = 'top'; g1.fillText(el.textContent, el.dir === 'rtl' ? r.right : r.left, r.top);
+    g1.font = getComputedStyle(el).font; g1.letterSpacing = getComputedStyle(el).letterSpacing; g1.direction = el.dir === 'rtl' ? 'rtl' : 'ltr'; g1.fillStyle = '#000'; g1.textBaseline = 'top'; g1.fillText(el.textContent, el.dir === 'rtl' ? r.right : r.left, r.top);
     const im = await new Promise((res) => { const i = new Image(); i.onload = () => res(i); i.src = URL.createObjectURL(new Blob([svgText.replace('<svg ', '<svg width="1200" ')], { type: 'image/svg+xml' })); });
     const c2 = document.createElement('canvas'); c2.width = im.width; c2.height = im.height; const g2 = c2.getContext('2d'); g2.fillStyle = '#fff'; g2.fillRect(0, 0, c2.width, c2.height); g2.drawImage(im, 0, 0);
     const N = 400; const a = norm(mask(c1)), bb = norm(mask(c2));

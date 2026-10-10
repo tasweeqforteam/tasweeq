@@ -1,0 +1,140 @@
+#!/usr/bin/env node
+// Logo analysis: measure structure before any creative decision.
+//
+//   node analyze.mjs <logo.svg|png|jpg|webp> [--out <dir>] [--raster 1024] [--trace]
+//
+// Writes to --out (default ./analysis next to the logo):
+//   analysis.auto.json   measurements (parts, holes, symmetry, repetition, alignment, palette, warnings)
+//   overview.png         logo with numbered parts, holes (magenta), alignment guides, symmetry axes
+//   parts.png            every part isolated in a grid, with its id
+//   parts.svg            (SVG input) one addressable <path id="pN"> per visual part, holes kept with parent
+//   source.sanitized.svg (SVG input) source with scripts/event handlers/external refs removed
+//   traced.svg           (--trace, raster input) APPROXIMATE vectorisation, never the official artwork
+//   analysis.md          pre-filled worksheet for the agent's interpretive analysis (modules/02-logo-analysis.md)
+import fs from 'node:fs';
+import path from 'node:path';
+import { launch, openRooted, ORIGIN, parseArgs, ENGINE_DIR } from './lib/browser.mjs';
+
+const args = parseArgs(process.argv.slice(2), { raster: '1024' });
+const input = args._[0];
+if (!input) { console.error('usage: node analyze.mjs <logo.svg|png|jpg|webp> [--out dir] [--trace]'); process.exit(2); }
+const abs = path.resolve(input);
+const ext = path.extname(abs).toLowerCase();
+const outDir = path.resolve(args.out || path.join(path.dirname(abs), 'analysis'));
+fs.mkdirSync(outDir, { recursive: true });
+
+// Untrusted input: strip active content before it touches the browser.
+function sanitizeSVG(s) {
+  return s
+    .replace(/<\?xml[^>]*>/g, '').replace(/<!DOCTYPE[^>]*>/gi, '')
+    .replace(/<script[\s\S]*?<\/script>/gi, '').replace(/<foreignObject[\s\S]*?<\/foreignObject>/gi, '')
+    .replace(/\son[a-z]+\s*=\s*("[^"]*"|'[^']*')/gi, '')
+    .replace(/(xlink:href|href)\s*=\s*("|')(?!#|data:image\/)[^"']*\2/gi, '$1=$2#removed-external$2');
+}
+const dataUrl = (file) => `data:${{ '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp' }[path.extname(file).toLowerCase()]};base64,${fs.readFileSync(file).toString('base64')}`;
+const savePng = (name, url) => fs.writeFileSync(path.join(outDir, name), Buffer.from(url.split(',')[1], 'base64'));
+
+(async () => {
+  const browser = await launch();
+  const { page, errors } = await openRooted(browser, ENGINE_DIR, { width: 1400, height: 1000 });
+  await page.setContent('<!doctype html><html><body style="margin:0;background:#fff"><div id="host"></div></body></html>');
+  await page.addScriptTag({ path: path.join(ENGINE_DIR, 'page', 'analyze-page.js') });
+  let res; let svgText = null;
+  if (ext === '.svg') {
+    svgText = sanitizeSVG(fs.readFileSync(abs, 'utf8'));
+    fs.writeFileSync(path.join(outDir, 'source.sanitized.svg'), svgText);
+    res = await page.evaluate(([s, r]) => window.LMAnalyze.svg(s, { raster: r }), [svgText, parseInt(args.raster)]);
+    fs.writeFileSync(path.join(outDir, 'parts.svg'), res.parts_svg);
+  } else if (['.png', '.jpg', '.jpeg', '.webp'].includes(ext)) {
+    res = await page.evaluate(([u, r]) => window.LMAnalyze.raster(u, { raster: r }), [dataUrl(abs), parseInt(args.raster)]);
+    if (args.trace) {
+      await page.addScriptTag({ path: path.join(ENGINE_DIR, 'node_modules', 'imagetracerjs', 'imagetracer_v1.2.6.js') });
+      const n = Math.max(2, Math.min(16, (res.palette || []).length + 1));
+      const tr = await page.evaluate(async (ncolors) => {
+        const c = window.__lastRasterCanvas; const g = c.getContext('2d');
+        const id = g.getImageData(0, 0, c.width, c.height);
+        const svg = ImageTracer.imagedataToSVG(id, { numberofcolors: ncolors, colorquantcycles: 4, ltres: 0.5, qtres: 0.5, pathomit: 12, roundcoords: 2, viewbox: true, strokewidth: 0, blurradius: 0 });
+        // Drop fully transparent layers ImageTracer emits for the background.
+        const clean = svg.replace(/<path[^>]*opacity="0"[^>]*\/>/g, '');
+        const im = await new Promise((r) => { const i = new Image(); i.onload = () => r(i); i.src = URL.createObjectURL(new Blob([clean], { type: 'image/svg+xml' })); });
+        const t = document.createElement('canvas'); t.width = c.width; t.height = c.height; const tg = t.getContext('2d', { willReadFrequently: true }); tg.drawImage(im, 0, 0, c.width, c.height);
+        const a = id.data, b = tg.getImageData(0, 0, c.width, c.height).data; let i = 0, u = 0, err = 0, n = 0;
+        for (let k = 3; k < a.length; k += 4) { const ma = a[k] > 127, mb = b[k] > 127; if (ma || mb) { u++; if (ma && mb) { i++; err += (Math.abs(a[k - 3] - b[k - 3]) + Math.abs(a[k - 2] - b[k - 2]) + Math.abs(a[k - 1] - b[k - 1])) / 3; n++; } } }
+        return { svg: clean, mask_iou: Math.round((i / Math.max(1, u)) * 10000) / 10000, mean_rgb_error: Math.round((err / Math.max(1, n)) * 100) / 100, paths: (clean.match(/<path/g) || []).length, bytes: clean.length };
+      }, n);
+      const header = `<!-- APPROXIMATE TRACE generated by logo-motion analyze.mjs (imagetracerjs, public domain). NOT the official artwork. mask IoU vs raster: ${tr.mask_iou}, mean RGB error: ${tr.mean_rgb_error}. Use for motion planning/masks only; request the original vector for production. -->\n`;
+      fs.writeFileSync(path.join(outDir, 'traced.svg'), header + tr.svg);
+      res.trace = { file: 'traced.svg', mask_iou: tr.mask_iou, mean_rgb_error: tr.mean_rgb_error, paths: tr.paths, bytes: tr.bytes, status: 'approximation — not official artwork' };
+      if (tr.mask_iou < 0.97) res.warnings.push(`Trace fidelity is limited (IoU ${tr.mask_iou}). Do not use traced paths in the final hold; end on the original raster.`);
+    }
+  } else { console.error('unsupported input type ' + ext); process.exit(2); }
+
+  savePng('overview.png', res.overview_png); savePng('parts.png', res.parts_png);
+  delete res.overview_png; delete res.parts_png; delete res.parts_svg;
+  res.source = path.basename(abs); res.analyzed_at = new Date().toISOString();
+  if (errors.length) res.page_errors = errors;
+  fs.writeFileSync(path.join(outDir, 'analysis.auto.json'), JSON.stringify(res, null, 2));
+  fs.writeFileSync(path.join(outDir, 'analysis.md'), worksheet(res));
+  await browser.close();
+
+  // Console summary for the agent.
+  const sy = res.symmetry || {};
+  console.log(`[analyze] ${res.source} (${res.kind}) aspect ${res.aspect_ratio}`);
+  console.log(`  parts ${res.parts.length} · islands ${res.islands.length} · holes ${res.holes.length} · symmetry V ${sy.mirror_vertical_axis} H ${sy.mirror_horizontal_axis} R180 ${sy.rotational_180}`);
+  if (res.geometry) console.log(`  geometry: straight ${res.geometry.straight_ratio} · circles [${res.geometry.circle_parts}] · complexity ${res.geometry.complexity}`);
+  if (res.repetition.length) console.log(`  repetition: ${res.repetition.map((r) => `${r.a}~${r.b}(${r.transform},${r.similarity})`).join(' ')}`);
+  console.log(`  palette: ${res.palette.map((p) => p.hex + ' ' + Math.round(p.share * 100) + '%').join(', ')}`);
+  console.log(`  heuristic: ${res.heuristics.likely_structure}`);
+  if (res.parts_svg_fidelity) console.log(`  parts.svg fidelity: IoU ${res.parts_svg_fidelity.mask_iou}, rgb err ${res.parts_svg_fidelity.mean_rgb_error}`);
+  if (res.trace) console.log(`  trace: IoU ${res.trace.mask_iou}, ${res.trace.paths} paths (approximation)`);
+  for (const w of res.warnings) console.log('  ! ' + w);
+  console.log(`  -> ${outDir}  (now LOOK at overview.png and parts.png)`);
+})().catch((e) => { console.error(e); process.exit(1); });
+
+function worksheet(r) {
+  const parts = r.parts.map((p) => `| ${p.id} | ${Math.round(p.area_share * 100)}% | ${p.bbox_norm.join(', ')} | ${p.primitive || ''} | ${p.holes ?? ''} | ${p.orientation_deg}° / ${p.elongation ?? '-'} | ${p.solidity} | _role?_ |`).join('\n');
+  return `# Logo analysis — ${r.source}
+
+> Measurements below were produced by \`engine/analyze.mjs\`. Everything in *italics* must be completed by the agent after LOOKING at \`overview.png\` and \`parts.png\`. Mark each statement **[measured]**, **[observed]** (seen in the image) or **[interpreted]**. Never present brand meaning as fact unless it comes from a cited source.
+
+## A. Structure
+- Kind of input: ${r.kind}${r.kind === 'raster' ? ` (${r.source_size.join('×')}, background ${r.background})` : ` (viewBox ${r.viewBox.join(' ')})`}
+- Heuristic: ${r.heuristics.likely_structure} — *confirm: symbol / abstract / wordmark / lettermark / emblem / mascot / combination / modular*
+- Islands: ${r.islands.length} · Parts: ${r.parts.length} · Holes (enclosed negative space): ${r.holes.length}
+- *Visual hierarchy (what reads first, second, third):*
+
+| part | ink | bbox (x,y,w,h norm) | primitive | holes | orientation / elongation | solidity | role |
+|---|---|---|---|---|---|---|---|
+${parts}
+
+## B. Geometry & construction
+- Symmetry IoU — mirror (vertical axis) ${r.symmetry.mirror_vertical_axis}, mirror (horizontal axis) ${r.symmetry.mirror_horizontal_axis}, 180° rotation ${r.symmetry.rotational_180}
+${r.geometry ? `- Straight-segment ratio ${r.geometry.straight_ratio} (1 = all straight, 0 = all curves); circle-like parts: ${r.geometry.circle_parts.join(', ') || 'none'}; polygonal parts: ${r.geometry.polygon_parts.join(', ') || 'none'}; complexity ${r.geometry.complexity}` : ''}
+- Repetition: ${r.repetition.length ? r.repetition.map((x) => `${x.a}≈${x.b} via ${x.transform} (${x.similarity}, scale ${x.scale_ratio})`).join('; ') : 'none detected'}
+- Shared construction lines: ${r.alignment.length ? r.alignment.map((l) => `${l.axis}=${l.at_norm} [${l.members.join(' ')}]`).join('; ') : 'none'}
+- Balance offset of ink centroid from bbox centre: ${JSON.stringify(r.heuristics.visual_balance_offset)}
+- *Hidden relationships / negative-space figures:*
+- *Possible draw paths, assembly order, natural pivot points:*
+
+## C. Typography (if lettering present)
+${r.features && r.features.texts ? '- Live text elements: ' + r.elements.filter((e) => e.text).map((e) => `"${e.text}" (${e.font}${e.rtl ? ', RTL' : ''})`).join('; ') : '- No live text elements (lettering, if any, is outlined).'}
+- *Typeface character, distinctive letterforms, ligatures, baseline, kerning:*
+- *Script/direction (Arabic: RTL, joining, dots/diacritics, kashida) and legibility risks:*
+
+## D. Meaning & brand personality
+- *Verified facts (with source):*
+- *Visual interpretation (labelled as interpretation):*
+- *Audience / usage context (splash, social intro, UI loader, broadcast ident…):*
+
+## E. Animation opportunities (specific to THIS logo)
+| opportunity | evidence in the logo (part ids / measurement) | why it fits this logo |
+|---|---|---|
+| *…* | *…* | *…* |
+
+## Palette
+${r.palette.map((p) => `- ${p.hex} — ${Math.round(p.share * 100)}% of ink`).join('\n')}
+
+## Warnings
+${r.warnings.length ? r.warnings.map((w) => '- ' + w).join('\n') : '- none'}
+`;
+}

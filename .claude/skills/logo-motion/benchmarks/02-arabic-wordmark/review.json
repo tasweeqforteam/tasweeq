@@ -1,0 +1,21 @@
+{
+  "reviewer": "agent (blind critic) | human:<name>",
+  "scores": {
+    "creative_originality": {
+      "score": null,
+      "evidence": ""
+    },
+    "motion_quality": {
+      "score": null,
+      "evidence": ""
+    },
+    "brand_relevance": {
+      "score": null,
+      "evidence": ""
+    },
+    "visual_clarity": {
+      "score": null,
+      "evidence": ""
+    }
+  }
+}

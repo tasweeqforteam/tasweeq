@@ -1,0 +1,77 @@
+{
+  "project": "تسويق Arabic wordmark",
+  "concept": "<chosen concept name — one line>",
+  "rationale": "<why this movement belongs to THIS logo (cite analysis evidence: part ids, measurements)>",
+  "duration": 4,
+  "fps": 60,
+  "width": 1920,
+  "height": 1080,
+  "background": "#F2F2EF",
+  "logo_rect": {
+    "x": 576,
+    "y": 379,
+    "w": 768,
+    "h": 322
+  },
+  "stages": [
+    {
+      "name": "opening",
+      "type": "intro",
+      "start": 0,
+      "end": 0.6,
+      "objects": [
+        "#p1"
+      ],
+      "initial_state": "<exact opening frame: what is visible, where, at what scale/opacity>",
+      "final_state": "<state at end of stage>",
+      "changes": "<position/scale/rotation/opacity/path changes with numbers>",
+      "easing": "power2.out",
+      "anticipation": "<optional>",
+      "follow_through": "<optional>",
+      "secondary": "<optional secondary motion>",
+      "camera": null,
+      "sound": null,
+      "tracks": []
+    },
+    {
+      "name": "final hold",
+      "type": "hold",
+      "start": 2.6,
+      "end": 4,
+      "objects": [],
+      "initial_state": "official logo, exact",
+      "final_state": "official logo, exact",
+      "changes": "none",
+      "easing": "none"
+    }
+  ],
+  "key_poses": [
+    {
+      "t": 0,
+      "description": "<opening pose>"
+    },
+    {
+      "t": 1.5,
+      "description": "<transformation / peak pose>"
+    },
+    {
+      "t": 2.6,
+      "description": "official logo complete"
+    }
+  ],
+  "markers": {
+    "reveal": 2.6
+  },
+  "assets": [],
+  "export": {
+    "formats": [
+      "mp4",
+      "gif"
+    ],
+    "transparent": false
+  },
+  "fidelity": {
+    "final_state_from": 2.6,
+    "compromises": []
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "X": {
+    "creative_originality": {"score": 1, "evidence": "A plain whole-logo opacity fade: at 0.50s the mark and wordmark are both a dim, desaturated version of the final state, and by 1.00s everything is fully on. Nothing comes from the logo's shapes (the D-curve, the two dots, the T-stem); it would fit any logo."},
+    "motion_quality": {"score": 3, "evidence": "The entire transition is done between 0.00s and 1.00s. After that, frames 1.00s through 4.48s are identical, so about 3.5s is dead hold. There is no stagger, overlap or secondary motion, and the mark and wordmark arrive simultaneously, so there is no hierarchy. The one mid-state (0.50s, grey text) is clean but dull."},
+    "brand_relevance": {"score": 2, "evidence": "A generic fade says nothing about a 'next-generation studio that moves culture'. It carries no energy, bilingual feel or character. It is safe but inert, and the two-dot 'face' never gets a moment."},
+    "visual_clarity": {"score": 8, "evidence": "The logo is well centred and fully legible from 1.00s on, with strong cyan/white contrast on near-black. At 0.50s the dimmed text is still readable. The score is held back only because there is no build to read."},
+    "top_fix": "Replace the global fade with motion derived from the mark: for example, draw the D-curve and underline, then let the two dots pop as the 'eyes', and stagger the wordmark in. Also cut the 3.5s dead hold to roughly 1s."
+  },
+  "Y": {
+    "creative_originality": {"score": 7, "evidence": "The mark builds from its own geometry. At 0.50s a lone arc of the D appears, at 1.00s the D-curve and baseline are drawn as one continuous stroke, and at 1.50s the two dots and a small T-stem fragment appear. By 2.00s the full symbol is formed before the wordmark is introduced. This is clearly specific to the logo and reads as the mark constructing itself."},
+    "motion_quality": {"score": 7, "evidence": "The sequence has clear hierarchy: mark first (0.5-2.0s), then wordmark (2.48s). The wordmark letters rise in a left-to-right stagger, with the Q still low and the last E clipped at 2.48s, and the wordmark is settled by 2.98s. Mid-states are readable and spacing is good. The weaknesses are a slight gap at 2.00s where the mark waits alone, a generic masked rise for the wordmark, and a static hold from 3.48s to 4.48s."},
+    "brand_relevance": {"score": 7, "evidence": "The draw-on, build-then-reveal feel suits a 'build brands' studio and gives a confident, constructed, techy tone. The two dots arriving at 1.50s add a hint of personality. It does not use the Arabic/bilingual aspect or any culture-moving energy beyond the build."},
+    "visual_clarity": {"score": 9, "evidence": "The lockup is identical to the official logo by 2.98s and holds cleanly through 4.48s. Intermediate frames (1.00s, 2.00s) are each legible as a coherent partial mark, never messy, and the framing is consistent throughout."},
+    "top_fix": "Make the wordmark entrance relate to the mark rather than a generic mask rise, for example by having the T-stem or the D-curve hand off into the letters. Tighten the 2.00-2.48s gap and shorten the long static tail after 3.0s."
+  },
+  "ship": "Y",
+  "why": "Y builds the logo from its own shapes (the D arc and stroke at 0.50-1.00s, the dots at 1.50s) and ends in a clean, legible lockup. X is a generic opacity fade from 0.00-1.00s followed by about 3.5s of a static frame, so it has essentially no concept."
+}

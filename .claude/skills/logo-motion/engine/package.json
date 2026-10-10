@@ -1,0 +1,21 @@
+{
+  "name": "logo-motion-engine",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Analysis, deterministic rendering and QA engine for the logo-motion Claude skill.",
+  "type": "module",
+  "scripts": {
+    "analyze": "node analyze.mjs",
+    "render": "node render.mjs",
+    "qa": "python3 qa.py",
+    "refs": "node refs.mjs",
+    "serve": "node serve.mjs",
+    "selftest": "node selftest.mjs"
+  },
+  "dependencies": {
+    "gsap": "3.15.0",
+    "imagetracerjs": "1.2.6",
+    "opentype.js": "2.0.0",
+    "playwright-core": "1.56.1"
+  }
+}

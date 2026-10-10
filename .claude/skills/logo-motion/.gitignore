@@ -1,0 +1,5 @@
+engine/node_modules/
+**/renders/frames/
+**/renders/subframes/
+**/renders/.det.png
+**/*-qa/frames/

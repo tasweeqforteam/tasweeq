@@ -1,0 +1,21 @@
+{
+  "reviewer": "same blind critic, round 3 packet",
+  "scores": {
+    "creative_originality": {
+      "score": 2,
+      "evidence": "Blank at t=0.00s, then at t=0.50s the whole lockup (symbol and wordmark together) is already present at reduced opacity, and by t=1.00s it is at full brightness. That is a plain whole-logo fade-in that would fit any logo. Nothing in the motion comes from the T/D bracket, the two dot-eyes or the pill-shaped terminal."
+    },
+    "motion_quality": {
+      "score": 4,
+      "evidence": "The only visible change is the fade between t=0.50s and t=1.00s. Everything from t=1.00s to t=4.48s is identical, so about 3.5s of the 4.5s clip is a dead hold with no secondary motion, settle or accent. The dim grey and teal mid-state at t=0.50s looks washed out, and the symbol and wordmark move in lockstep with no stagger."
+    },
+    "brand_relevance": {
+      "score": 3,
+      "evidence": "A fade is safe but says nothing about 'Build Brands That Move Culture' or a next-generation studio. The mark's character-like dot eyes never get to react or blink, and no energy is conveyed."
+    },
+    "visual_clarity": {
+      "score": 8,
+      "evidence": "The final lockup (t=1.00s onward) is crisp, centred, correctly coloured (cyan symbol, off-white wordmark) and legible. The W is slightly tight compared with official.png, where the letterspacing is more open. The faded t=0.50s frame is low-contrast but brief."
+    }
+  }
+}

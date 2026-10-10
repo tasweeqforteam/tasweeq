@@ -1,0 +1,21 @@
+{
+  "reviewer": "blind critic (fresh sub-agent, pixels only) — round 3 packet; round 4 fixed its top issue (mask slivers) and trimmed the hold, not re-reviewed",
+  "scores": {
+    "creative_originality": {
+      "score": 8,
+      "evidence": "The symbol builds itself from its own geometry. An arc of the D appears at t=0.47s. By t=0.93s the lower rail and curve are drawn. The two dot-eyes pop in at t=1.40s, and the T-bracket block lands by t=1.87s. The wordmark then rises from the baseline, with slivers of T and a dash at t=1.87s and a masked reveal at t=2.32s. The construction order reads as the mark's anatomy, so it is specific to this logo. It stops short of a 9 because the T-bar arrival looks like a snap and the wordmark reveal is a fairly standard baseline mask."
+    },
+    "motion_quality": {
+      "score": 7,
+      "evidence": "Clear staging gives a readable sequence: contour, then eyes, then T-bracket, then wordmark. The symbol-to-wordmark overlap at t=1.87s and t=2.32s keeps momentum. Flaws: at t=2.32s the Q is clipped by the mask and a stray thin horizontal line sits under the last E, which looks like a mask artifact. The T-bracket seems to appear between t=1.40s and t=1.87s with little intermediate read. The hold from t=2.78s to t=4.18s is long, about 1.4s."
+    },
+    "brand_relevance": {
+      "score": 8,
+      "evidence": "Drawing the mark and letting the eyes appear gives the symbol personality, like a character waking up. A build-from-parts sequence suits a marketing studio about making things. The wordmark's rise suggests 'moving' without being aggressive."
+    },
+    "visual_clarity": {
+      "score": 8,
+      "evidence": "From t=2.78s the final lockup is clean, well framed and identical to the official logo (apart from slightly tighter tracking on the W). Mid-states are mostly readable, though the lone arc at t=0.47s is ambiguous and the clipped Q at t=2.32s is untidy for a moment."
+    }
+  }
+}

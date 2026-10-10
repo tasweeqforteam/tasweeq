@@ -1,0 +1,127 @@
+{
+  "composition": "../composition.html",
+  "rendered_at": "2026-10-10T20:47:36.642Z",
+  "meta": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 60,
+    "duration": 4,
+    "background": "#0A0A0A",
+    "markers": {
+      "symbol": 2.3,
+      "reveal": 2.95
+    },
+    "hasReference": true,
+    "logoRect": {
+      "x": 410,
+      "y": 458,
+      "w": 1100,
+      "h": 165
+    },
+    "timelineDuration": 2.94,
+    "title": "Tasweeq — Two Scripts, One Mark"
+  },
+  "fps": 60,
+  "from": 0,
+  "to": 4,
+  "frames": 240,
+  "scale": 1,
+  "transparent": false,
+  "stills": {
+    "first": "first.png",
+    "final": "final.png",
+    "reference": "reference.png",
+    "markers": [
+      "marker-symbol.png",
+      "marker-reveal.png"
+    ]
+  },
+  "outputs": {
+    "mp4": {
+      "file": "composition.mp4",
+      "probe": {
+        "ok": true,
+        "codec": "h264",
+        "width": 1920,
+        "height": 1080,
+        "pix_fmt": "yuv420p",
+        "fps": 60,
+        "frames": 240,
+        "duration": 4,
+        "bytes": 73697
+      },
+      "encoded_color_deltaE": 0.55
+    },
+    "gif": {
+      "file": "composition.gif",
+      "probe": {
+        "ok": true,
+        "codec": "gif",
+        "width": 720,
+        "height": 405,
+        "pix_fmt": "bgra",
+        "fps": 25,
+        "frames": 100,
+        "duration": 4,
+        "bytes": 100172
+      }
+    },
+    "webm": {
+      "file": "composition.webm",
+      "probe": {
+        "ok": true,
+        "codec": "vp9",
+        "width": 1920,
+        "height": 1080,
+        "pix_fmt": "yuv420p",
+        "fps": 60,
+        "frames": null,
+        "duration": 4,
+        "bytes": 88268
+      },
+      "encoded_color_deltaE": 0.42
+    }
+  },
+  "validation": [
+    {
+      "format": "mp4",
+      "ok": true,
+      "issues": []
+    },
+    {
+      "format": "gif",
+      "ok": true,
+      "issues": []
+    },
+    {
+      "format": "webm",
+      "ok": true,
+      "issues": []
+    },
+    {
+      "format": "mp4:color",
+      "ok": true,
+      "issues": []
+    },
+    {
+      "format": "webm:color",
+      "ok": true,
+      "issues": []
+    }
+  ],
+  "determinism": {
+    "samples": [
+      192,
+      0,
+      84,
+      239,
+      144
+    ],
+    "mismatched": [],
+    "byte_identical": true,
+    "deterministic": true
+  },
+  "motion_blur_subframes": null,
+  "page_errors": [],
+  "elapsed_s": 41.148
+}

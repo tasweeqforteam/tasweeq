@@ -1,0 +1,101 @@
+[
+ {
+  "name": "Oneshotted",
+  "url": "https://oneshotted.io/",
+  "reachable_from_env": "dns-fail",
+  "best_for": "Prompt-grounded gallery of AI-coded motion pieces (Remotion, HyperFrames, GSAP, Three.js) with framework/model metadata and a 'Logo reveal' category.",
+  "how_to_search": "Homepage filters appear as query params (seen: ?framework=threejs&motion_type=3d-scene&page=1, ?motion_type=data-viz&page=1); piece pages /v/<slug>; creator pages /c/<handle>. Via skill: library.py search/recipe/frames; API key at /mcp-docs (ONESHOTTED_API_KEY, osk_...). Via WebSearch use allowed_domains=['oneshotted.io'].",
+  "signal_quality": "High for prompt+framework+model pairing when creator prompt is verified; some prompts are reconstructed from frames by an open-weight vision model and labelled so. Logo-reveal items not individually confirmed.",
+  "notes": "WebFetch ENOTFOUND for oneshotted.io and www. All info from WebSearch summaries and the fetched GitHub README/SKILL.md. MCP server URL and tool names NOT verifiable; only a site banner 'Oneshotted MCP: give Claude Code, Cursor or Codex this whole library, prompts included' (search summary) and the /mcp-docs link."
+ },
+ {
+  "name": "oneshotted-skill (GitHub)",
+  "url": "https://github.com/Codesaz-Company/oneshotted-skill",
+  "reachable_from_env": "webfetch-ok",
+  "best_for": "Authoritative description of the Oneshotted library interface (library.py commands) and motion rules.",
+  "how_to_search": "Read README and raw SKILL.md at raw.githubusercontent.com/Codesaz-Company/oneshotted-skill/main/skills/oneshotted/SKILL.md.",
+  "signal_quality": "High for workflow/rules; no data about library contents.",
+  "notes": "Mirror at GovarJabbar/oneshotted-skill. MIT. 4 commits, 0 stars at fetch."
+ },
+ {
+  "name": "Behance - logo animation search",
+  "url": "https://www.behance.net/search/projects/logo%20animation",
+  "reachable_from_env": "dns-fail",
+  "best_for": "Studio and freelancer portfolio case studies, process write-ups, 2D/3D logo animation inspiration; Adobe-ecosystem work.",
+  "how_to_search": "URL pattern /search/projects/<term> (seen: 'logo animation', 'logoanimation', '2d logo animation', 'logo animation intro'); /hire/services/logo-animation; /tags/animation. Use sort by appreciations/views and 'Motion Graphics' field filter in UI. WebSearch with allowed_domains=['behance.net'] returns indexed project pages.",
+  "signal_quality": "Medium: many freelance service listings and templates; best case studies need manual curation by appreciations.",
+  "notes": "WebFetch ENOTFOUND (www.behance.net), so not verified by fetch; URLs exist in WebSearch index."
+ },
+ {
+  "name": "Dribbble - logo-animations tag",
+  "url": "https://dribbble.com/tags/logo-animations",
+  "reachable_from_env": "dns-fail",
+  "best_for": "Short looping shots, quick style references, After Effects/Lottie/3D logo concepts.",
+  "how_to_search": "Tag page /tags/logo-animations (200+ shots per search summary); search /search/logo-animation; user collections /<user>/collections/<id>-Logo-Animations. Sort by popular/recent in UI.",
+  "signal_quality": "Medium for aesthetics, low for process (titles and view counts only).",
+  "notes": "WebFetch ENOTFOUND; confirmed only via WebSearch index."
+ },
+ {
+  "name": "Vimeo channel 1807430",
+  "url": "https://vimeo.com/channels/1807430",
+  "reachable_from_env": "dns-fail",
+  "best_for": "Unknown - could not identify what this channel is.",
+  "how_to_search": "Not verified. Related logo channels seen in search: vimeo.com/channels/74752 (Logo Animations, ~31 videos, breakdowns), vimeo.com/channels/logo (~55), vimeo.com/channels/logomotion, vimeo.com/groups/63495.",
+  "signal_quality": "Unknown for 1807430. Vimeo gives full-res stills and often breakdown notes in descriptions.",
+  "notes": "WebFetch ENOTFOUND for vimeo.com; WebSearch found no page referencing 1807430. Channel identity unverified."
+ },
+ {
+  "name": "Motionographer",
+  "url": "https://motionographer.com/tag/logo-animation/",
+  "reachable_from_env": "dns-fail",
+  "best_for": "Curated industry features, studio interviews, breakdowns (e.g. Imaginary Forces Thunderbolts*, Superexpresso BAR SUPER BCN, Nervi breakdown).",
+  "how_to_search": "Tag pages /tag/logo-animation/, /tag/logo/, /tag/typography/; site search ?s=logo+animation; WebSearch allowed_domains=['motionographer.com'] works well.",
+  "signal_quality": "High for professional craft and rationale; low volume of purely logo content.",
+  "notes": "WebFetch ENOTFOUND for www. and bare host; content known only from WebSearch summaries."
+ },
+ {
+  "name": "School of Motion blog",
+  "url": "https://www.schoolofmotion.com/blog",
+  "reachable_from_env": "dns-fail",
+  "best_for": "Technique tutorials (morph, match cut, reverse animation, expressions) with transferable principles.",
+  "how_to_search": "WebSearch with allowed_domains=['schoolofmotion.com'] and terms like 'logo animation', 'morph', 'match cut', 'easing'. Blog index /blog.",
+  "signal_quality": "Medium-high for technique; no dedicated logo-principles article found.",
+  "notes": "WebFetch ENOTFOUND. Not to be confused with motiondesign.school (different org)."
+ },
+ {
+  "name": "LottieFiles",
+  "url": "https://lottiefiles.com/free-animations/logo-reveal",
+  "reachable_from_env": "dns-fail",
+  "best_for": "Free logo-reveal Lottie files (JSON/dotLottie/GIF/MP4) for studying structure and output size.",
+  "how_to_search": "Hub /free-animations/logo-reveal; search ?q=<term>; individual pages /<id>-<slug>. Check per-file licence (Lottie Simple License vs general).",
+  "signal_quality": "Medium: many templated, simple reveals; licences vary.",
+  "notes": "WebFetch ENOTFOUND; reachable only through WebSearch index."
+ },
+ {
+  "name": "Remotion prompt gallery",
+  "url": "https://www.remotion.dev/prompts",
+  "reachable_from_env": "dns-fail",
+  "best_for": "Prompts with stated tool and model (e.g. Claude Code, Opus 4.5/4.6); includes a logo prompt and a documented failure.",
+  "how_to_search": "Entries at /prompts/<slug>; WebSearch with allowed_domains=['remotion.dev'] and keywords 'logo', 'SVG'. convert.remotion.dev mirrors appear in results.",
+  "signal_quality": "High for attributed Claude Code prompts; small set.",
+  "notes": "WebFetch ENOTFOUND; details from WebSearch summaries only."
+ },
+ {
+  "name": "GitHub (search and topics)",
+  "url": "https://github.com/topics/logo-animation",
+  "reachable_from_env": "webfetch-ok",
+  "best_for": "Skills, repos and READMEs with install commands, licences, prompts and SKILL.md rules.",
+  "how_to_search": "WebFetch https://github.com/search?q=<query>&type=repositories (worked, later 429 rate-limited); /topics/logo-animation; repo pages; raw.githubusercontent.com/<owner>/<repo>/main/<path> for SKILL.md. api.github.com returned 403.",
+  "signal_quality": "High for verifiable source code and rules; star counts vary by snapshot.",
+  "notes": "Only host family that resolved through WebFetch in this environment."
+ },
+ {
+  "name": "Prompt aggregator galleries (secondary)",
+  "url": "https://motionpromptgallery.com/",
+  "reachable_from_env": "dns-fail",
+  "best_for": "Aggregated AI motion pieces with prompts (also ai-x-leaders.com/en/prompt/, revid.ai/claude-motion-graphics, ayautomate.com/resources/claude-opus-5-5-motion-graphics, aiidelist.com/blog/opus-5-5-motion-design).",
+  "how_to_search": "Browse by model/tool; they cite X posts as source.",
+  "signal_quality": "Low-medium: secondary aggregators, SEO-style, claims unverified.",
+  "notes": "Seen only in WebSearch results; not fetched."
+ }
+]

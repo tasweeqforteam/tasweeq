@@ -1,0 +1,2418 @@
+[
+ {
+  "id": "ref-repo-pixel2motion",
+  "title": "Pixel2Motion - AI Logo Animation Skill",
+  "creator": "nolangz",
+  "url": "https://github.com/nolangz/pixel2motion",
+  "attribution": "verified-claude",
+  "verification": {
+   "status": "verified",
+   "method": "cloned repo and read source on 2026-10-10",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "raster logo (PNG/JPG/WebP/screenshot)",
+   "symbol + wordmark",
+   "self-crossing ribbon marks (infinity, script)",
+   "monogram / single letter",
+   "svg-logo",
+   "mark-dot-wordmark"
+  ],
+  "motion_techniques": [
+   "stroke draw-on (dash/mask, pathLength=1)",
+   "split-fill draw-on across self-intersections with tip glint",
+   "staggered assembly",
+   "scale-pop with overshoot",
+   "mask wipe",
+   "morph from primitive",
+   "letter cascade",
+   "idle loops",
+   "hover states",
+   "anticipation-action-settle 20/50/30 timeline",
+   "raster-to-svg-fit",
+   "draw-on",
+   "mask",
+   "anticipation-action-follow-through",
+   "deterministic-frame-capture",
+   "continuity-probe"
+  ],
+  "brand_personality": [
+   "playful/joyful",
+   "elegant/premium",
+   "trustworthy/professional",
+   "energetic/bold",
+   "calm/caring",
+   "friendly/approachable"
+  ],
+  "reveal_mechanism": "Brief-driven choreography on semantic SVG parts (CSS keyframes or JS act timeline) landing on a QA-verified final vector; draw-on, staggered assembly, scale-pop, mask wipe, morph, letter cascade patterns",
+  "motion_family": "Disney-12-principles logo choreography with personality-derived easing tokens",
+  "production": "2d",
+  "framework": [
+   "SVG",
+   "CSS keyframes",
+   "vanilla JS",
+   "Python (Pillow, numpy)",
+   "Playwright",
+   "headless Chrome"
+  ],
+  "complexity": "high",
+  "concept": "Raster logo to minimal smooth SVG (smoothness gate, overlay IoU, 10-iteration budget) structured as addressable parts, then choreographed into a dependency-free HTML showcase with deterministic ?t= seeking, frame strips, easing probe, ink-delta continuity sweep and a final-frame contract.",
+  "prompt_available": true,
+  "prompt_excerpt": "Use $pixel2motion to turn this raster logo into a clean minimal vector and then into a choreographed logo animation. Analyze the source and write a motion brief (3 brand personality words, usage context, choreography sketch)... (agents/openai.yaml default_prompt, a Codex file)",
+  "source_code_available": true,
+  "observations": [
+   {
+    "text": "SKILL.md states: 'minimal smooth geometry IS animatable geometry' and enforces a hard Smoothness Gate over IoU.",
+    "type": "observed"
+   },
+   {
+    "text": "Motion QA uses deterministic ?t=<ms> seeking, frame strips, an easing probe (computed values at seeked times) and an ink-delta sweep across handoffs.",
+    "type": "observed"
+   },
+   {
+    "text": "Final Frame Contract: captured final frame must equal the verified static SVG; same-pipeline ?static=1 vs ?t=<end> must be exact 0 diff.",
+    "type": "observed"
+   },
+   {
+    "text": "motion-personality.md maps energy x tone axes to six presets with token sets (duration, ease-enter, ease-settle, squash, overshoot).",
+    "type": "observed"
+   },
+   {
+    "text": "docs/index.html labels showcase columns 'Claude' and 'GPT'; README alt text 'Claude Horizon logo motion preview'; two Claude cells note '1 more round prompt after result'. Model and harness are not stated.",
+    "type": "observed"
+   },
+   {
+    "text": "README calls it an 'open-source Codex and Claude skill'; SKILL.md is described as Codex-facing and agents/openai.yaml is a Codex file.",
+    "type": "observed"
+   },
+   {
+    "text": "Chromium-specific finding: var() timing functions inside @keyframes are silently dropped, degrading motion to linear; skill mandates literal cubic-bezier in keyframes.",
+    "type": "observed"
+   },
+   {
+    "text": "Fitting quality depends on the agent hand-fitting Beziers within 10 iterations; trace output is only a starter.",
+    "type": "inferred"
+   },
+   {
+    "text": "README (fetched): MIT; 2.4k stars; 'open-source Codex and Claude skill'; README does not say demos were Claude-made (only 'claude' in GIF filenames).",
+    "type": "observed"
+   },
+   {
+    "text": "SKILL.md (raw, fetched): write 3 personality words + usage context first; durations: splash 1200-2000 ms, header 300-800 ms, hover 150-300 ms; 20/50/30 anticipation/action/follow-through; stagger parts 10-20%; keyframe easing must be literal cubic-bezier (var() silently falls back to linear).",
+    "type": "observed"
+   },
+   {
+    "text": "Failure modes documented: stair-stepped trace hidden by high IoU; round-cap stall and pop; lockstep motion; mid-flight clipping; non-deterministic screenshots.",
+    "type": "observed"
+   },
+   {
+    "text": "Attribution caveat: demo columns are labelled Claude vs GPT, but model version, harness and prompts are not stated.",
+    "type": "observed"
+   }
+  ],
+  "transferable_principles": [
+   "Structure artwork for motion first: one addressable element per semantic part, split along animation seams, stable ids.",
+   "Derive motion parameters from a written brief (personality words, energy x tone, usage context) and record the derivation.",
+   "Final-frame contract: the animation must land exactly on the verified static logo.",
+   "Evidence over claims: deterministic time-seek, frame strips viewed by vision, numeric probes for dropped easing and handoff stalls.",
+   "Prefer smooth low-complexity geometry over pixel-fit scores; cap fitting iterations and disclose residuals.",
+   "Timeline grammar: anticipation/action/settle about 20/50/30 with staggered overlaps.",
+   "Motion brief traces to every parameter",
+   "Final animated frame must equal verified static logo",
+   "Never let all parts start/stop on the same frame",
+   "Seek time (?t=) for QA instead of wall-clock"
+  ],
+  "weaknesses": [
+   "Very long SKILL.md (28 KB) with many named rules; high load for the agent (observed).",
+   "macOS-biased Chrome paths in render_overlay.py and export_claude_videos.mjs (observed).",
+   "README publishing checklist stale (says add a LICENSE although one exists) and README is partly commercial marketing (observed).",
+   "No final-quality automatic vectorisation; quality relies on agent hand-fitting (observed).",
+   "Web/video output only; no Lottie export (observed).",
+   "Prompts for the Claude-labelled showcase outputs are not published (observed).",
+   "Rigour is overkill for simple single-shape logos (inferred).",
+   "Heavy pipeline; needs Chrome/Playwright",
+   "Trace output unusable as final art"
+  ],
+  "license": "MIT (Copyright (c) 2026 Nolan Lai)",
+  "model": null,
+  "agent": null,
+  "tags": [
+   "logo-animation",
+   "svg",
+   "raster-to-vector",
+   "css-keyframes",
+   "qa-evidence",
+   "disney-principles",
+   "deterministic-capture",
+   "codex-and-claude",
+   "qa",
+   "failure-documented",
+   "draw-on"
+  ]
+ },
+ {
+  "id": "ref-repo-wiggle",
+  "title": "Wiggle - Logo Animation Skill for Claude Code",
+  "creator": "talknerdytome-labs",
+  "url": "https://github.com/talknerdytome-labs/wiggle-claude-skill",
+  "attribution": "claude-compatible",
+  "verification": {
+   "status": "verified",
+   "method": "cloned repo and read source on 2026-10-10",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "raster logo (PNG/JPG)",
+   "SVG logo",
+   "icon + text multi-element logo",
+   "audio/waveform brand marks",
+   "logo-loop",
+   "icon-logo"
+  ],
+  "motion_techniques": [
+   "fade + gentle scale",
+   "bounce entrance with overshoot",
+   "scale pulse loop",
+   "smooth rotation loop",
+   "wiggle/jello",
+   "vertical waveform",
+   "simultaneous vs staggered multi-element entrance",
+   "hover pinch (reference examples)",
+   "fade",
+   "bounce",
+   "scale-pulse",
+   "rotation",
+   "wiggle-jello",
+   "waveform",
+   "staggered-entrance",
+   "loop-validation"
+  ],
+  "brand_personality": [
+   "professional/corporate",
+   "playful",
+   "bold/startup",
+   "luxury/elegant",
+   "audio/organic"
+  ],
+  "reveal_mechanism": "Opacity/scale/position/rotation keyframes on Lottie image layers (PNG assets), with icon and text layers optionally staggered by 15/30/45 frames",
+  "motion_family": "Lottie image-layer keyframe presets chosen by intent classification",
+  "production": "2d",
+  "framework": [
+   "Lottie JSON",
+   "Python lottie library",
+   "Cairo",
+   "FFmpeg",
+   "Pillow",
+   "potrace (optional)"
+  ],
+  "complexity": "medium",
+  "concept": "Philosophy-first workflow (personality, emotion, motion metaphor), logo structure analysis, asset preparation, hand-written Lottie JSON, validation scripts (structure, loop, promise-vs-implementation), preview then full render to GIF/MP4.",
+  "prompt_available": true,
+  "prompt_excerpt": "Animate my logo with a bounce entrance effect",
+  "source_code_available": true,
+  "observations": [
+   {
+    "text": "SKILL.md makes 'Define Motion Philosophy' and 'Analyze Logo Structure' mandatory 30-second steps before any animation.",
+    "type": "observed"
+   },
+   {
+    "text": "Logo text must be extracted from the SVG; recreating it with PIL ImageDraw is listed as a critical mistake.",
+    "type": "observed"
+   },
+   {
+    "text": "Animation is applied to rasterised PNG image layers; stroke reveal needs shape layers and is 'Not recommended for first-time users'.",
+    "type": "observed"
+   },
+   {
+    "text": "prepare_logo.py imports only Pillow (no SVG rasteriser) although SKILL.md instructs running it on SVG elements; requirements.txt lacks an SVG renderer.",
+    "type": "observed"
+   },
+   {
+    "text": "Validation is structural (validate_lottie, validate_loop, verify_animation); no step instructs viewing rendered frames.",
+    "type": "observed"
+   },
+   {
+    "text": "references/real-world-examples contains nine third-party brand hover Lottie files (Reddit, Slack, Discord...); redistribution rights unstated, Slack file name suggests an icon-library asset.",
+    "type": "observed"
+   },
+   {
+    "text": "README says 'Created for use with Claude Code' but the repo ships no showcase outputs, so no claim of Claude-made output exists.",
+    "type": "observed"
+   },
+   {
+    "text": "Hand-writing dense keyframe JSON (25-45+, up to 120 keyframes) without a visual check is error-prone for an agent.",
+    "type": "inferred"
+   },
+   {
+    "text": "README (fetched): 26 stars, 3 forks; credits line says 'Created for use with Claude Code by Anthropic' and 'part of the Anthropic Agent Skills collection' - I could not confirm this claim.",
+    "type": "observed"
+   },
+   {
+    "text": "Example prompts: 'Make my logo wiggle when it appears', 'Add a professional fade-in effect to my brand logo'.",
+    "type": "observed"
+   }
+  ],
+  "transferable_principles": [
+   "Make a motion philosophy (personality, emotion, metaphor) a mandatory step before any keyframe.",
+   "Analyse logo structure first and branch the workflow (text vs icon, single vs multi-element, vector vs raster).",
+   "Never recreate logo text; extract it from the source artwork.",
+   "Preview cheaply (first N frames, small test render) before full render, and validate loop closure mathematically.",
+   "Verify promise vs implementation (is the stagger actually present?), and add a visual check on top.",
+   "Keep SKILL.md a lean index with detail in references, plus size budgets per use case.",
+   "Preview only the first ~60 frames while iterating",
+   "Check outputs for blank/corrupt renders",
+   "Provide size targets per use case"
+  ],
+  "weaknesses": [
+   "SVG preparation path appears unsupported by prepare_logo.py and requirements (observed).",
+   "Raster image-layer animation only; no path-level draw-on or morph in the shipped workflow (observed).",
+   "No visual verification of the rendered output (observed).",
+   "Dangling reference: text guide points to 'Pattern #9 in SKILL.md', which does not exist (observed).",
+   "Cairo GIF rendering crashes on embedded images over 100 KB (observed, documented).",
+   "Licence file is an abbreviated Apache-2.0 notice with no copyright holder; third-party brand examples have unclear rights (observed).",
+   "README claims Claude Code handles all dependencies automatically, unsupported by SKILL.md (observed).",
+   "Single visible commit dated 2025-10-19 in a shallow clone; maintenance cadence unknown (inferred).",
+   "Menu of generic effects (fade/bounce/pulse) - low brand specificity (inferred)",
+   "Authorship claim in README unverified"
+  ],
+  "license": "Apache-2.0 (abbreviated notice in LICENSE.txt, 'Copyright 2025', no holder named, full text not included)",
+  "model": null,
+  "agent": null,
+  "tags": [
+   "lottie",
+   "logo-animation",
+   "gif",
+   "mp4",
+   "claude-code-skill",
+   "philosophy-first",
+   "validation-scripts",
+   "skill",
+   "playful"
+  ]
+ },
+ {
+  "id": "ref-repo-drawn-by-code",
+  "title": "drawn-by-code",
+  "creator": "illodev",
+  "url": "https://github.com/illodev/drawn-by-code",
+  "attribution": "verified-claude",
+  "verification": {
+   "status": "verified",
+   "method": "cloned repo and read source on 2026-10-10",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "brand logo as SVG path (cut as paper / clay badge)",
+   "logo + wordmark lockup",
+   "general animated characters and scenes (not logo-specific)"
+  ],
+  "motion_techniques": [
+   "deterministic pure-function-of-time scenes",
+   "animating on twos (12 drawings/s)",
+   "continuous physical transitions carrying an object across a cut",
+   "beat-aligned cuts",
+   "camera dolly and parallax layers",
+   "IK-rigged figures",
+   "stop-motion style kits"
+  ],
+  "brand_personality": [
+   "handmade/warm",
+   "psychedelic",
+   "playful",
+   "editorial/historical",
+   "retro"
+  ],
+  "reveal_mechanism": "Shot-by-shot scripted scenes where each shot has one verb action, with logo cut from the brand's SVG path and re-cut at display scale; transitions carry one object across the cut",
+  "motion_family": "Code-drawn stylised video (paper-cutout, risograph, clay, engraving, line) with review-driven iteration",
+  "production": "hybrid",
+  "framework": [
+   "Canvas 2D",
+   "WebGL2 (raymarching)",
+   "Node.js",
+   "Playwright/headless Chromium",
+   "ffmpeg",
+   "ElevenLabs (audio)"
+  ],
+  "complexity": "high",
+  "concept": "A public toolbox and test bench where Claude Code draws every frame in JavaScript; each experiment passes an automatic review (determinism, flashes, holes, rhythm) and user feedback, and lessons are distilled into per-style skills.",
+  "prompt_available": true,
+  "prompt_excerpt": "make me a 10 s paper-cutout video for...",
+  "source_code_available": true,
+  "observations": [
+   {
+    "text": "README: 'Animations and videos made with code by Claude.' and 'With Claude Code, just ask: make me a 10 s paper-cutout video for...'.",
+    "type": "observed"
+   },
+   {
+    "text": "animate/SKILL.md: 'The brand's logo is traced, never drawn by eye'; wordmark must be the whole lockup from the SVG.",
+    "type": "observed"
+   },
+   {
+    "text": "No SVG-ingestion code in engine/ or styles/; the logo rule is prose and brand code lives in gitignored private/ folders.",
+    "type": "observed"
+   },
+   {
+    "text": "review.mjs checks non-determinism by painting frames in a different order and comparing hashes; also flashes, holes, flat frames, off-beat cuts.",
+    "type": "observed"
+   },
+   {
+    "text": "CLAUDE.md mandates rendering and looking at frames, up to 3 automatic rounds, user feedback recorded verbatim, lessons distilled into skills.",
+    "type": "observed"
+   },
+   {
+    "text": "Showcase replicas (what-do-you-love, opus5-riso) are studies of Kevin Ngo's videos, credited as his design and animation.",
+    "type": "observed"
+   },
+   {
+    "text": "HANDOFF.md reports a cloud container without GPU (WebGL frame took minutes) and a final render not yet made at handoff; opus5 detail round cites about 10 M tokens.",
+    "type": "observed"
+   },
+   {
+    "text": "Skill rules may over-fit one demanding reviewer's taste because verbatim feedback becomes rules.",
+    "type": "inferred"
+   }
+  ],
+  "transferable_principles": [
+   "Make scenes pure functions of time and verify determinism by rendering frames out of order.",
+   "Close the loop with an automatic review script plus a contact sheet the agent must look at, capped at 3 rounds before escalating.",
+   "Trace the brand logo from the client's SVG, include the wordmark lockup, and compare side by side at the same size.",
+   "Distil lessons from each round into imperative skill rules, keeping client-specific rules out of the generic skill.",
+   "Each shot needs a one-sentence verb action; one evolving idea beats a list of effects.",
+   "Inspect crops at full resolution; downscaled sheets hide defects."
+  ],
+  "weaknesses": [
+   "Not logo-specific: no logo ingestion or vector-fidelity tooling in the repo (observed).",
+   "High token and wall-clock cost; GPU needed for heavy WebGL styles (observed).",
+   "Several styles 'in testing', one experiment paused (observed).",
+   "Emphasis on hand-made illustrative looks rather than clean brand-logo motion (observed).",
+   "Audio assets from ElevenLabs carry a paid-plan commercial-use condition (observed).",
+   "Large repo (543 files incl. binaries) (observed)."
+  ],
+  "license": "MIT (Copyright (c) 2026 illodev); fonts under SIL OFL 1.1; assets/sfx generated with ElevenLabs under its terms",
+  "model": null,
+  "agent": "Claude Code",
+  "tags": [
+   "canvas",
+   "webgl",
+   "deterministic-rendering",
+   "review-loop",
+   "style-taxonomy",
+   "claude-code",
+   "skills",
+   "video"
+  ]
+ },
+ {
+  "id": "ref-repo-motion-promo",
+  "title": "motion-promo (claude-motion-promo-skill)",
+  "creator": "habibtalib",
+  "url": "https://github.com/habibtalib/claude-motion-promo-skill",
+  "attribution": "claude-compatible",
+  "verification": {
+   "status": "verified",
+   "method": "cloned repo and read source on 2026-10-10",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "raster brand logo (PNG) placed as image",
+   "end-card lockup",
+   "app icon / badge in caption cards"
+  ],
+  "motion_techniques": [
+   "spring pop-in with stagger",
+   "orthographic orbiting camera",
+   "word-by-word caption reveals",
+   "cursor-click CTA",
+   "logo burst/glow/light-sweep reveal (concept list)",
+   "beat-snapped cuts",
+   "count-up numbers"
+  ],
+  "brand_personality": [
+   "friendly/flat toon",
+   "launch keynote (Apple-like)",
+   "dark tech",
+   "editorial",
+   "kinetic typography"
+  ],
+  "reveal_mechanism": "Logo appears on the end card (or as a lockup right after the hook) with word-by-word title, glow/rays and a clicked CTA; never opens on the logo",
+  "motion_family": "Directed product-promo video: 3D isometric diorama and HTML/CSS/SVG motion-graphics with synthesized sound",
+  "production": "hybrid",
+  "framework": [
+   "Three.js",
+   "HTML/CSS/SVG",
+   "GSAP",
+   "lottie-web",
+   "Playwright/headless Chromium",
+   "ffmpeg",
+   "Python numpy audio synth"
+  ],
+  "complexity": "high",
+  "concept": "One Claude Code skill routing between a Three.js diorama engine and a vendored motion-video engine; direct first (facts, three concepts, sonic concept), build, lint with check/audit, render frame-exact, review contact sheets and report honestly.",
+  "prompt_available": true,
+  "prompt_excerpt": "Make a 30 second promo video for my app <NAME> as a 3D isometric diorama in flat illustration style (like Storyset): toon shading, soft shadows, white background, a grey ground disc, brand colours <#hex, #hex> only.",
+  "source_code_available": true,
+  "observations": [
+   {
+    "text": "README: 'A Claude Code skill that turns one prompt into a directed motion video' and 'This whole video was made by this skill, about this skill.'",
+    "type": "observed"
+   },
+   {
+    "text": "Demo outro text in examples/skill-promo/scene.js: 'A Claude Code skill · this video was made with it'; no explicit statement that Claude authored the scene.",
+    "type": "observed"
+   },
+   {
+    "text": "Logo handling is raster: copied to assets/logo.png and drawn as an image; brand colours sampled from it with a Pillow snippet.",
+    "type": "observed"
+   },
+   {
+    "text": "direction.md: 'Hook: A strong image or line in the first 2 s... No logo-first intros'; end card holds at least 1.5 s.",
+    "type": "observed"
+   },
+   {
+    "text": "craft.md lists measurable thresholds with cited sources (EBU R 95, WCAG 2.2, ITU-R BT.1359) and labels others 'Practice. Not sourced.'",
+    "type": "observed"
+   },
+   {
+    "text": "render.mjs launches Chromium with --use-angle=metal and default font is macOS-only Avenir Next.",
+    "type": "observed"
+   },
+   {
+    "text": "Vendored motion-video 1.1.0 (MIT, Farhan Syah) with one local patch for Chrome 13x colour crash.",
+    "type": "observed"
+   },
+   {
+    "text": "Setup is heavy for a logo-only use case (speech runtime about 500 MB, large icon set).",
+    "type": "inferred"
+   }
+  ],
+  "transferable_principles": [
+   "Direct before building: gather facts and brand assets, ask at most 5 questions with defaults, draft three concepts, pick one.",
+   "Sample brand colours from the logo rather than inventing them, and flag every invented item in the final report.",
+   "Reveal the logo after a hook or on a held end card, never as the opening frame.",
+   "Choreography grammar: stagger, animate 2-3 properties per entrance, faster exits, deliberate holds.",
+   "Lint measurable rules (text size, contrast, hold, margins, flashes) and review the rest from contact sheets and frames of the final encode.",
+   "Report honestly what was verified by instrument, by eye, or not at all."
+  ],
+  "weaknesses": [
+   "No logo-specific pipeline: raster only, no vector parsing or segmentation (observed).",
+   "macOS-biased renderer flags and default font (observed).",
+   "Two incompatible runtimes bridged only through rendered footage (observed).",
+   "Large vendored surface and a manual re-vendoring process (observed).",
+   "Only one self-promotional demo; effectiveness across different logos unproven (observed).",
+   "Audio verified by meters, not by ear, as the skill admits (observed).",
+   "Shallow clone shows one commit, so maintenance history unknown (inferred)."
+  ],
+  "license": "MIT (Copyright (c) 2026 Habib Talib); vendored motion-video MIT (Farhan Syah); Lucide icons ISC; Inter/JetBrains Mono fonts SIL OFL",
+  "model": null,
+  "agent": null,
+  "tags": [
+   "promo-video",
+   "threejs",
+   "isometric",
+   "motion-graphics",
+   "claude-code-skill",
+   "direction-first",
+   "lint",
+   "sound-sync"
+  ]
+ },
+ {
+  "id": "ref-remotion-prompt-3d-svg-logo",
+  "title": "Spinning, glitching SVG Logo turned 3D (Remotion prompt gallery)",
+  "creator": "Remotion prompt gallery (submitter not captured)",
+  "url": "https://www.remotion.dev/prompts/spinning-glitching-svg-logo-turned-3d",
+  "attribution": "verified-claude",
+  "verification": {
+   "status": "partially-verified",
+   "method": "search snippet only",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "wordmark",
+   "svg-logo"
+  ],
+  "motion_techniques": [
+   "3d-extrusion",
+   "metallic-material",
+   "rotation-clamp",
+   "glitch",
+   "transparent-export"
+  ],
+  "brand_personality": [
+   "tech",
+   "edgy"
+  ],
+  "reveal_mechanism": "SVG extruded to 3D, rotates within a clamped range then restarts, glitch effect",
+  "motion_family": "3d-spin-glitch",
+  "production": "3d",
+  "framework": [
+   "remotion",
+   "react-three-fiber (inferred)"
+  ],
+  "complexity": "medium",
+  "concept": "Gallery entry states it was made with Claude Code on Opus 4.5. Prompt supplies an SVG logo (~988x317) and asks for a 3D metallic version with rotation limited to -90..90 degrees; user later reports transparent export did not work and points to Remotion's transparent-video docs.",
+  "prompt_available": true,
+  "prompt_excerpt": "use remotion best practices. create a new composition with the following SVG in 3D.",
+  "source_code_available": true,
+  "observations": [
+   {
+    "text": "Search-result summaries (two searches) say tool=Claude Code, model=Opus 4.5.",
+    "type": "observed"
+   },
+   {
+    "text": "Summaries say the first transparent-video attempt failed and the fix came from Remotion docs.",
+    "type": "observed"
+   },
+   {
+    "text": "Two summaries disagreed on whether the prompt text itself mentions spin/glitch; treat prompt body as unconfirmed.",
+    "type": "observed"
+   },
+   {
+    "text": "Page not fetchable here; the claims come from WebSearch-generated summaries, not the page itself.",
+    "type": "inferred"
+   }
+  ],
+  "transferable_principles": [
+   "Give the agent the real SVG path rather than describing the logo",
+   "Constrain rotation range so the logo stays legible",
+   "Specify alpha/transparent delivery up front and point at the docs"
+  ],
+  "weaknesses": [
+   "First transparent export failed",
+   "Spin+glitch on a wordmark risks hurting legibility (inferred)"
+  ],
+  "license": null,
+  "model": "claude-opus-4-5",
+  "agent": "Claude Code",
+  "tags": [
+   "remotion",
+   "3d",
+   "svg",
+   "transparent",
+   "failure-documented"
+  ]
+ },
+ {
+  "id": "ref-remotion-prompt-launch-video-x",
+  "title": "Launch Video on X (Remotion prompt gallery)",
+  "creator": "@ghumare64 (per gallery page, via search summary)",
+  "url": "https://www.remotion.dev/prompts/launch-video-on-x",
+  "attribution": "verified-claude",
+  "verification": {
+   "status": "partially-verified",
+   "method": "search snippet only",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "ascii-logo",
+   "terminal-intro"
+  ],
+  "motion_techniques": [
+   "typewriter",
+   "terminal-scene",
+   "ascii-logo-reveal",
+   "logo-combo-scene"
+  ],
+  "brand_personality": [
+   "developer",
+   "tech"
+  ],
+  "reveal_mechanism": "ASCII OPENCLAWD logo appears after a typed install command inside a Mac-style terminal",
+  "motion_family": "typography-terminal",
+  "production": "2d",
+  "framework": [
+   "remotion"
+  ],
+  "complexity": "medium",
+  "concept": "~37 s 1080x700 30 fps launch video for an open-source AI desktop agent; gallery lists Claude Code with Opus 4.6.",
+  "prompt_available": true,
+  "prompt_excerpt": null,
+  "source_code_available": true,
+  "observations": [
+   {
+    "text": "Summaries state: 1080x700, 30 fps, ~37 s, dark theme with amber accents, terminal types 'npx openclawd-cli' then ASCII logo appears.",
+    "type": "observed"
+   },
+   {
+    "text": "Gallery lists tool=Claude Code, model=Opus 4.6.",
+    "type": "observed"
+   },
+   {
+    "text": "Logo is a scene element in a larger film, not a standalone reveal.",
+    "type": "inferred"
+   }
+  ],
+  "transferable_principles": [
+   "Logo reveal can be earned by a preceding action (typing a command)",
+   "Fix a tight palette (dark + one accent)"
+  ],
+  "weaknesses": [
+   "Not a pure logo animation",
+   "Prompt text not captured verbatim"
+  ],
+  "license": null,
+  "model": "claude-opus-4-6",
+  "agent": "Claude Code",
+  "tags": [
+   "remotion",
+   "terminal",
+   "launch-video"
+  ]
+ },
+ {
+  "id": "ref-claudelog-vibe-animating",
+  "title": "Vibe Animating (ClaudeLog)",
+  "creator": "ClaudeLog author (name not captured)",
+  "url": "https://claudelog.com/inventions/vibe-animating",
+  "attribution": "verified-claude",
+  "verification": {
+   "status": "partially-verified",
+   "method": "search snippet only",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "symbol-mark",
+   "svg-logo"
+  ],
+  "motion_techniques": [
+   "svg-part-splitting",
+   "css-keyframes",
+   "numbered-part-sequencing",
+   "variation-generation"
+  ],
+  "brand_personality": [
+   "playful (inferred)"
+  ],
+  "reveal_mechanism": "Static SVG split into 8 named parts (1 base + 7 accents); Claude animates them in numbered order with CSS",
+  "motion_family": "assemble-from-parts",
+  "production": "2d",
+  "framework": [
+   "svg",
+   "css"
+  ],
+  "complexity": "low",
+  "concept": "Author splits the ClaudeLog 'C' logo into labeled SVG parts and has Claude Code generate many CSS-only animations to review.",
+  "prompt_available": false,
+  "prompt_excerpt": null,
+  "source_code_available": false,
+  "observations": [
+   {
+    "text": "Search summaries state the author reports Claude produced 20+ viable animations with minimal handholding.",
+    "type": "observed"
+   },
+   {
+    "text": "Summaries state approach avoids video files, shaders, Lottie, Canvas and animation libraries.",
+    "type": "observed"
+   },
+   {
+    "text": "Splitting into named parts is the key enabler for agent-driven choreography.",
+    "type": "inferred"
+   }
+  ],
+  "transferable_principles": [
+   "Pre-split the logo into semantic, named parts",
+   "Ask for many variations and curate",
+   "CSS/SVG only keeps payload small"
+  ],
+  "weaknesses": [
+   "Page not fetchable; details are from summaries",
+   "Author's quality claim is subjective"
+  ],
+  "license": null,
+  "model": null,
+  "agent": "Claude Code",
+  "tags": [
+   "svg",
+   "css",
+   "parts",
+   "variations"
+  ]
+ },
+ {
+  "id": "ref-yellowraincoat-remotion-logo",
+  "title": "Animate your Logo with Remotion and Claude Code",
+  "creator": "Yellow Raincoat",
+  "url": "https://yellowraincoat.co.uk/blog/animate-your-logo-with-remotion-and-claude-code/",
+  "attribution": "verified-claude",
+  "verification": {
+   "status": "partially-verified",
+   "method": "search snippet only",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "svg-logo"
+  ],
+  "motion_techniques": [
+   "per-part-components",
+   "remotion-composition",
+   "studio-preview-render"
+  ],
+  "brand_personality": [
+   "approachable"
+  ],
+  "reveal_mechanism": "Claude builds a composition from the SVG; named logo sections become separate components that are animated individually",
+  "motion_family": "assemble-from-parts",
+  "production": "2d",
+  "framework": [
+   "remotion"
+  ],
+  "complexity": "low",
+  "concept": "Feb 2026 tutorial: put SVG in public/, ask Claude (with Remotion best-practices skill) for a composition at matching dimensions, name parts to animate separately, render from Studio.",
+  "prompt_available": true,
+  "prompt_excerpt": "Can you now make the animation smoother",
+  "source_code_available": false,
+  "observations": [
+   {
+    "text": "Search summary: published Feb 2026; Claude creates a component per named logo part; if render differs from preview, explain mismatch to Claude and re-render.",
+    "type": "observed"
+   },
+   {
+    "text": "Suggested follow-ups: 'make the animation smoother', simplify code while keeping animation.",
+    "type": "observed"
+   }
+  ],
+  "transferable_principles": [
+   "Preview-vs-render mismatch is a known failure; report it back to the agent",
+   "Name logo parts so they can be addressed in prompts"
+  ],
+  "weaknesses": [
+   "Prompt excerpt is a follow-up, not the initial prompt",
+   "Page not fetched"
+  ],
+  "license": null,
+  "model": null,
+  "agent": "Claude Code",
+  "tags": [
+   "remotion",
+   "tutorial",
+   "svg",
+   "iteration"
+  ]
+ },
+ {
+  "id": "ref-sergei-chyrkov-opus-motion",
+  "title": "Claude Opus Motion with Remotion + Three.js",
+  "creator": "Sergei Chyrkov",
+  "url": "https://sergeichyrkov.com/blog/claude-opus-motion-remotion-threejs",
+  "attribution": "verified-claude",
+  "verification": {
+   "status": "partially-verified",
+   "method": "search snippet only",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "product-teaser"
+  ],
+  "motion_techniques": [
+   "remotion-timeline",
+   "threejs-interactive-3d"
+  ],
+  "brand_personality": [
+   "design-led"
+  ],
+  "reveal_mechanism": "Not a logo reveal; documents Claude Code producing code-rendered motion (30 s product teaser in ~5 min per author)",
+  "motion_family": "code-rendered-video",
+  "production": "hybrid",
+  "framework": [
+   "remotion",
+   "threejs"
+  ],
+  "complexity": "medium",
+  "concept": "Design director's post: model writes code, code becomes animation; Remotion for timeline MP4s, Three.js for interactive scenes; includes a when-to-use-which table.",
+  "prompt_available": false,
+  "prompt_excerpt": null,
+  "source_code_available": false,
+  "observations": [
+   {
+    "text": "Search summary: author claims ~30 s teaser for his app Monlio took ~5 min with Claude Code + Remotion.",
+    "type": "observed"
+   },
+   {
+    "text": "Useful for workflow framing (Remotion vs Three.js), not logo-specific.",
+    "type": "inferred"
+   }
+  ],
+  "transferable_principles": [
+   "Pick Remotion for deterministic video, Three.js for interactive 3D"
+  ],
+  "weaknesses": [
+   "Not logo-specific",
+   "Timing claim unverified"
+  ],
+  "license": null,
+  "model": "claude-opus (version not captured)",
+  "agent": "Claude Code",
+  "tags": [
+   "remotion",
+   "threejs",
+   "workflow"
+  ]
+ },
+ {
+  "id": "ref-oneshotted-skill",
+  "title": "oneshotted agent skill (Codesaz-Company/oneshotted-skill)",
+  "creator": "Codesaz-Company / GovarJabbar (mirror repos)",
+  "url": "https://github.com/Codesaz-Company/oneshotted-skill",
+  "attribution": "claude-compatible",
+  "verification": {
+   "status": "verified",
+   "method": "cloned repo; read SKILL.md, references/*.md and scripts/library.py (not executed)",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "logo-reveal",
+   "product-launch",
+   "kinetic-type"
+  ],
+  "motion_techniques": [
+   "library-grounded-planning",
+   "beat-sheet",
+   "render-and-measure",
+   "critic-subagent"
+  ],
+  "brand_personality": [
+   "premium"
+  ],
+  "reveal_mechanism": "Searches a prompt library, plans brand->explain->show->brand, builds from a template film, measures with ffmpeg",
+  "motion_family": "agentic-workflow",
+  "production": "hybrid",
+  "framework": [
+   "remotion",
+   "hyperframes",
+   "gsap",
+   "threejs"
+  ],
+  "complexity": "high",
+  "concept": "Agent skill that grounds motion work in oneshotted.io's library via library.py (search/recipe/frames) and enforces bans (no 'Introducing...', no bouncy overshoot, no slow first second) plus brand-at-both-ends.",
+  "prompt_available": false,
+  "prompt_excerpt": null,
+  "source_code_available": true,
+  "observations": [
+   {
+    "text": "README (fetched): 5,000+ AI-made pieces; install via 'curl -fsSL https://oneshotted.io/install.sh | sh' or npx skills add; MIT; 4 commits, 0 stars.",
+    "type": "observed"
+   },
+   {
+    "text": "SKILL.md (raw, fetched): library.py commands search/recipe/frames; ONESHOTTED_API_KEY; mcp-docs link; bans on bouncy overshoot, camera shake, RGB split, slow first second; brand in first/last 2-3 s.",
+    "type": "observed"
+   },
+   {
+    "text": "No MCP server URL or tool names in README or SKILL.md.",
+    "type": "observed"
+   },
+   {
+    "text": "Rules are opinionated product-video norms and may conflict with playful logo reveals.",
+    "type": "inferred"
+   },
+   {
+    "text": "scripts/library.py talks JSON-RPC 2.0 to https://oneshotted.io/mcp (override ONESHOTTED_ENDPOINT) with Bearer ONESHOTTED_API_KEY or ~/.config/oneshotted/key; tools: search_motion, get_recipe, find_similar, list_filters, get_keyframes. Only results with prompt status \"verified\" and use \"full\" are treated as adaptable prompts.",
+    "type": "observed"
+   },
+   {
+    "text": "references/critic.md: a fresh agent judges rendered pixels without the builder rationale; checker output is shown only after the visual verdict so PASS cannot anchor it.",
+    "type": "observed"
+   },
+   {
+    "text": "references/engines.md: optional motion blur by rendering 4 sub-frames inside a 180-degree shutter and averaging (ffmpeg tmix); never blend across a hard cut.",
+    "type": "observed"
+   }
+  ],
+  "transferable_principles": [
+   "Brand at both ends; first 2-3 s must show the brand",
+   "Measure renders (contact sheet) and iterate max 4 rounds",
+   "Only quote prompts that the creator verified"
+  ],
+  "weaknesses": [
+   "Bans (e.g. overshoot) too strict for playful brands (inferred)",
+   "Requires account/API key for library"
+  ],
+  "license": "MIT (Copyright 2026 Oneshotted); bundles third-party MIT/Apache notices in LICENSES/",
+  "model": null,
+  "agent": "Claude Code (designed for; also Codex/Cursor)",
+  "tags": [
+   "oneshotted",
+   "skill",
+   "library",
+   "qa-loop"
+  ]
+ },
+ {
+  "id": "ref-oneshotted-gallery",
+  "title": "Oneshotted gallery (oneshotted.io) - category/recipe structure",
+  "creator": "Oneshotted (operator not identified)",
+  "url": "https://oneshotted.io/",
+  "attribution": "claude-compatible",
+  "verification": {
+   "status": "unverified",
+   "method": "search snippet only",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "logo-reveal",
+   "kinetic-type",
+   "product-launch",
+   "data-viz",
+   "3d-scene"
+  ],
+  "motion_techniques": [
+   "prompt-recipes",
+   "reconstructed-prompts"
+  ],
+  "brand_personality": [],
+  "reveal_mechanism": "Gallery of AI-coded motion pieces with prompts; homepage lists a 'Logo reveal' category",
+  "motion_family": "gallery",
+  "production": "hybrid",
+  "framework": [
+   "remotion",
+   "hyperframes",
+   "gsap",
+   "threejs"
+  ],
+  "complexity": "low",
+  "concept": "Directory of motion graphics made by coding agents, each page 'prompt & recipe' with framework, model, stats; some prompts reconstructed from frames by an open-weight vision model and labelled as such.",
+  "prompt_available": true,
+  "prompt_excerpt": null,
+  "source_code_available": false,
+  "observations": [
+   {
+    "text": "Search summaries only (site not resolvable here): homepage shows 'Logo reveal' category; counts seen 3,778 prompts / 3,382 creators / 5,579 recipes.",
+    "type": "observed"
+   },
+   {
+    "text": "URL patterns seen: /v/<slug>, /c/<handle>, /?framework=threejs&motion_type=3d-scene&page=1, /?motion_type=data-viz&page=1.",
+    "type": "observed"
+   },
+   {
+    "text": "Page metadata seen: framework (e.g. GSAP), model (e.g. 'Opus 5.5', 'Other'); banner 'Oneshotted MCP ... free key'.",
+    "type": "observed"
+   },
+   {
+    "text": "No logo-reveal piece was individually confirmed; only the category label.",
+    "type": "inferred"
+   }
+  ],
+  "transferable_principles": [
+   "Use creator-verified prompts over reconstructed ones"
+  ],
+  "weaknesses": [
+   "Not fetchable from this environment",
+   "MCP URL/tool names unverified"
+  ],
+  "license": null,
+  "model": null,
+  "agent": null,
+  "tags": [
+   "oneshotted",
+   "gallery",
+   "prompts"
+  ]
+ },
+ {
+  "id": "ref-remotion-skills",
+  "title": "Remotion Agent Skills (remotion-dev/skills)",
+  "creator": "Remotion team",
+  "url": "https://github.com/remotion-dev/skills",
+  "attribution": "claude-compatible",
+  "verification": {
+   "status": "verified",
+   "method": "fetched page",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "generic-motion"
+  ],
+  "motion_techniques": [
+   "react-compositions",
+   "animation-timing",
+   "typography-in-video",
+   "captions"
+  ],
+  "brand_personality": [],
+  "reveal_mechanism": "Skill set teaching agents Remotion APIs (remotion-markup covers animations, timing, typography)",
+  "motion_family": "framework-skill",
+  "production": "2d",
+  "framework": [
+   "remotion"
+  ],
+  "complexity": "medium",
+  "concept": "Official skills: remotion-best-practices (umbrella), create, markup, studio, render, maps, captions, saas, interactivity, docs, upgrade, multimedia. Install: npx skills add remotion-dev/skills.",
+  "prompt_available": false,
+  "prompt_excerpt": null,
+  "source_code_available": true,
+  "observations": [
+   {
+    "text": "README (fetched): meant for Claude Code, Codex, Kimi Code, Cursor; ~5.0k stars; license not stated in fetched text.",
+    "type": "observed"
+   },
+   {
+    "text": "Search summaries: Remotion docs have a Claude Code plugin page and a prompt gallery at remotion.dev/prompts.",
+    "type": "observed"
+   }
+  ],
+  "transferable_principles": [
+   "Install the skill first, then prompt: output quality depends on it",
+   "All motion keyed off useCurrentFrame for determinism (from search summary)"
+  ],
+  "weaknesses": [
+   "Showcased outputs not shown to be Claude-made by this README"
+  ],
+  "license": null,
+  "model": null,
+  "agent": "Claude Code, Codex, Cursor, Kimi Code",
+  "tags": [
+   "remotion",
+   "official",
+   "skill"
+  ]
+ },
+ {
+  "id": "ref-hyperframes",
+  "title": "HyperFrames (heygen-com/hyperframes)",
+  "creator": "HeyGen",
+  "url": "https://github.com/heygen-com/hyperframes",
+  "attribution": "claude-compatible",
+  "verification": {
+   "status": "verified",
+   "method": "fetched page",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "logo-sting",
+   "logo-reveal",
+   "kinetic-type",
+   "lower-third"
+  ],
+  "motion_techniques": [
+   "html-css-gsap-compositions",
+   "logo-outro-block",
+   "svg-path-draw",
+   "proof-snapshots"
+  ],
+  "brand_personality": [],
+  "reveal_mechanism": "HTML composition rendered via headless Chrome + FFmpeg; motion-graphics skill classifies 'logo-reveal' and builds on logo-outro block",
+  "motion_family": "html-video",
+  "production": "hybrid",
+  "framework": [
+   "hyperframes",
+   "html",
+   "gsap"
+  ],
+  "complexity": "medium",
+  "concept": "Open-source 'Write HTML. Render video. Built for agents.' Installable as Claude Code plugin; 21 skills; /motion-graphics handles under-10 s pieces incl. logo stings.",
+  "prompt_available": false,
+  "prompt_excerpt": null,
+  "source_code_available": true,
+  "observations": [
+   {
+    "text": "README (fetched): Apache-2.0; ~60.3k stars; claude plugin marketplace add heygen-com/hyperframes.",
+    "type": "observed"
+   },
+   {
+    "text": "motion-graphics SKILL.md (raw, fetched): asset-first, reuse-first; verify with 'hyperframes check' and snapshots at opening state, signature move, final hold; render only after explicit approval; logo from figma.com URL goes through /figma first.",
+    "type": "observed"
+   }
+  ],
+  "transferable_principles": [
+   "Snapshot opening state, signature move and final hold",
+   "Do not change duration to hide defects",
+   "Reuse catalog blocks before hand-authoring"
+  ],
+  "weaknesses": [
+   "Logo-sting guidance is thin"
+  ],
+  "license": "Apache-2.0",
+  "model": null,
+  "agent": "Claude Code (plugin)",
+  "tags": [
+   "hyperframes",
+   "html",
+   "plugin",
+   "logo-sting"
+  ]
+ },
+ {
+  "id": "ref-iart-motion-design-skills",
+  "title": "iart-ai/motion-design-skills (logo-animation skill)",
+  "creator": "iart-ai",
+  "url": "https://github.com/iart-ai/motion-design-skills",
+  "attribution": "claude-compatible",
+  "verification": {
+   "status": "verified",
+   "method": "fetched page",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "logo-reveal",
+   "stinger",
+   "splash",
+   "loader"
+  ],
+  "motion_techniques": [
+   "stroke-draw-on",
+   "mask-wipe",
+   "staggered-build-on",
+   "morph",
+   "idle-loop",
+   "per-letter-reveal",
+   "lottie-delivery"
+  ],
+  "brand_personality": [],
+  "reveal_mechanism": "One technique per logo (draw OR build OR morph); reveals 0.8-2.5 s",
+  "motion_family": "logo-technique-menu",
+  "production": "hybrid",
+  "framework": [
+   "svg",
+   "gsap",
+   "lottie",
+   "remotion"
+  ],
+  "complexity": "medium",
+  "concept": "9 skills (animation-principles, color-motion, shot-composition, motion-art-direction, after-effects, beat-sync-editing, remotion-video, logo-animation, motion-background). Claude Code plugin marketplace install.",
+  "prompt_available": false,
+  "prompt_excerpt": null,
+  "source_code_available": true,
+  "observations": [
+   {
+    "text": "README (fetched): MIT; 106 stars; works in Claude Code, Cursor, Codex.",
+    "type": "observed"
+   },
+   {
+    "text": "logo-animation SKILL.md (raw, fetched): 'Pick ONE technique per logo'; reveals 0.8-2.5 s; stroke draws cubic-bezier(.65,0,.35,1); build-ons back.out(1.6) stagger ~0.08 s; settles power2.out; scale+fade safe, skew/squash usually not; static end-frame and prefers-reduced-motion fallback; ?t=N freeze harness.",
+    "type": "observed"
+   },
+   {
+    "text": "Numbers are authoring guidance by the skill author, not an industry standard.",
+    "type": "inferred"
+   }
+  ],
+  "transferable_principles": [
+   "One technique per logo",
+   "Land final settle on audio accent",
+   "Respect reduced motion; ship static end frame",
+   "Do not skew/squash brand marks"
+  ],
+  "weaknesses": [
+   "Ranges are opinion",
+   "No showcased outputs"
+  ],
+  "license": "MIT",
+  "model": null,
+  "agent": "Claude Code, Cursor, Codex",
+  "tags": [
+   "skill",
+   "logo-animation",
+   "easing",
+   "gsap"
+  ]
+ },
+ {
+  "id": "ref-animated-logo-skill",
+  "title": "animated-logo-skill (karlostoteles)",
+  "creator": "karlostoteles",
+  "url": "https://github.com/karlostoteles/animated-logo-skill",
+  "attribution": "claude-compatible",
+  "verification": {
+   "status": "verified",
+   "method": "fetched page",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "wordmark",
+   "logo-reveal"
+  ],
+  "motion_techniques": [
+   "roll-and-knock",
+   "hammer-strike",
+   "scatter",
+   "drop-and-bounce",
+   "shimmer",
+   "letter-shatter",
+   "screen-shake",
+   "sparkle-burst"
+  ],
+  "brand_personality": [
+   "theatrical",
+   "playful"
+  ],
+  "reveal_mechanism": "Per-letter physical gags with overshoot/settle easing; live HTML playground then React export",
+  "motion_family": "per-letter-physics",
+  "production": "2d",
+  "framework": [
+   "css",
+   "js",
+   "react"
+  ],
+  "complexity": "medium",
+  "concept": "Claude Code skill: describe animation, iterate in live HTML playground, export React. 10 patterns in references/patterns.md.",
+  "prompt_available": false,
+  "prompt_excerpt": null,
+  "source_code_available": true,
+  "observations": [
+   {
+    "text": "README (fetched): v0.1.0, 2 commits, 1 star, MIT; trigger phrases 'animate my logo', 'logo reveal'.",
+    "type": "observed"
+   },
+   {
+    "text": "patterns.md (raw, fetched): Roll 0.65 s cubic-bezier(0.4,0,0.15,1) 380deg overshoot 8px; Drop&Bounce 0.55 s cubic-bezier(0.34,1.56,0.64,1); letter stagger 100-120 ms; combine 2-3 patterns, max 2 impact moments.",
+    "type": "observed"
+   },
+   {
+    "text": "README does not state demo outputs were Claude-made.",
+    "type": "observed"
+   }
+  ],
+  "transferable_principles": [
+   "Treat each letter as its own actor",
+   "Physics-style easing (overshoot, settle)",
+   "Limit to 2 impact moments"
+  ],
+  "weaknesses": [
+   "Sparkles/screen-shake can feel cheap (inferred)",
+   "Young repo"
+  ],
+  "license": "MIT",
+  "model": null,
+  "agent": "Claude Code",
+  "tags": [
+   "wordmark",
+   "physics",
+   "css",
+   "react"
+  ]
+ },
+ {
+  "id": "ref-logo-3d-skill",
+  "title": "logo-3d (marcogalluccio)",
+  "creator": "marcogalluccio",
+  "url": "https://github.com/marcogalluccio/logo-3d",
+  "attribution": "claude-compatible",
+  "verification": {
+   "status": "verified",
+   "method": "fetched page",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "svg-logo",
+   "hero-logo"
+  ],
+  "motion_techniques": [
+   "blender-extrusion",
+   "webgpu-render",
+   "pieces-fly-in-and-lock",
+   "pointer-tilt",
+   "glow",
+   "static-fallback"
+  ],
+  "brand_personality": [
+   "premium",
+   "tech"
+  ],
+  "reveal_mechanism": "Logo extruded in Blender; pieces fly in and lock together; tilts toward pointer",
+  "motion_family": "3d-hero",
+  "production": "3d",
+  "framework": [
+   "webgpu",
+   "blender",
+   "react"
+  ],
+  "complexity": "high",
+  "concept": "Six-phase Claude Code skill: environment check, input confirmation, interview, build with 1% pixel front-view match, preview, deliver static web or React.",
+  "prompt_available": true,
+  "prompt_excerpt": "turn my logo into 3D",
+  "source_code_available": true,
+  "observations": [
+   {
+    "text": "README (fetched): MIT; 0 stars; macOS-only (Homebrew); Chrome/Edge tested; Python 3.14 crashes PNG tracer; refuses hairlines/gradients/too many pieces.",
+    "type": "observed"
+   },
+   {
+    "text": "Still image shown without WebGPU, with reduced motion, or on slow devices.",
+    "type": "observed"
+   }
+  ],
+  "transferable_principles": [
+   "Verify 3D front view matches original within 1% pixels",
+   "Static fallback for reduced motion/no WebGPU"
+  ],
+  "weaknesses": [
+   "macOS-only",
+   "Complex logos refused"
+  ],
+  "license": "MIT",
+  "model": null,
+  "agent": "Claude Code",
+  "tags": [
+   "3d",
+   "webgpu",
+   "blender",
+   "hero"
+  ]
+ },
+ {
+  "id": "ref-logo-intro-webgl",
+  "title": "logo-intro (CJ10110425)",
+  "creator": "CJ10110425",
+  "url": "https://github.com/CJ10110425/logo-intro",
+  "attribution": "claude-compatible",
+  "verification": {
+   "status": "verified",
+   "method": "fetched page",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "svg-logo",
+   "mark-plus-wordmark"
+  ],
+  "motion_techniques": [
+   "lens-warp-closeup",
+   "spectral-fringe",
+   "wordmark-pull-out",
+   "gradient-bloom",
+   "lock-in-badge-assemble-rise-spin-pulse",
+   "shimmer-sweep"
+  ],
+  "brand_personality": [
+   "premium"
+  ],
+  "reveal_mechanism": "Extreme close-up with lens warp resolves to mark; wordmark pulls out; lock-in; single shimmer sweep (~5 s)",
+  "motion_family": "shader-intro",
+  "production": "3d",
+  "framework": [
+   "webgl",
+   "glsl"
+  ],
+  "complexity": "high",
+  "concept": "Single fragment shader, no dependencies, each frame a pure function of time so exported video matches live page. Includes a Claude skill (find logo, split mark from letters, trace with potrace).",
+  "prompt_available": true,
+  "prompt_excerpt": "make a logo intro for acme.com",
+  "source_code_available": true,
+  "observations": [
+   {
+    "text": "README (fetched): MIT; 4 stars; WebGL1 with EXT_shader_texture_lod; five lock-in styles.",
+    "type": "observed"
+   },
+   {
+    "text": "README does not say whether Claude built the project.",
+    "type": "observed"
+   }
+  ],
+  "transferable_principles": [
+   "Frame = pure function of time for deterministic export",
+   "Split mark from letters to sequence reveal",
+   "End on one restrained shimmer"
+  ],
+  "weaknesses": [
+   "Shader complexity",
+   "Unknown Claude involvement in showcase"
+  ],
+  "license": "MIT",
+  "model": null,
+  "agent": "Claude (skill)",
+  "tags": [
+   "webgl",
+   "shader",
+   "deterministic"
+  ]
+ },
+ {
+  "id": "ref-diffusionstudio-lottie",
+  "title": "text-to-lottie (diffusionstudio/lottie)",
+  "creator": "Diffusion Studio",
+  "url": "https://github.com/diffusionstudio/lottie",
+  "attribution": "claude-compatible",
+  "verification": {
+   "status": "verified",
+   "method": "fetched page",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "icon-logo",
+   "ui-motion"
+  ],
+  "motion_techniques": [
+   "lottie-json-authoring",
+   "live-player-hot-reload"
+  ],
+  "brand_personality": [],
+  "reveal_mechanism": "Agent authors Lottie JSON; player live-updates as the agent edits",
+  "motion_family": "lottie",
+  "production": "2d",
+  "framework": [
+   "lottie",
+   "skottie"
+  ],
+  "complexity": "medium",
+  "concept": "Open-source skill: 'Generate production-ready Lottie animations with Claude Code or Codex'. Install: npx skills add diffusionstudio/lottie.",
+  "prompt_available": false,
+  "prompt_excerpt": null,
+  "source_code_available": true,
+  "observations": [
+   {
+    "text": "README (fetched): MIT; 5.6k stars; works with any skills-capable agent.",
+    "type": "observed"
+   },
+   {
+    "text": "Search summary: covers Skottie-specific requirements (group wrappers), keyframe syntax, slots, verification checklist (not in fetched text).",
+    "type": "observed"
+   },
+   {
+    "text": "Search result (CVPR 2026 OmniLottie supplement): LLMs fail on Lottie via invented attribute names and misplaced attributes.",
+    "type": "observed"
+   }
+  ],
+  "transferable_principles": [
+   "Constrain the agent with schema knowledge + a live player",
+   "Validate Lottie against a player, not just JSON"
+  ],
+  "weaknesses": [
+   "Raw LLM Lottie output frequently invalid (per research snippet)"
+  ],
+  "license": "MIT",
+  "model": null,
+  "agent": "Claude Code, Codex",
+  "tags": [
+   "lottie",
+   "schema",
+   "failure-documented"
+  ]
+ },
+ {
+  "id": "ref-notedit-gsap-animation",
+  "title": "gsap-animation skill (notedit/happy-skills)",
+  "creator": "notedit",
+  "url": "https://github.com/notedit/happy-skills",
+  "attribution": "claude-compatible",
+  "verification": {
+   "status": "partially-verified",
+   "method": "fetched page",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "generic-motion"
+  ],
+  "motion_techniques": [
+   "gsap-timelines",
+   "text-splitting",
+   "svg-morphing",
+   "svg-drawing"
+  ],
+  "brand_personality": [],
+  "reveal_mechanism": "GSAP timeline orchestration for Remotion compositions",
+  "motion_family": "gsap-skill",
+  "production": "2d",
+  "framework": [
+   "gsap",
+   "remotion"
+  ],
+  "complexity": "medium",
+  "concept": "Skill listed under skills/video/ with video-producer, spring-animation, react-animation. Fetched page did not show the skill's own docs.",
+  "prompt_available": false,
+  "prompt_excerpt": null,
+  "source_code_available": true,
+  "observations": [
+   {
+    "text": "Repo page (fetched): MIT; 339 stars; skills/video/ contains video-producer, gsap-animation, spring-animation, react-animation.",
+    "type": "observed"
+   },
+   {
+    "text": "Search summary: 'timeline orchestration, text splitting, SVG morphing and drawing'; install npx skills add notedit/happy-skills --skill gsap-animation --agent claude-code.",
+    "type": "observed"
+   }
+  ],
+  "transferable_principles": [
+   "Use GSAP when Remotion interpolate()/spring() are insufficient"
+  ],
+  "weaknesses": [
+   "SKILL.md content not read"
+  ],
+  "license": "MIT",
+  "model": null,
+  "agent": "Claude Code",
+  "tags": [
+   "gsap",
+   "remotion",
+   "skill"
+  ]
+ },
+ {
+  "id": "ref-logo-designer-skill",
+  "title": "logo-designer skill (neonwatty)",
+  "creator": "neonwatty",
+  "url": "https://github.com/neonwatty/logo-designer-skill",
+  "attribution": "claude-compatible",
+  "verification": {
+   "status": "verified",
+   "method": "fetched page",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "svg-logo-design"
+  ],
+  "motion_techniques": [
+   "svg-concept-generation",
+   "iterative-refinement",
+   "png-export"
+  ],
+  "brand_personality": [],
+  "reveal_mechanism": "Not animation: interview -> 3-5 SVG concepts -> refine -> export PNGs",
+  "motion_family": "static-logo-generation",
+  "production": "2d",
+  "framework": [
+   "svg"
+  ],
+  "complexity": "low",
+  "concept": "Four-phase agent plugin for making the static logo that later gets animated; topics include claude-code and codex.",
+  "prompt_available": true,
+  "prompt_excerpt": "Create a logo for my project",
+  "source_code_available": true,
+  "observations": [
+   {
+    "text": "README (fetched): MIT; 147 stars; used for bleepthat.sh logo; exports PNG at 16-2048 px.",
+    "type": "observed"
+   }
+  ],
+  "transferable_principles": [
+   "Start from clean, well-structured SVG"
+  ],
+  "weaknesses": [
+   "No animation"
+  ],
+  "license": "MIT",
+  "model": null,
+  "agent": "Claude Code, Codex",
+  "tags": [
+   "svg",
+   "logo-design",
+   "upstream"
+  ]
+ },
+ {
+  "id": "ref-remotion-claude-video-starter",
+  "title": "remotion-claude-video starter (JJenglert1)",
+  "creator": "JJenglert1",
+  "url": "https://github.com/JJenglert1/remotion-claude-video",
+  "attribution": "claude-compatible",
+  "verification": {
+   "status": "verified",
+   "method": "fetched page",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "text-intro"
+  ],
+  "motion_techniques": [
+   "remotion",
+   "gradient-background",
+   "animated-text"
+  ],
+  "brand_personality": [],
+  "reveal_mechanism": "Starter kit; README walk-through makes a 10 s 'Hello World' intro",
+  "motion_family": "starter",
+  "production": "2d",
+  "framework": [
+   "remotion"
+  ],
+  "complexity": "low",
+  "concept": "Bundles Remotion best-practices, UI/UX Pro Max, Copywriting skills; PROMPTS.md present (not read).",
+  "prompt_available": true,
+  "prompt_excerpt": "Using the Remotion skill, create a 10-second intro video with animated text that says \"Hello World\" with a gradient background.",
+  "source_code_available": true,
+  "observations": [
+   {
+    "text": "README (fetched): 49 stars; says Claude will set up the project, create the animation and give a localhost URL; no license stated.",
+    "type": "observed"
+   }
+  ],
+  "transferable_principles": [
+   "Be explicit about duration and visual treatment in the first prompt"
+  ],
+  "weaknesses": [
+   "Generic output (inferred)"
+  ],
+  "license": null,
+  "model": null,
+  "agent": "Claude Code",
+  "tags": [
+   "remotion",
+   "starter",
+   "prompt"
+  ]
+ },
+ {
+  "id": "ref-create-promo-video",
+  "title": "create-promo-video skill (alentodorov)",
+  "creator": "alentodorov",
+  "url": "https://github.com/alentodorov/create-promo-video",
+  "attribution": "claude-compatible",
+  "verification": {
+   "status": "verified",
+   "method": "fetched page",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "product-promo"
+  ],
+  "motion_techniques": [
+   "brand-extraction",
+   "hook-showcase-cta"
+  ],
+  "brand_personality": [],
+  "reveal_mechanism": "Extracts colors/fonts/logos from codebase and builds hook, showcase, CTA composition",
+  "motion_family": "brand-extraction",
+  "production": "2d",
+  "framework": [
+   "remotion"
+  ],
+  "complexity": "low",
+  "concept": "Claude skill generating 9x16 or 16x9 promo videos from a project; archived April 1, 2026.",
+  "prompt_available": true,
+  "prompt_excerpt": "hei claude let's make  a promo video for this project",
+  "source_code_available": true,
+  "observations": [
+   {
+    "text": "README (fetched): 11 stars; archived/read-only; no license shown; does not mention logo intro/outro.",
+    "type": "observed"
+   }
+  ],
+  "transferable_principles": [
+   "Pull brand tokens from the codebase automatically"
+  ],
+  "weaknesses": [
+   "Archived",
+   "No logo-specific handling"
+  ],
+  "license": null,
+  "model": null,
+  "agent": "Claude Code",
+  "tags": [
+   "remotion",
+   "promo",
+   "archived"
+  ]
+ },
+ {
+  "id": "ref-anthropic-slack-gif-creator",
+  "title": "slack-gif-creator (anthropics/skills)",
+  "creator": "Anthropic",
+  "url": "https://github.com/anthropics/skills/tree/main/skills/slack-gif-creator",
+  "attribution": "claude-compatible",
+  "verification": {
+   "status": "verified",
+   "method": "fetched page",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "emoji-gif",
+   "micro-animation"
+  ],
+  "motion_techniques": [
+   "easing-library",
+   "shake",
+   "pulse",
+   "bounce",
+   "spin",
+   "fade",
+   "slide",
+   "zoom",
+   "particle-burst"
+  ],
+  "brand_personality": [
+   "playful"
+  ],
+  "reveal_mechanism": "Frame-by-frame PIL animation with named easings",
+  "motion_family": "gif-primitives",
+  "production": "2d",
+  "framework": [
+   "python",
+   "pillow"
+  ],
+  "complexity": "low",
+  "concept": "Official Anthropic skill: GIF size/fps/colour constraints plus easing vocabulary (ease_in, ease_out, bounce_out, elastic_out, back_out).",
+  "prompt_available": false,
+  "prompt_excerpt": null,
+  "source_code_available": true,
+  "observations": [
+   {
+    "text": "SKILL.md (raw, fetched): emoji 128x128, message 480x480; 10-30 fps; 48-128 colours; emoji GIFs under 3 s; lines >= width 2; use ease_out/back_out for slides that stop; pulse scale 0.8-1.2.",
+    "type": "observed"
+   },
+   {
+    "text": "anthropics/skills repo (fetched): 180.3k stars; skills are mostly Apache-2.0, document skills source-available.",
+    "type": "observed"
+   }
+  ],
+  "transferable_principles": [
+   "Named easing vocabulary beats linear motion",
+   "Design to file-size/fps constraints"
+  ],
+  "weaknesses": [
+   "Small-format GIF only"
+  ],
+  "license": "Apache-2.0 (per repo README; per-skill LICENSE.txt present)",
+  "model": null,
+  "agent": "Claude",
+  "tags": [
+   "anthropic",
+   "gif",
+   "easing",
+   "official"
+  ]
+ },
+ {
+  "id": "ref-claude-design-handoff",
+  "title": "Claude Design (Anthropic Labs) - code-powered prototypes with Claude Code handoff",
+  "creator": "Anthropic",
+  "url": "https://anthropic.com/news/claude-design-anthropic-labs",
+  "attribution": "claude-compatible",
+  "verification": {
+   "status": "partially-verified",
+   "method": "search snippet only",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "generic-motion"
+  ],
+  "motion_techniques": [
+   "code-powered-artifacts",
+   "handoff-bundle"
+  ],
+  "brand_personality": [],
+  "reveal_mechanism": "Design tool producing animated prototypes; handoff bundle passed to Claude Code",
+  "motion_family": "design-tool",
+  "production": "hybrid",
+  "framework": [
+   "html"
+  ],
+  "complexity": "low",
+  "concept": "Search summaries: exports are URL, folder, Canva, PDF, PPTX, standalone HTML; video export not confirmed officially; research preview for Pro/Max/Team/Enterprise.",
+  "prompt_available": false,
+  "prompt_excerpt": null,
+  "source_code_available": false,
+  "observations": [
+   {
+    "text": "Search summaries (not fetched) state video export is not in Anthropic's documented export list; one third-party guide claims a 1080p video option.",
+    "type": "observed"
+   },
+   {
+    "text": "For logo motion, a Claude Design prototype would need rendering via Remotion/screen capture - not confirmed.",
+    "type": "inferred"
+   }
+  ],
+  "transferable_principles": [
+   "Hand off from design prototype to code agent for rendering"
+  ],
+  "weaknesses": [
+   "Unconfirmed video export"
+  ],
+  "license": null,
+  "model": null,
+  "agent": "Claude Design / Claude Code",
+  "tags": [
+   "anthropic",
+   "design",
+   "handoff"
+  ]
+ },
+ {
+  "id": "ref-mindstudio-remotion-logo-reveals",
+  "title": "How to Use Remotion with Claude Code to Generate Animated Logo Reveals and Motion Graphics",
+  "creator": "MindStudio",
+  "url": "https://www.mindstudio.ai/blog/remotion-claude-code-animated-logo-reveals-motion-graphics",
+  "attribution": "claude-compatible",
+  "verification": {
+   "status": "partially-verified",
+   "method": "search snippet only",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "svg-logo",
+   "particle-logo"
+  ],
+  "motion_techniques": [
+   "particle-convergence",
+   "spring-physics",
+   "interpolation",
+   "lower-thirds"
+  ],
+  "brand_personality": [],
+  "reveal_mechanism": "Particles converge to a centered SVG logo then fade out (5 s example)",
+  "motion_family": "particle-assemble",
+  "production": "2d",
+  "framework": [
+   "remotion"
+  ],
+  "complexity": "medium",
+  "concept": "Tutorial sketching a 5 s particle logo reveal prompt (pin resolution/fps, SVG placeholder). Claims prompt to MP4 in under an hour. Tutorial, no showcased Claude output verified.",
+  "prompt_available": true,
+  "prompt_excerpt": null,
+  "source_code_available": false,
+  "observations": [
+   {
+    "text": "Search summaries only: install Remotion Best Practices skill in Claude Code; ask for spring physics and interpolation.",
+    "type": "observed"
+   },
+   {
+    "text": "A separate Apidog tutorial (pt/vi, seen in results) has a 5 s logo intro prompt: fade in, bounce scale, tagline below - not fetched.",
+    "type": "observed"
+   }
+  ],
+  "transferable_principles": [
+   "Pin resolution, fps and duration in the prompt",
+   "Ask for spring physics rather than linear interpolation"
+  ],
+  "weaknesses": [
+   "Secondary tutorial source; claims unverified"
+  ],
+  "license": null,
+  "model": null,
+  "agent": "Claude Code",
+  "tags": [
+   "remotion",
+   "tutorial",
+   "particles"
+  ]
+ },
+ {
+  "id": "ref-0xmovez-opus-motion-course",
+  "title": "How to build motion design studio with Opus 5.5 (Full-course)",
+  "creator": "@0xMovez",
+  "url": "https://x.com/0xMovez/article/2104216919033192746",
+  "attribution": "claude-compatible",
+  "verification": {
+   "status": "partially-verified",
+   "method": "search snippet only",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "generic-motion"
+  ],
+  "motion_techniques": [
+   "deterministic-frame-function",
+   "closed-form-springs",
+   "beat-grid",
+   "contact-sheet-critique-loop",
+   "reference-video-pacing"
+  ],
+  "brand_personality": [],
+  "reveal_mechanism": "12-part workflow: render contract in CLAUDE.md, shot list approval, critique loop to score >= ~8",
+  "motion_family": "agentic-workflow",
+  "production": "hybrid",
+  "framework": [
+   "html",
+   "playwright",
+   "ffmpeg"
+  ],
+  "complexity": "high",
+  "concept": "Promotional X article; claims 'the prompt is 10%, the harness is 90%'. Article body not opened.",
+  "prompt_available": false,
+  "prompt_excerpt": null,
+  "source_code_available": false,
+  "observations": [
+   {
+    "text": "Search summaries only: use closed-form springs, measured beat grid, reference frames to avoid generic centered text on gradients, subagents with shared animation guide.",
+    "type": "observed"
+   },
+   {
+    "text": "Author is promotional; model naming (Opus 5.5, 'Fable 5.5') not corroborated by me.",
+    "type": "inferred"
+   }
+  ],
+  "transferable_principles": [
+   "Provide a reference video/frames for pacing",
+   "Self-critique with contact sheets",
+   "Write a render contract first"
+  ],
+  "weaknesses": [
+   "Promotional; body unread"
+  ],
+  "license": null,
+  "model": "opus-5.5 (per author)",
+  "agent": "Claude Code",
+  "tags": [
+   "x-article",
+   "workflow",
+   "critique-loop"
+  ]
+ },
+ {
+  "id": "ref-mgraph-thunderbolts-marvel-logo",
+  "title": "Imaginary Forces: Thunderbolts* Marvel Studios Logo Reveal (Motionographer)",
+  "creator": "Imaginary Forces (Tosh Kodama, creative director)",
+  "url": "https://motionographer.com/quickie/imaginary-forces-thunderbolts-marvel-studios-logo-reveal/",
+  "attribution": "professional-inspiration",
+  "verification": {
+   "status": "partially-verified",
+   "method": "search snippet only",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "studio-ident",
+   "wordmark-3d"
+  ],
+  "motion_techniques": [
+   "projection-mapping-onto-3d-wordmark",
+   "camera-through-letters",
+   "flip-book-homage",
+   "incomplete-reveal-dissolve",
+   "sound-design"
+  ],
+  "brand_personality": [
+   "dark",
+   "edgy"
+  ],
+  "reveal_mechanism": "Thousands of comic panels projected onto a drifting 3D wordmark; logo never fully resolves and dissolves to black",
+  "motion_family": "3d-projection",
+  "production": "3d",
+  "framework": [
+   "3d-render"
+  ],
+  "complexity": "high",
+  "concept": "Reworking of Marvel's comic flip-intro for Thunderbolts*; non-resolution foreshadows The Void; haunting layer over Giacchino fanfare.",
+  "prompt_available": false,
+  "prompt_excerpt": null,
+  "source_code_available": false,
+  "observations": [
+   {
+    "text": "Search summary of the Motionographer post: layered sound effect over the fanfare; lineage to IF's 2002 Marvel animation.",
+    "type": "observed"
+   },
+   {
+    "text": "Withholding the full logo is a story-driven reveal inversion.",
+    "type": "inferred"
+   }
+  ],
+  "transferable_principles": [
+   "Reveal mechanism can carry narrative (withheld resolution)",
+   "Sound and image co-designed",
+   "Homage + tonal shift"
+  ],
+  "weaknesses": [
+   "Cannot be reproduced with simple code"
+  ],
+  "license": null,
+  "model": null,
+  "agent": null,
+  "tags": [
+   "studio",
+   "3d",
+   "ident",
+   "sound"
+  ]
+ },
+ {
+  "id": "ref-mgraph-super-bcn",
+  "title": "Superexpresso's BAR SUPER BCN: Logos That Dance (Motionographer)",
+  "creator": "Superexpresso; animation by Stefano Meazza",
+  "url": "https://motionographer.com/2025/04/25/superexpressos-bar-super-bcn-logos-that-dance-spaces-that-pop/",
+  "attribution": "professional-inspiration",
+  "verification": {
+   "status": "partially-verified",
+   "method": "search snippet only",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "wordmark",
+   "logo-system"
+  ],
+  "motion_techniques": [
+   "grid-from-logo-proportions",
+   "slot-machine-scroll",
+   "hand-drawn-alternates",
+   "gummy-motion"
+  ],
+  "brand_personality": [
+   "playful",
+   "spontaneous"
+  ],
+  "reveal_mechanism": "Slot-machine scrolling between hand-drawn logo variants built on a logo-derived grid",
+  "motion_family": "grid-scroll",
+  "production": "2d",
+  "framework": [
+   "after-effects (unconfirmed)"
+  ],
+  "complexity": "medium",
+  "concept": "Identity concept 'programmed spontaneity'; main logotype with variants, three type families, colour trio, grid.",
+  "prompt_available": false,
+  "prompt_excerpt": null,
+  "source_code_available": false,
+  "observations": [
+   {
+    "text": "Search summary: designer built a grid from logo proportions; asked animator to build slot-machine motion from it; hand-drawn imperfections remain visible in animation.",
+    "type": "observed"
+   }
+  ],
+  "transferable_principles": [
+   "Derive motion grid from the logo's own geometry",
+   "Keep hand-drawn imperfection as personality",
+   "Design logo variants as a motion system"
+  ],
+  "weaknesses": [
+   "Tooling not stated"
+  ],
+  "license": null,
+  "model": null,
+  "agent": null,
+  "tags": [
+   "studio",
+   "grid",
+   "identity-system"
+  ]
+ },
+ {
+  "id": "ref-som-six-transitions",
+  "title": "Six Essential Motion Design Transitions (School of Motion)",
+  "creator": "School of Motion",
+  "url": "https://schoolofmotion.com/blog/six-essential-motion-design-transitions-tutorial",
+  "attribution": "professional-inspiration",
+  "verification": {
+   "status": "partially-verified",
+   "method": "search snippet only",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "generic-motion"
+  ],
+  "motion_techniques": [
+   "match-cut",
+   "morph",
+   "dynamic-zoom",
+   "dissolve",
+   "cut-on-action"
+  ],
+  "brand_personality": [],
+  "reveal_mechanism": "Morph and match cut transitions; morph 'particularly prevalent in logo animations'",
+  "motion_family": "transition-toolkit",
+  "production": "2d",
+  "framework": [
+   "after-effects"
+  ],
+  "complexity": "low",
+  "concept": "Tutorial; match-cut demo uses shapes in the School of Motion logo as anchor.",
+  "prompt_available": false,
+  "prompt_excerpt": null,
+  "source_code_available": false,
+  "observations": [
+   {
+    "text": "Search summary quoting the tutorial: morph is particularly prevalent in logo animations; match cut softens a hard cut.",
+    "type": "observed"
+   }
+  ],
+  "transferable_principles": [
+   "Use a morph or match cut to join logo with the next shape/scene",
+   "Cut at the moment of fastest movement"
+  ],
+  "weaknesses": [
+   "Not logo-specific"
+  ],
+  "license": null,
+  "model": null,
+  "agent": null,
+  "tags": [
+   "school-of-motion",
+   "morph",
+   "match-cut"
+  ]
+ },
+ {
+  "id": "ref-som-sports-mograph",
+  "title": "How to Design Show-Stopping Sports MoGraph (School of Motion)",
+  "creator": "School of Motion",
+  "url": "https://www.schoolofmotion.com/blog/how-to-design-show-stopping-sports-mograph",
+  "attribution": "professional-inspiration",
+  "verification": {
+   "status": "partially-verified",
+   "method": "search snippet only",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "team-logo"
+  ],
+  "motion_techniques": [
+   "shape-and-scale-contrast",
+   "brand-colour-contrast"
+  ],
+  "brand_personality": [
+   "energetic"
+  ],
+  "reveal_mechanism": "Logos revealed by shifting shapes and sizes to create depth",
+  "motion_family": "contrast-driven-reveal",
+  "production": "2d",
+  "framework": [
+   "after-effects"
+  ],
+  "complexity": "medium",
+  "concept": "Per search summary: tutorial uses contrast to drive energy when revealing teams, logos and names.",
+  "prompt_available": false,
+  "prompt_excerpt": null,
+  "source_code_available": false,
+  "observations": [
+   {
+    "text": "Search summary: also advice to sketch the final frame early, work backward from end position, use sliders/joysticks to group motion.",
+    "type": "observed"
+   }
+  ],
+  "transferable_principles": [
+   "Design the end frame first and animate backward",
+   "Check brightness contrast between brand colours",
+   "Link layers to one control to move in unison"
+  ],
+  "weaknesses": [
+   "Snippet only"
+  ],
+  "license": null,
+  "model": null,
+  "agent": null,
+  "tags": [
+   "school-of-motion",
+   "contrast",
+   "reverse-animation"
+  ]
+ },
+ {
+  "id": "ref-motiondesignschool-logo-principles",
+  "title": "Animation principles in logo animation (Motion Design School)",
+  "creator": "Motion Design School",
+  "url": "https://motiondesign.school/blog/animation-principles-in-logo-animation/",
+  "attribution": "professional-inspiration",
+  "verification": {
+   "status": "unverified",
+   "method": "search snippet only",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "generic-logo"
+  ],
+  "motion_techniques": [
+   "easing",
+   "arcs",
+   "squash-and-stretch",
+   "secondary-motion"
+  ],
+  "brand_personality": [],
+  "reveal_mechanism": "Applies classic animation principles to logo motion",
+  "motion_family": "principles",
+  "production": "2d",
+  "framework": [
+   "after-effects (inferred)"
+  ],
+  "complexity": "low",
+  "concept": "Different organisation from School of Motion. Search summary says it covers easing, arcs, squash and stretch.",
+  "prompt_available": false,
+  "prompt_excerpt": null,
+  "source_code_available": false,
+  "observations": [
+   {
+    "text": "Search summary: even a little easing improves perceived quality; spring/bounce suits playful brands; overuse looks unpolished; rough duration bands 0.3-0.8 s energetic, 1-2 s professional, 2-4 s luxury - the bands came from a skill file, not a recognised authority.",
+    "type": "observed"
+   }
+  ],
+  "transferable_principles": [
+   "Ease everything",
+   "Arcs for organic paths",
+   "Secondary elements settle after primary"
+  ],
+  "weaknesses": [
+   "Duration bands are a rule of thumb"
+  ],
+  "license": null,
+  "model": null,
+  "agent": null,
+  "tags": [
+   "principles",
+   "easing",
+   "arcs"
+  ]
+ },
+ {
+  "id": "ref-polimi-motion-identity-thesis",
+  "title": "Motion identity methodology thesis (Politecnico di Milano)",
+  "creator": "Politecnico di Milano (author not captured)",
+  "url": "https://www.politesi.polimi.it/handle/10589/151926",
+  "attribution": "professional-inspiration",
+  "verification": {
+   "status": "unverified",
+   "method": "search snippet only",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "brand-identity"
+  ],
+  "motion_techniques": [
+   "motion-identity-method"
+  ],
+  "brand_personality": [],
+  "reveal_mechanism": "Defines motion identity as kinetic side of brand identity; method applied to The North Face and TelligWeb",
+  "motion_family": "methodology",
+  "production": "2d",
+  "framework": [],
+  "complexity": "low",
+  "concept": "Academic thesis: method for turning a static logo into animation, with two case studies.",
+  "prompt_available": false,
+  "prompt_excerpt": null,
+  "source_code_available": false,
+  "observations": [
+   {
+    "text": "Search summary only.",
+    "type": "observed"
+   }
+  ],
+  "transferable_principles": [
+   "Treat motion as an extension of the brand identity system"
+  ],
+  "weaknesses": [
+   "Academic; not examined"
+  ],
+  "license": null,
+  "model": null,
+  "agent": null,
+  "tags": [
+   "academic",
+   "identity"
+  ]
+ },
+ {
+  "id": "ref-motionographer-design-for-motion",
+  "title": "Design For Motion Revisited (Motionographer)",
+  "creator": "Austin Shaw (Q&A)",
+  "url": "https://motionographer.com/2020/06/30/design-for-motion-revisited/",
+  "attribution": "professional-inspiration",
+  "verification": {
+   "status": "partially-verified",
+   "method": "search snippet only",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "generic-motion"
+  ],
+  "motion_techniques": [
+   "sound-off-design",
+   "typography-in-motion"
+  ],
+  "brand_personality": [],
+  "reveal_mechanism": "Q&A on 2nd edition of Design for Motion",
+  "motion_family": "education",
+  "production": "2d",
+  "framework": [],
+  "complexity": "low",
+  "concept": "June 2020 Q&A; Shaw highlights designing for sound-off since typography and captions matter on social.",
+  "prompt_available": false,
+  "prompt_excerpt": null,
+  "source_code_available": false,
+  "observations": [
+   {
+    "text": "Search summary: second edition has 30 interviews and adds mobile/social-first platforms.",
+    "type": "observed"
+   }
+  ],
+  "transferable_principles": [
+   "Design logo stings to read with sound off"
+  ],
+  "weaknesses": [
+   "Interview, not a logo case study"
+  ],
+  "license": null,
+  "model": null,
+  "agent": null,
+  "tags": [
+   "motionographer",
+   "education",
+   "typography"
+  ]
+ },
+ {
+  "id": "ref-vimeo-logo-animations-channel",
+  "title": "Logo Animations channel (Vimeo, spinmylogo)",
+  "creator": "spinmylogo studio",
+  "url": "https://vimeo.com/channels/74752",
+  "attribution": "professional-inspiration",
+  "verification": {
+   "status": "unverified",
+   "method": "search snippet only",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "generic-logo"
+  ],
+  "motion_techniques": [
+   "breakdowns"
+  ],
+  "brand_personality": [],
+  "reveal_mechanism": "Curated logo animation channel (~31 videos), entries include technical-approach breakdowns",
+  "motion_family": "gallery",
+  "production": "2d",
+  "framework": [],
+  "complexity": "low",
+  "concept": "Seen in search results; not channel 1807430. Related channels seen: vimeo.com/channels/logo (~55), vimeo.com/channels/logomotion, vimeo.com/groups/63495.",
+  "prompt_available": false,
+  "prompt_excerpt": null,
+  "source_code_available": false,
+  "observations": [
+   {
+    "text": "Search summary only; counts approximate.",
+    "type": "observed"
+   }
+  ],
+  "transferable_principles": [
+   "Use channels with breakdown notes for technique mining"
+  ],
+  "weaknesses": [
+   "Unverified"
+  ],
+  "license": null,
+  "model": null,
+  "agent": null,
+  "tags": [
+   "vimeo",
+   "gallery"
+  ]
+ },
+ {
+  "id": "ref-motionographer-animade-rebrand",
+  "title": "Animade Rebrand 2020 (Motionographer)",
+  "creator": "Animade (via Motionographer)",
+  "url": "https://motionographer.com/news/animade-rebrand-2020/",
+  "attribution": "professional-inspiration",
+  "verification": {
+   "status": "unverified",
+   "method": "search snippet only",
+   "last_verified": "2026-10-10"
+  },
+  "logo_category": [
+   "studio-rebrand"
+  ],
+  "motion_techniques": [
+   "character-led-reveal"
+  ],
+  "brand_personality": [
+   "playful"
+  ],
+  "reveal_mechanism": "Two circles ping through a colourful world and come together over the logo",
+  "motion_family": "narrative-reveal",
+  "production": "2d",
+  "framework": [],
+  "complexity": "low",
+  "concept": "Search summary of Motionographer news post.",
+  "prompt_available": false,
+  "prompt_excerpt": null,
+  "source_code_available": false,
+  "observations": [
+   {
+    "text": "Search summary only.",
+    "type": "observed"
+   }
+  ],
+  "transferable_principles": [
+   "Let simple shapes (circles) tell a story that resolves into the logo"
+  ],
+  "weaknesses": [
+   "Thin evidence"
+  ],
+  "license": null,
+  "model": null,
+  "agent": null,
+  "tags": [
+   "motionographer",
+   "rebrand"
+  ]
+ }
+]

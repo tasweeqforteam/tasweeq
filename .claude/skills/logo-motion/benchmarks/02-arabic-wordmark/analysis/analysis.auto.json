@@ -1,0 +1,637 @@
+{
+  "ink": {
+    "area_px": 129993,
+    "bbox_px": [
+      8,
+      8,
+      1008,
+      413
+    ],
+    "orientation_deg": -6.1,
+    "elongation": 3.35
+  },
+  "symmetry": {
+    "mirror_vertical_axis": 0.279,
+    "mirror_horizontal_axis": 0.276,
+    "rotational_180": 0.25
+  },
+  "islands": [
+    {
+      "id": "i1",
+      "area_share": 0.041,
+      "bbox_px": [
+        886,
+        8,
+        130,
+        74
+      ]
+    },
+    {
+      "id": "i2",
+      "area_share": 0.042,
+      "bbox_px": [
+        118,
+        23,
+        130,
+        74
+      ]
+    },
+    {
+      "id": "i3",
+      "area_share": 0.397,
+      "bbox_px": [
+        8,
+        105,
+        392,
+        316
+      ]
+    },
+    {
+      "id": "i4",
+      "area_share": 0.479,
+      "bbox_px": [
+        410,
+        105,
+        602,
+        305
+      ]
+    },
+    {
+      "id": "i5",
+      "area_share": 0.041,
+      "bbox_px": [
+        259,
+        332,
+        129,
+        73
+      ]
+    }
+  ],
+  "holes": [
+    {
+      "id": "h1",
+      "area_share_of_ink": 0.02,
+      "bbox_px": [
+        116,
+        195,
+        114,
+        31
+      ],
+      "bbox_norm": [
+        0.113,
+        0.455,
+        0.111,
+        0.072
+      ]
+    },
+    {
+      "id": "h2",
+      "area_share_of_ink": 0.021,
+      "bbox_px": [
+        431,
+        196,
+        119,
+        30
+      ],
+      "bbox_norm": [
+        0.421,
+        0.457,
+        0.116,
+        0.07
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "p1",
+      "source_element": 0,
+      "subpath_index": 0,
+      "d": "M264 400C276.8 400 283.6 393.2 283.6 380.4L283.6 324.4L252.4 324.4C242.8 248.4 207.6 224 175.6 224C128 224 102 278.8 102 325.2C102 366.4 116 400 158 400L246 400C245.6 403.6 245.6 407.6 245.2 411.6C218.4 428 164.4 443.2 118.4 443.2C65.2 443.2 20.4 425.6 20.4 373.2C20.4 357.6 24.4 338 31.2 312.8L23.2 312.8C14.4 337.6 3.2 378.8 3.2 416.4C3.2 494 51.2 516.8 105.2 516.8C151.2 516.8 202.4 499.6 234 477.6C244.8 450.8 251.2 428.4 254 400ZM109.6 308.4C109.6 300 130.4 293.2 152.4 293.2C177.2 293.2 204.8 302 223.2 324L155.2 324C130.4 324 109.6 320 109.6 308.4Z",
+      "matrix": null,
+      "fill": "rgb(10, 10, 10)",
+      "stroke": "none",
+      "stroke_width": 1,
+      "fill_rule": "nonzero",
+      "holes": 1,
+      "commands": {
+        "subpaths": 2,
+        "lines": 5,
+        "cubics": 15,
+        "quads": 0,
+        "arcs": 0,
+        "closes": 2,
+        "nodes": 22
+      },
+      "area_share": 0.319,
+      "bbox_norm": [
+        0.008,
+        0.289,
+        0.277,
+        0.692
+      ],
+      "bbox_px": [
+        8,
+        124,
+        284,
+        297
+      ],
+      "centroid_norm": [
+        0.158,
+        0.671
+      ],
+      "orientation_deg": -55.3,
+      "elongation": 1.49,
+      "solidity": 0.649,
+      "outline_length_user": 1436.39,
+      "primitive": null
+    },
+    {
+      "id": "p2",
+      "source_element": 0,
+      "subpath_index": 1,
+      "d": "M239.6 163.2C240 162.8 240 157.6 239.6 157.2L206 123.6L176 153.6L146 123.6L112 157.6L112 162.8L146 196.8L176 166.8L206 196.8Z",
+      "matrix": null,
+      "fill": "rgb(10, 10, 10)",
+      "stroke": "none",
+      "stroke_width": 1,
+      "fill_rule": "nonzero",
+      "holes": 0,
+      "commands": {
+        "subpaths": 1,
+        "lines": 8,
+        "cubics": 1,
+        "quads": 0,
+        "arcs": 0,
+        "closes": 1,
+        "nodes": 10
+      },
+      "area_share": 0.042,
+      "bbox_norm": [
+        0.115,
+        0.054,
+        0.127,
+        0.172
+      ],
+      "bbox_px": [
+        118,
+        23,
+        130,
+        74
+      ],
+      "centroid_norm": [
+        0.178,
+        0.139
+      ],
+      "orientation_deg": 0.1,
+      "elongation": 2.24,
+      "solidity": 0.742,
+      "outline_length_user": 372.18,
+      "primitive": null
+    },
+    {
+      "id": "p3",
+      "source_element": 0,
+      "subpath_index": 3,
+      "d": "M261.2 400C289.6 400 328.8 393.2 351.6 380L371.6 326.4C378 309.6 381.2 293.2 380.8 276.8L390 255.2L354.8 205.2L346.8 205.2L318.8 271.2C337.2 287.6 355.6 303.2 368 318C345.2 322 310.4 324.4 280.8 324.4C268 324.4 261.2 331.2 261.2 344Z",
+      "matrix": null,
+      "fill": "rgb(10, 10, 10)",
+      "stroke": "none",
+      "stroke_width": 1,
+      "fill_rule": "nonzero",
+      "holes": 0,
+      "commands": {
+        "subpaths": 1,
+        "lines": 5,
+        "cubics": 5,
+        "quads": 0,
+        "arcs": 0,
+        "closes": 1,
+        "nodes": 11
+      },
+      "area_share": 0.091,
+      "bbox_norm": [
+        0.263,
+        0.245,
+        0.128,
+        0.462
+      ],
+      "bbox_px": [
+        269,
+        105,
+        131,
+        198
+      ],
+      "centroid_norm": [
+        0.329,
+        0.515
+      ],
+      "orientation_deg": -62.3,
+      "elongation": 2.5,
+      "solidity": 0.748,
+      "outline_length_user": 608.92,
+      "primitive": null
+    },
+    {
+      "id": "p4",
+      "source_element": 0,
+      "subpath_index": 4,
+      "d": "M378.4 468C378.8 467.6 378.8 462.4 378.4 462L344.8 428.4L314.8 458.4L284.8 428.4L250.8 462.4L250.8 467.6L284.8 501.6L314.8 471.6L344.8 501.6Z",
+      "matrix": null,
+      "fill": "rgb(10, 10, 10)",
+      "stroke": "none",
+      "stroke_width": 1,
+      "fill_rule": "nonzero",
+      "holes": 0,
+      "commands": {
+        "subpaths": 1,
+        "lines": 8,
+        "cubics": 1,
+        "quads": 0,
+        "arcs": 0,
+        "closes": 1,
+        "nodes": 10
+      },
+      "area_share": 0.041,
+      "bbox_norm": [
+        0.253,
+        0.774,
+        0.126,
+        0.17
+      ],
+      "bbox_px": [
+        259,
+        332,
+        129,
+        73
+      ],
+      "centroid_norm": [
+        0.315,
+        0.858
+      ],
+      "orientation_deg": 0,
+      "elongation": 2.24,
+      "solidity": 0.743,
+      "outline_length_user": 372.18,
+      "primitive": null
+    },
+    {
+      "id": "p5",
+      "source_element": 0,
+      "subpath_index": 5,
+      "d": "M576.8 400C589.6 400 596.4 393.2 596.4 380.4L596.4 324.4L560 324.4C556.4 254 522.8 225.2 487.6 225.2C450.4 225.2 413.2 264.8 413.2 333.2C413.2 379.6 437.6 400 468.8 400L542 400C508.4 432 460 445.2 400.4 455.2L400.4 463.2L487.2 506.8C517.2 472.8 540.4 440.4 552 400ZM420.4 306.8C420.4 300 441.6 294.4 466.8 294.4C493.6 294.4 523.2 302 539.2 324.4L469.2 324.4C443.2 324.4 420.4 320 420.4 306.8Z",
+      "matrix": null,
+      "fill": "rgb(10, 10, 10)",
+      "stroke": "none",
+      "stroke_width": 1,
+      "fill_rule": "nonzero",
+      "holes": 1,
+      "commands": {
+        "subpaths": 2,
+        "lines": 6,
+        "cubics": 9,
+        "quads": 0,
+        "arcs": 0,
+        "closes": 2,
+        "nodes": 17
+      },
+      "area_share": 0.223,
+      "bbox_norm": [
+        0.4,
+        0.291,
+        0.194,
+        0.664
+      ],
+      "bbox_px": [
+        410,
+        125,
+        199,
+        285
+      ],
+      "centroid_norm": [
+        0.496,
+        0.6
+      ],
+      "orientation_deg": -86.7,
+      "elongation": 1.57,
+      "solidity": 0.718,
+      "outline_length_user": 987.33,
+      "primitive": null
+    },
+    {
+      "id": "p6",
+      "source_element": 0,
+      "subpath_index": 7,
+      "d": "M882 400C894.8 400 901.2 393.6 901.2 380.8L901.2 324.4C873.2 324.4 846.8 322 845.6 292.4L844 258.4L833.6 258.4L818.4 321.2L766 310.4L773.6 275.6L762 273.2L749.2 318.8C738 324.4 724.4 326 711.6 326C693.6 326 672 321.6 656.8 314.4L675.2 280.4L664.8 274.8L638.4 318.8C622.4 323.2 616.8 324.4 596.8 324.4C583.6 324.4 577.2 330.8 577.2 344L577.2 400C590.8 400 604 398 616.8 389.6L625.2 374C639.2 388.8 659.2 400 684.8 400C704 400 725.6 393.6 735.6 376L807.2 392.4L818.8 344.8C821.2 388.4 850.8 400 882 400Z",
+      "matrix": null,
+      "fill": "rgb(10, 10, 10)",
+      "stroke": "none",
+      "stroke_width": 1,
+      "fill_rule": "nonzero",
+      "holes": 0,
+      "commands": {
+        "subpaths": 1,
+        "lines": 15,
+        "cubics": 10,
+        "quads": 0,
+        "arcs": 0,
+        "closes": 1,
+        "nodes": 26
+      },
+      "area_share": 0.196,
+      "bbox_norm": [
+        0.575,
+        0.371,
+        0.32,
+        0.336
+      ],
+      "bbox_px": [
+        589,
+        159,
+        328,
+        144
+      ],
+      "centroid_norm": [
+        0.738,
+        0.586
+      ],
+      "orientation_deg": -2.1,
+      "elongation": 3.45,
+      "solidity": 0.64,
+      "outline_length_user": 1147.17,
+      "primitive": null
+    },
+    {
+      "id": "p7",
+      "source_element": 0,
+      "subpath_index": 8,
+      "d": "M959.6 205.2L951.6 205.2L923.6 271.6C941.6 284.8 961.6 304 972.8 318C951.6 322 925.6 324.4 901.6 324.4C888.8 324.4 882 331.2 882 344L882 400C903.6 400 933.6 393.2 956.4 380L976.4 326.4C982.8 309.6 986 293.2 985.6 276.8L994.8 255.2Z",
+      "matrix": null,
+      "fill": "rgb(10, 10, 10)",
+      "stroke": "none",
+      "stroke_width": 1,
+      "fill_rule": "nonzero",
+      "holes": 0,
+      "commands": {
+        "subpaths": 1,
+        "lines": 5,
+        "cubics": 5,
+        "quads": 0,
+        "arcs": 0,
+        "closes": 1,
+        "nodes": 11
+      },
+      "area_share": 0.081,
+      "bbox_norm": [
+        0.877,
+        0.245,
+        0.111,
+        0.459
+      ],
+      "bbox_px": [
+        898,
+        105,
+        114,
+        197
+      ],
+      "centroid_norm": [
+        0.934,
+        0.504
+      ],
+      "orientation_deg": -67.9,
+      "elongation": 2.76,
+      "solidity": 0.775,
+      "outline_length_user": 577.55,
+      "primitive": null
+    },
+    {
+      "id": "p8",
+      "source_element": 0,
+      "subpath_index": 9,
+      "d": "M998 148.8C998.4 148.4 998.4 143.2 998 142.8L964.4 109.2L934.4 139.2L904.4 109.2L870.4 143.2L870.4 148.4L904.4 182.4L934.4 152.4L964.4 182.4Z",
+      "matrix": null,
+      "fill": "rgb(10, 10, 10)",
+      "stroke": "none",
+      "stroke_width": 1,
+      "fill_rule": "nonzero",
+      "holes": 0,
+      "commands": {
+        "subpaths": 1,
+        "lines": 8,
+        "cubics": 1,
+        "quads": 0,
+        "arcs": 0,
+        "closes": 1,
+        "nodes": 10
+      },
+      "area_share": 0.041,
+      "bbox_norm": [
+        0.865,
+        0.019,
+        0.127,
+        0.172
+      ],
+      "bbox_px": [
+        886,
+        8,
+        130,
+        74
+      ],
+      "centroid_norm": [
+        0.928,
+        0.104
+      ],
+      "orientation_deg": 0,
+      "elongation": 2.24,
+      "solidity": 0.736,
+      "outline_length_user": 372.18,
+      "primitive": null
+    }
+  ],
+  "repetition": [
+    {
+      "a": "p2",
+      "b": "p4",
+      "similarity": 0.953,
+      "transform": "identity",
+      "scale_ratio": 1.008
+    },
+    {
+      "a": "p2",
+      "b": "p8",
+      "similarity": 1,
+      "transform": "identity",
+      "scale_ratio": 1
+    },
+    {
+      "a": "p4",
+      "b": "p8",
+      "similarity": 0.953,
+      "transform": "identity",
+      "scale_ratio": 0.992
+    }
+  ],
+  "alignment": [
+    {
+      "axis": "x",
+      "at_norm": 0.931,
+      "members": [
+        "p8.center",
+        "p7.center"
+      ]
+    },
+    {
+      "axis": "x",
+      "at_norm": 0.99,
+      "members": [
+        "p7.right",
+        "p8.right"
+      ]
+    },
+    {
+      "axis": "y",
+      "at_norm": 0.245,
+      "members": [
+        "p3.top",
+        "p7.top"
+      ]
+    },
+    {
+      "axis": "y",
+      "at_norm": 0.29,
+      "members": [
+        "p1.top",
+        "p5.top"
+      ]
+    },
+    {
+      "axis": "y",
+      "at_norm": 0.475,
+      "members": [
+        "p7.middle",
+        "p3.middle"
+      ]
+    },
+    {
+      "axis": "y",
+      "at_norm": 0.629,
+      "members": [
+        "p5.middle",
+        "p1.middle"
+      ]
+    },
+    {
+      "axis": "y",
+      "at_norm": 0.706,
+      "members": [
+        "p7.bottom",
+        "p3.bottom",
+        "p6.bottom"
+      ]
+    },
+    {
+      "axis": "y",
+      "at_norm": 0.95,
+      "members": [
+        "p4.bottom",
+        "p5.bottom"
+      ]
+    }
+  ],
+  "palette": [
+    {
+      "hex": "#0A0A0A",
+      "share": 0.999
+    }
+  ],
+  "heuristics": {
+    "note": "Heuristic signals from geometry only. Confirm by looking at overview.png before relying on them.",
+    "island_count": 5,
+    "row_of_similar_islands": false,
+    "largest_island_share": 0.479,
+    "likely_structure": "combination mark (symbol + lettering?)",
+    "ink_coverage_of_bbox": 0.312,
+    "visual_balance_offset": [
+      -0.05,
+      0.078
+    ]
+  },
+  "warnings": [],
+  "kind": "svg",
+  "viewBox": [
+    -4.800000190734863,
+    101.19999694824219,
+    1011.2000122070312,
+    423.6000061035156
+  ],
+  "raster_size": [
+    1024,
+    429
+  ],
+  "aspect_ratio": 2.387,
+  "features": {
+    "groups": 0,
+    "transforms": 0,
+    "clipPaths": 0,
+    "masks": 0,
+    "gradients": 0,
+    "filters": 0,
+    "patterns": 0,
+    "images": 0,
+    "texts": 0,
+    "uses": 0,
+    "styles": 0,
+    "strokes_only": 0
+  },
+  "elements": [
+    {
+      "index": 0,
+      "tag": "path",
+      "id": null,
+      "matrix": null,
+      "bbox_local": [
+        3.2,
+        109.2,
+        995.1,
+        407.6
+      ],
+      "style": {
+        "fill": "rgb(10, 10, 10)",
+        "stroke": "none",
+        "strokeWidth": 1,
+        "opacity": 1,
+        "fillOpacity": 1,
+        "fillRule": "nonzero",
+        "visibility": "visible",
+        "display": "inline"
+      },
+      "commands": {
+        "subpaths": 10,
+        "lines": 60,
+        "cubics": 47,
+        "quads": 0,
+        "arcs": 0,
+        "closes": 10,
+        "nodes": 117
+      },
+      "length": 6379
+    }
+  ],
+  "geometry": {
+    "segment_totals": {
+      "lines": 60,
+      "curves": 47,
+      "arcs": 0,
+      "nodes": 117
+    },
+    "straight_ratio": 0.561,
+    "circle_parts": [],
+    "polygon_parts": [],
+    "complexity": "medium"
+  },
+  "parts_svg_fidelity": {
+    "mask_iou": 0.9999,
+    "mean_rgb_error": 0
+  },
+  "source": "source.svg",
+  "analyzed_at": "2026-10-10T20:42:25.353Z"
+}

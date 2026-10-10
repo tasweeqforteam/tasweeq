@@ -1,0 +1,36 @@
+:root { --ease-out: cubic-bezier(0.22, 1, 0.36, 1); --accent: #e33; --gutter: 24px; }
+body { margin: 0; font-family: system-ui; }
+.pad { padding: 10vh 5vw; } .tall { height: 150vh; }
+.box { height: 60vh; background: #ccd; }
+.story { display: grid; grid-template-columns: 1fr 1fr; } .story-steps li { height: 80vh; }
+.hgallery { overflow: hidden; } .hgallery-track a { height: 60vh; background: #dde; display: block; }
+/* R1 */
+@media (prefers-reduced-motion: no-preference) {
+  .js .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s var(--ease-out), transform .7s var(--ease-out); }
+  .js .reveal.is-in { opacity: 1; transform: none; }
+}
+/* R2 */
+.progress { position: fixed; inset-block-start: 0; inset-inline: 0; height: 3px; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); }
+:root[dir="rtl"] .progress { transform-origin: 100% 50%; }
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .progress { animation: grow linear both; animation-timeline: scroll(root); }
+    .img-wipe { animation: wipe linear both; animation-timeline: view(); animation-range: entry 0% cover 35%; }
+  }
+}
+@supports not (animation-timeline: scroll()) { .progress { display: none } }
+@keyframes grow { to { transform: scaleX(1); } }
+@keyframes wipe { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); } }
+/* R5 */
+.hgallery-track { display: flex; gap: var(--gutter); overflow-x: auto; scroll-snap-type: x mandatory; }
+.hgallery-track > * { scroll-snap-align: start; flex: 0 0 min(80vw, 520px); }
+@media (min-width: 960px) and (prefers-reduced-motion: no-preference) { .js .hgallery-track { overflow: visible; } }
+/* R8 */
+[data-magnetic] { transition: transform .35s var(--ease-out); }
+/* R12 */
+[data-velocity-type] { font-variation-settings: "wght" var(--wght, 900); }
+/* R13 */
+@media (prefers-reduced-motion: no-preference) {
+  .js .wipe { clip-path: inset(0 0 100% 0); transition: clip-path 1s var(--ease-out); }
+  .js .wipe.is-in { clip-path: inset(0); }
+}

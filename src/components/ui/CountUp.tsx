@@ -20,7 +20,9 @@ export default function CountUp({
 }: CountUpProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const reduced = useReducedMotion();
-  const [display, setDisplay] = useState(reduced ? value : 0);
+  // Must match on server and client: useReducedMotion() is null during SSR.
+  // The effect below jumps straight to `value` under reduced motion.
+  const [display, setDisplay] = useState(0);
   const triggered = useRef(false);
 
   const trigger = useCallback(() => {
@@ -35,6 +37,8 @@ export default function CountUp({
 
   useEffect(() => {
     if (reduced) {
+      // Post-hydration sync: can't be the initial state without an SSR mismatch.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setDisplay(value);
       return;
     }

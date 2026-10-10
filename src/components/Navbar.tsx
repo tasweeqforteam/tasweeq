@@ -1,12 +1,34 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Menu, Moon, Sun, X } from "lucide-react";
 import Logo from "@/components/ui/Logo";
 import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
 import { useLanguage, useTheme } from "@/components/Providers";
 import { gtmEvent } from "@/lib/gtm";
+
+function IconBtn({
+  onClick,
+  label,
+  children,
+}: {
+  onClick: () => void;
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={label}
+      className="inline-flex h-9 min-w-9 items-center justify-center rounded-full border border-line px-2.5 text-[0.78rem] font-semibold text-ink transition-colors duration-300 hover:border-ink"
+    >
+      {children}
+    </button>
+  );
+}
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -29,25 +51,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const IconBtn = ({
-    onClick,
-    label,
-    children,
-  }: {
-    onClick: () => void;
-    label: string;
-    children: React.ReactNode;
-  }) => (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-label={label}
-      className="inline-flex h-9 min-w-9 items-center justify-center rounded-full border border-line px-2.5 text-[0.78rem] font-semibold text-ink transition-colors duration-300 hover:border-ink"
-    >
-      {children}
-    </button>
-  );
-
   return (
     <>
       <header
@@ -62,9 +65,9 @@ export default function Navbar() {
             scrolled ? "h-[58px]" : "h-[84px]"
           }`}
         >
-          <a href="/" aria-label="TASWEEQ — home" className="text-ink">
+          <Link href="/" aria-label="TASWEEQ — home" className="text-ink">
             <Logo />
-          </a>
+          </Link>
 
           <nav className="hidden items-center gap-9 lg:flex" aria-label="Primary">
             {LINKS.map((l) => (

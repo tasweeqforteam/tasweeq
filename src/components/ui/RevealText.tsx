@@ -33,7 +33,9 @@ export default function RevealText({
     <div ref={ref} {...(forceEn ? { "data-font-en": true } : {})}>
       <Tag
         variants={stagger}
-        initial={reduced ? "show" : "hidden"}
+        // Always start "hidden" so SSR and hydration agree; under reduced motion
+        // MotionConfig (Providers) skips the transform, so "show" applies instantly.
+        initial="hidden"
         animate={inView || reduced ? "show" : "hidden"}
         className={className}
         style={{ textAlign: align }}

@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { MotionConfig } from "framer-motion";
 import { translations, type Dict, type Lang } from "@/lib/i18n";
 
 type Theme = "light" | "dark";
@@ -40,6 +41,8 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     const el = document.documentElement;
     const initialLang = (el.lang === "en" ? "en" : "ar") as Lang;
     const initialTheme = (el.dataset.theme === "dark" ? "dark" : "light") as Theme;
+    // DOM is only readable after hydration, so this sync must live in an effect.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLangState(initialLang);
     setThemeState(initialTheme);
   }, []);
@@ -83,7 +86,10 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <ThemeContext.Provider value={themeValue}>
-      <LanguageContext.Provider value={languageValue}>{children}</LanguageContext.Provider>
+      <LanguageContext.Provider value={languageValue}>
+        {/* Honour prefers-reduced-motion for every motion component (skips transform/layout animations) */}
+        <MotionConfig reducedMotion="user">{children}</MotionConfig>
+      </LanguageContext.Provider>
     </ThemeContext.Provider>
   );
 }

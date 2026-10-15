@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
-import { animate, useReducedMotion } from "framer-motion";
+import { animate } from "framer-motion";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
 type CountUpProps = {
   value: number;
@@ -19,25 +20,24 @@ export default function CountUp({
   className = "",
 }: CountUpProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const reduced = useReducedMotion();
-  const [display, setDisplay] = useState(reduced ? value : 0);
+  // `true` on the server and during hydration, so the HTML carries the final value
+  // and server/client text always match.
+  const reduced = usePrefersReducedMotion();
+  const [display, setDisplay] = useState(0);
   const triggered = useRef(false);
 
   const trigger = useCallback(() => {
-    if (triggered.current || reduced) return;
+    if (triggered.current) return;
     triggered.current = true;
     animate(0, value, {
       duration: 1.6,
       ease: [0.22, 1, 0.36, 1],
       onUpdate: (v) => setDisplay(v),
     });
-  }, [value, reduced]);
+  }, [value]);
 
   useEffect(() => {
-    if (reduced) {
-      setDisplay(value);
-      return;
-    }
+    if (reduced) return;
     const el = ref.current;
     if (!el) return;
 
@@ -53,12 +53,14 @@ export default function CountUp({
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, [trigger, reduced, value]);
+  }, [trigger, reduced]);
+
+  const shown = reduced ? value : display;
 
   return (
     <span ref={ref} className={className}>
       {prefix}
-      {display.toFixed(decimals)}
+      {shown.toFixed(decimals)}
       {suffix}
     </span>
   );

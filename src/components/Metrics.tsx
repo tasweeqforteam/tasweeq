@@ -96,7 +96,7 @@ export default function Metrics() {
               key={p}
               className="flex items-baseline gap-3 border-b border-line py-6 md:border-b-0 md:border-e md:last:border-e-0 md:pe-6"
             >
-              <span className="eyebrow text-gray-2">0{i + 1}</span>
+              <span className="eyebrow text-gray-1">0{i + 1}</span>
               <span className="font-display text-xl font-semibold tracking-[-0.02em] text-ink">
                 {p}
               </span>

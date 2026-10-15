@@ -71,7 +71,7 @@ export default function Navbar() {
               <a
                 key={l.href}
                 href={l.href}
-                className="link-reveal text-[0.82rem] font-medium tracking-[0.01em] text-gray-1 transition-colors duration-300 hover:text-ink"
+                className="link-reveal inline-flex min-h-6 min-w-6 items-center justify-center text-[0.82rem] font-medium tracking-[0.01em] text-gray-1 transition-colors duration-300 hover:text-ink"
               >
                 {l.label}
               </a>

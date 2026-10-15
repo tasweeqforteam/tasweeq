@@ -49,7 +49,7 @@ export default function FinalCTA() {
           <div className="mt-24 grid grid-cols-1 gap-12 border-t border-line-dark pt-12 md:grid-cols-12">
             {/* socials + contact */}
             <div className="md:col-span-5">
-              <span className="eyebrow text-paper/40">{t.footer.connect}</span>
+              <span className="eyebrow text-paper/60">{t.footer.connect}</span>
               <ul className="mt-6 flex flex-col gap-3">
                 {t.footer.socials.map((label, i) => (
                   <li key={label}>
@@ -68,11 +68,11 @@ export default function FinalCTA() {
                   </li>
                 ))}
               </ul>
-              <div className="mt-10 space-y-1 text-sm text-paper/55" dir="ltr">
-                <a href="mailto:tasweeqforall@gmail.com" className="link-reveal block w-fit">
+              <div className="mt-10 text-sm text-paper/60" dir="ltr">
+                <a href="mailto:tasweeqforall@gmail.com" className="link-reveal flex min-h-7 w-fit items-center">
                   tasweeqforall@gmail.com
                 </a>
-                <a href="tel:+201014300054" className="link-reveal block w-fit">
+                <a href="tel:+201014300054" className="link-reveal flex min-h-7 w-fit items-center">
                   +20 101 4300 054
                 </a>
               </div>
@@ -80,14 +80,14 @@ export default function FinalCTA() {
 
             {/* services */}
             <div className="md:col-span-7">
-              <span className="eyebrow text-paper/40">{t.footer.capabilities}</span>
+              <span className="eyebrow text-paper/60">{t.footer.capabilities}</span>
               <ul className="mt-6 grid grid-cols-1 gap-x-8 sm:grid-cols-2">
                 {t.footer.services.map((s, i) => (
                   <li
                     key={s}
                     className="flex items-baseline gap-3 border-b border-line-dark py-3.5 text-paper/80"
                   >
-                    <span className="text-xs tabular-nums text-paper/30">0{i + 1}</span>
+                    <span className="text-xs tabular-nums text-paper/60">0{i + 1}</span>
                     <span className="text-[0.95rem] font-medium">{s}</span>
                   </li>
                 ))}
@@ -100,17 +100,17 @@ export default function FinalCTA() {
             <span className="text-paper/70">
               <Logo />
             </span>
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-paper/45">
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-paper/60">
               <span dir="ltr">{t.footer.legal.copyright}</span>
-              <span className="text-paper/30">{t.footer.legal.privacy}</span>
-              <span className="text-paper/30">{t.footer.legal.terms}</span>
-              <a href="https://www.instagram.com/tasweeq_agency/" target="_blank" rel="noopener noreferrer" className="link-reveal hover:text-paper">
+              <span>{t.footer.legal.privacy}</span>
+              <span>{t.footer.legal.terms}</span>
+              <a href="https://www.instagram.com/tasweeq_agency/" target="_blank" rel="noopener noreferrer" className="link-reveal inline-flex min-h-6 items-center hover:text-paper">
                 {t.footer.socials[0]}
               </a>
-              <a href="https://www.linkedin.com/in/tasweeq-agency/" target="_blank" rel="noopener noreferrer" className="link-reveal hover:text-paper">
+              <a href="https://www.linkedin.com/in/tasweeq-agency/" target="_blank" rel="noopener noreferrer" className="link-reveal inline-flex min-h-6 items-center hover:text-paper">
                 {t.footer.socials[1]}
               </a>
-              <a href="https://www.facebook.com/profile.php?id=100087189177148" target="_blank" rel="noopener noreferrer" className="link-reveal hover:text-paper">
+              <a href="https://www.facebook.com/profile.php?id=100087189177148" target="_blank" rel="noopener noreferrer" className="link-reveal inline-flex min-h-6 items-center hover:text-paper">
                 {t.footer.socials[2]}
               </a>
             </div>

@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import type { CSSProperties } from "react";
+import { motion } from "framer-motion";
 import { lineReveal, stagger } from "@/lib/motion";
 import { useInViewNative } from "@/lib/useInViewNative";
 
@@ -11,11 +12,18 @@ type RevealTextProps = {
   as?: "h1" | "h2" | "h3" | "p" | "div";
   align?: "start" | "end";
   forceEn?: boolean;
+  /**
+   * "inView" (default): Framer reveal when scrolled into view.
+   * "load": CSS-only reveal that starts at first paint — use for above-the-fold
+   * headlines so they don't wait for hydration and stay visible without JS.
+   */
+  trigger?: "inView" | "load";
 };
 
 /**
  * Per-line mask reveal. Uses native IntersectionObserver (not Framer's whileInView)
- * for reliable triggering under Lenis smooth scroll.
+ * for reliable triggering under Lenis smooth scroll. Reduced motion is handled by
+ * <MotionConfig reducedMotion="user"> (Providers) and by the CSS media query for "load".
  */
 export default function RevealText({
   lines,
@@ -24,17 +32,35 @@ export default function RevealText({
   as = "h2",
   align = "start",
   forceEn = false,
+  trigger = "inView",
 }: RevealTextProps) {
-  const Tag = motion[as];
   const { ref, inView } = useInViewNative<HTMLDivElement>(0.2);
-  const reduced = useReducedMotion();
+  const fontProps = forceEn ? { "data-font-en": true } : {};
 
+  if (trigger === "load") {
+    const Tag = as;
+    return (
+      <div ref={ref} {...fontProps}>
+        <Tag className={className} style={{ textAlign: align }}>
+          {lines.map((line, i) => (
+            <span key={`${line}-${i}`} className="block overflow-hidden pb-[0.06em]">
+              <span className={`reveal-line block ${lineClassName}`} style={{ "--i": i } as CSSProperties}>
+                {line}
+              </span>
+            </span>
+          ))}
+        </Tag>
+      </div>
+    );
+  }
+
+  const Tag = motion[as];
   return (
-    <div ref={ref} {...(forceEn ? { "data-font-en": true } : {})}>
+    <div ref={ref} {...fontProps}>
       <Tag
         variants={stagger}
-        initial={reduced ? "show" : "hidden"}
-        animate={inView || reduced ? "show" : "hidden"}
+        initial="hidden"
+        animate={inView ? "show" : "hidden"}
         className={className}
         style={{ textAlign: align }}
       >

@@ -9,7 +9,7 @@
 //   node visual-qa.mjs --url http://localhost:3000 [--paths /,/about] [--out ./qa]
 //                      [--widths 390,768,1440] [--full] [--reduced] [--axe]
 //                      [--wait 800] [--chromium /path/to/chrome] [--no-scroll]
-//                      [--ignore "googletagmanager|ERR_TUNNEL"]
+//                      [--ignore "googletagmanager|ERR_TUNNEL"] [--storage lang=en,theme=dark] [--label en-dark]
 //
 // Playwright is resolved from the current project, then from the global npm root.
 // Exit code is 0 unless the script itself fails; read the report for findings.
@@ -40,6 +40,9 @@ const outDir = path.resolve(args.out || "qa-output");
 const waitMs = parseInt(args.wait || "800", 10);
 // --ignore <regex>: drop matching failed requests / console errors (e.g. analytics hosts blocked in a sandbox).
 const ignoreRe = args.ignore ? new RegExp(args.ignore) : null;
+// --storage k=v,k2=v2: preset localStorage before any page script runs (sites that keep lang/theme there).
+const storage = args.storage ? Object.fromEntries(String(args.storage).split(",").map((kv) => kv.split("="))) : null;
+const label = args.label ? `-${String(args.label).replace(/[^a-z0-9-]/gi, "")}` : "";
 mkdirSync(outDir, { recursive: true });
 
 const { chromium } = await loadPlaywright();
@@ -81,6 +84,7 @@ async function auditPage(url, width, motion) {
     hasTouch: !!vp.hasTouch,
     reducedMotion: motion,
   });
+  if (storage) await context.addInitScript((kv) => { for (const [k, v] of Object.entries(kv)) localStorage.setItem(k, v); }, storage);
   const page = await context.newPage();
   const consoleErrors = [];
   const failedRequests = [];
@@ -97,7 +101,7 @@ async function auditPage(url, width, motion) {
     bytesByType[type] = (bytesByType[type] || 0) + (Number.isFinite(len) ? len : 0);
   });
 
-  const slug = `${slugify(new URL(url).pathname)}-${width}${motion === "reduce" ? "-reduced" : ""}`;
+  const slug = `${slugify(new URL(url).pathname)}${label}-${width}${motion === "reduce" ? "-reduced" : ""}`;
   const run = { url, width, motion, screenshots: {}, issues: [], metrics: {} };
 
   try {

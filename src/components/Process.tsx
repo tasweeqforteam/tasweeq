@@ -45,7 +45,7 @@ export default function Process() {
                   >
                     <span
                       className={`font-display text-sm font-medium tabular-nums transition-colors duration-300 ${
-                        isOpen ? "text-cyan" : "text-paper/40"
+                        isOpen ? "text-cyan" : "text-paper/60"
                       }`}
                     >
                       {n}

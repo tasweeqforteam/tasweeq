@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,7 +8,7 @@ import Logo from "@/components/ui/Logo";
 import RevealText from "@/components/ui/RevealText";
 import { useLanguage } from "@/components/Providers";
 import { caseStudies, caseStudyI18n } from "@/lib/case-studies";
-import { fadeUp, stagger } from "@/lib/motion";
+import { accentVars } from "@/lib/contrast";
 import { useEffect, useRef, useState } from "react";
 
 const NEEMO_SLIDES = Array.from({ length: 34 }, (_, i) => {
@@ -67,7 +66,7 @@ export default function CaseStudyPage({ slug }: Props) {
   return (
     <>
       <Navbar />
-      <main className="min-h-dvh pt-[84px]">
+      <main className="min-h-dvh pt-[84px]" style={accentVars(study.accentColor)}>
         {/* ─── Hero ─── */}
         <section className="relative overflow-hidden bg-paper">
           {/* giant letter watermark */}
@@ -83,89 +82,66 @@ export default function CaseStudyPage({ slug }: Props) {
             {/* back link */}
             <Link
               href="/#work"
-              className="group mb-12 inline-flex items-center gap-2 text-sm font-medium text-gray-1 transition-colors hover:text-ink"
+              className="group mb-11 inline-flex items-center gap-2 py-1 text-sm font-medium text-gray-1 transition-colors hover:text-ink"
             >
               <BackArrow size={16} className="transition-transform duration-300 group-hover:-translate-x-1 rtl:group-hover:translate-x-1" />
               {dict.backLabel}
             </Link>
 
             {/* eyebrow */}
-            <motion.span
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="eyebrow block"
-              style={{ color: study.accentColor }}
-            >
+            <span className="rise-in eyebrow accent-on-paper block">
               {lang === "en" ? `CASE STUDY 0${studyIndex + 1}` : `دراسة حالة 0${studyIndex + 1}`}
-            </motion.span>
+            </span>
 
             {/* title */}
             <RevealText
               as="h1"
+              trigger="load"
               forceEn
               lines={[TITLES[slug]]}
               className="font-display fluid-xl display-tight mt-4 font-extrabold uppercase text-ink"
             />
 
             {/* Arabic name */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="mt-2 text-3xl font-black"
-              style={{ color: study.accentColor, fontFamily: "var(--font-serif), serif" }}
+            <p
+              className="rise-in accent-on-paper mt-2 text-3xl font-black"
+              style={{ fontFamily: "var(--font-serif), serif", animationDelay: "0.4s" }}
             >
               {ARABIC_NAMES[slug]}
-            </motion.p>
+            </p>
 
             {/* subtitle */}
-            <motion.p
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="mt-3 text-sm text-gray-1"
-            >
+            <p className="rise-in mt-3 text-sm text-gray-1" style={{ animationDelay: "0.5s" }}>
               {study.meta.industry}
-            </motion.p>
+            </p>
 
             {/* meta grid */}
-            <motion.div
-              variants={stagger}
-              initial="hidden"
-              animate="show"
-              className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
-            >
-              {metaEntries.map((m) => (
-                <motion.div
+            <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {metaEntries.map((m, i) => (
+                <div
                   key={m.label}
-                  variants={fadeUp}
-                  className="rounded-[2px] border border-line bg-paper p-5"
+                  className="rise-in rounded-[2px] border border-line bg-paper p-5"
+                  style={{ animationDelay: `${0.55 + i * 0.08}s` }}
                 >
-                  <span className="eyebrow text-gray-2">{m.label}</span>
+                  <span className="eyebrow text-gray-1">{m.label}</span>
                   <p className="mt-2 text-sm font-semibold text-ink">{m.value}</p>
-                </motion.div>
+                </div>
               ))}
-            </motion.div>
+            </div>
 
             {/* action link */}
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.7 }}
-              className="mt-8"
-            >
+            <div className="rise-in mt-8" style={{ animationDelay: "0.7s" }}>
               <a
                 href={study.brandBookUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-paper transition-colors hover:opacity-90"
-                style={{ backgroundColor: study.accentColor }}
+                className="group inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:opacity-90"
+                style={{ backgroundColor: "var(--accent-surface)" }}
               >
                 {dict.viewBrandbook}
                 <ArrowUpRight size={14} />
               </a>
-            </motion.div>
+            </div>
           </div>
 
           {/* accent divider */}
@@ -173,7 +149,7 @@ export default function CaseStudyPage({ slug }: Props) {
         </section>
 
         {/* ─── Brief ─── */}
-        <Section title={dict.briefTitle} accent={study.accentColor} index="01">
+        <Section title={dict.briefTitle} index="01">
           {study.brief.map((p, i) => (
             <p key={i} className="mt-4 max-w-3xl text-[0.95rem] leading-relaxed text-gray-1 first:mt-0">
               {p}
@@ -182,7 +158,7 @@ export default function CaseStudyPage({ slug }: Props) {
         </Section>
 
         {/* ─── Challenge ─── */}
-        <Section title={dict.challengeTitle} accent={study.accentColor} index="02" dark>
+        <Section title={dict.challengeTitle} index="02" dark>
           {study.challenge.map((p, i) => (
             <p key={i} className="mt-4 max-w-3xl text-[0.95rem] leading-relaxed text-paper/70 first:mt-0">
               {p}
@@ -191,7 +167,7 @@ export default function CaseStudyPage({ slug }: Props) {
         </Section>
 
         {/* ─── Thinking ─── */}
-        <Section title={dict.thinkingTitle} accent={study.accentColor} index="03">
+        <Section title={dict.thinkingTitle} index="03">
           {study.thinking.intro && (
             <p className="max-w-3xl text-[0.95rem] leading-relaxed text-gray-1">{study.thinking.intro}</p>
           )}
@@ -202,7 +178,7 @@ export default function CaseStudyPage({ slug }: Props) {
                 className="flex gap-4 border-s-2 ps-5 text-[0.95rem] leading-relaxed text-gray-1"
                 style={{ borderColor: study.accentColor }}
               >
-                <span className="shrink-0 font-display text-sm font-bold tabular-nums" style={{ color: study.accentColor }}>
+                <span className="accent-on-paper shrink-0 font-display text-sm font-bold tabular-nums">
                   0{i + 1}
                 </span>
                 {p}
@@ -212,12 +188,12 @@ export default function CaseStudyPage({ slug }: Props) {
         </Section>
 
         {/* ─── Deliverables ─── */}
-        <Section title={dict.deliveredTitle} accent={study.accentColor} index="04" dark>
+        <Section title={dict.deliveredTitle} index="04" dark>
           <div className="mt-2 overflow-hidden rounded-[3px] border border-line-dark">
             {/* header row */}
-            <div className="grid grid-cols-[140px_1fr] border-b border-line-dark sm:grid-cols-[200px_1fr]" style={{ backgroundColor: study.accentColor }}>
-              <div className="px-5 py-3 text-xs font-bold uppercase tracking-wider text-black">{dict.deliverableCol}</div>
-              <div className="px-5 py-3 text-xs font-bold uppercase tracking-wider text-black">{dict.detailCol}</div>
+            <div className="grid grid-cols-[140px_1fr] border-b border-line-dark sm:grid-cols-[200px_1fr]" style={{ backgroundColor: "var(--accent-surface)" }}>
+              <div className="px-5 py-3 text-xs font-bold uppercase tracking-wider text-white">{dict.deliverableCol}</div>
+              <div className="px-5 py-3 text-xs font-bold uppercase tracking-wider text-white">{dict.detailCol}</div>
             </div>
             {study.deliverables.map((d, i) => (
               <div
@@ -234,12 +210,12 @@ export default function CaseStudyPage({ slug }: Props) {
         </Section>
 
         {/* ─── Outcome ─── */}
-        <Section title={dict.outcomeTitle} accent={study.accentColor} index="05">
+        <Section title={dict.outcomeTitle} index="05">
           <p className="max-w-3xl text-[0.95rem] leading-relaxed text-gray-1">{study.outcome.intro}</p>
           <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2">
             {study.outcome.points.map((p, i) => (
               <div key={i} className="rounded-[2px] border border-line p-6">
-                <span className="font-display text-2xl font-extrabold tabular-nums" style={{ color: study.accentColor }}>
+                <span className="accent-on-paper font-display text-2xl font-extrabold tabular-nums">
                   0{i + 1}
                 </span>
                 <p className="mt-3 text-sm leading-relaxed text-gray-1">{p}</p>
@@ -249,13 +225,13 @@ export default function CaseStudyPage({ slug }: Props) {
         </Section>
 
         {/* ─── Design Decision ─── */}
-        <section className="py-[clamp(3rem,7vw,6rem)]" style={{ backgroundColor: study.accentColor }}>
+        <section className="py-[clamp(3rem,7vw,6rem)]" style={{ backgroundColor: "var(--accent-surface)" }}>
           <div className="container-editorial">
-            <span className="eyebrow text-black/60">{dict.designDecisionLabel}</span>
-            <h3 className="font-display mt-4 max-w-2xl text-[clamp(1.8rem,3.6vw,2.8rem)] font-extrabold leading-[1.06] tracking-[-0.03em] text-black">
+            <span className="eyebrow text-white">{dict.designDecisionLabel}</span>
+            <h3 className="font-display mt-4 max-w-2xl text-[clamp(1.8rem,3.6vw,2.8rem)] font-extrabold leading-[1.06] tracking-[-0.03em] text-white">
               {study.designDecision.title}
             </h3>
-            <p className="mt-6 max-w-2xl text-[0.95rem] leading-relaxed text-black/75">
+            <p className="mt-6 max-w-2xl text-[0.95rem] leading-relaxed text-white">
               {study.designDecision.body}
             </p>
           </div>
@@ -265,7 +241,7 @@ export default function CaseStudyPage({ slug }: Props) {
         {GALLERY_SLIDES[slug] && (
           <section className="bg-ink py-[clamp(3rem,6vw,5rem)]">
             <div className="container-editorial mb-10">
-              <span className="eyebrow text-gray-2">
+              <span className="eyebrow text-paper/60">
                 {lang === "en" ? "Brand Presentation" : "عرض الهوية البصرية"}
               </span>
               <h2 className="font-display mt-3 text-[clamp(1.6rem,3vw,2.2rem)] font-extrabold tracking-[-0.03em] text-paper">
@@ -288,13 +264,13 @@ export default function CaseStudyPage({ slug }: Props) {
         {/* ─── Brandbook CTA ─── */}
         <section className="border-t border-line bg-paper py-[clamp(3rem,6vw,5rem)]">
           <div className="container-editorial flex flex-col items-center gap-6 text-center">
-            <span className="eyebrow text-gray-2">{lang === "en" ? "Full Brand System" : "نظام العلامة الكامل"}</span>
+            <span className="eyebrow text-gray-1">{lang === "en" ? "Full Brand System" : "نظام العلامة الكامل"}</span>
             <a
               href={study.brandBookUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-3 rounded-full px-8 py-4 text-base font-semibold text-paper transition-transform hover:scale-[1.02]"
-              style={{ backgroundColor: study.accentColor }}
+              className="group inline-flex items-center gap-3 rounded-full px-8 py-4 text-base font-semibold text-white transition-transform hover:scale-[1.02]"
+              style={{ backgroundColor: "var(--accent-surface)" }}
             >
               {dict.viewBrandbook}
               <ArrowUpRight size={18} />
@@ -305,7 +281,7 @@ export default function CaseStudyPage({ slug }: Props) {
         {/* ─── Next Project ─── */}
         <section className="border-t border-line bg-paper py-[clamp(4rem,9vw,7rem)]">
           <div className="container-editorial">
-            <span className="eyebrow text-gray-2">{dict.nextProject}</span>
+            <span className="eyebrow text-gray-1">{dict.nextProject}</span>
             <Link
               href={`/work/${otherStudy.slug}`}
               className="group mt-6 flex items-end justify-between gap-6"
@@ -318,7 +294,7 @@ export default function CaseStudyPage({ slug }: Props) {
               </div>
               <ArrowUpRight
                 size={36}
-                className="shrink-0 text-gray-2 transition-all duration-500 group-hover:text-ink group-hover:translate-x-1 group-hover:-translate-y-1"
+                className="shrink-0 text-gray-1 transition-all duration-500 group-hover:text-ink group-hover:translate-x-1 group-hover:-translate-y-1"
               />
             </Link>
           </div>
@@ -330,7 +306,7 @@ export default function CaseStudyPage({ slug }: Props) {
             <Link href="/" className="text-ink">
               <Logo />
             </Link>
-            <span className="text-xs text-gray-2" dir="ltr">
+            <span className="text-xs text-gray-1" dir="ltr">
               &copy; 2022 TASWEEQ
             </span>
           </div>
@@ -343,13 +319,11 @@ export default function CaseStudyPage({ slug }: Props) {
 /* ─── Section wrapper ─── */
 function Section({
   title,
-  accent,
   index,
   dark = false,
   children,
 }: {
   title: string;
-  accent: string;
   index: string;
   dark?: boolean;
   children: React.ReactNode;
@@ -358,7 +332,7 @@ function Section({
     <section className={`py-[clamp(3.5rem,8vw,6rem)] ${dark ? "bg-ink text-paper" : "bg-paper text-ink"}`}>
       <div className="container-editorial">
         <div className="mb-10 flex items-baseline gap-4 border-b pb-5" style={{ borderColor: dark ? "var(--line-dark)" : "var(--line)" }}>
-          <span className="font-display text-sm font-bold tabular-nums" style={{ color: accent }}>
+          <span className={`font-display text-sm font-bold tabular-nums ${dark ? "accent-on-ink" : "accent-on-paper"}`}>
             {index}
           </span>
           <h2 className="font-display text-[clamp(1.6rem,3vw,2.2rem)] font-extrabold tracking-[-0.03em]">{title}</h2>

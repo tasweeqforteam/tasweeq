@@ -39,12 +39,7 @@ export default function Hero() {
         className="container-editorial relative z-10 grid grid-cols-1 gap-8 py-12 lg:grid-cols-12 lg:items-stretch lg:gap-6"
       >
         {/* strategic cyan block (1/3) */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-          className="relative flex flex-col justify-between rounded-[2px] bg-cyan p-7 text-black lg:col-span-4 lg:min-h-[clamp(340px,42vw,560px)]"
-        >
+        <div className="rise-in relative flex flex-col justify-between rounded-[2px] bg-cyan p-7 text-black lg:col-span-4 lg:min-h-[clamp(340px,42vw,560px)]">
           <span className="eyebrow text-black/70">{t.hero.studio}</span>
           <div className="mt-10 lg:mt-0">
             <p className="font-display text-[1.55rem] font-medium leading-[1.12] tracking-[-0.02em] sm:text-[1.8rem]">
@@ -52,13 +47,13 @@ export default function Hero() {
             </p>
             <a
               href="#services"
-              className="group mt-8 inline-flex items-center gap-2 text-sm font-semibold"
+              className="group mt-7 inline-flex items-center gap-2 py-1 text-sm font-semibold"
             >
               <span className="link-reveal">{t.hero.details}</span>
               <Plus size={16} className="transition-transform duration-500 group-hover:rotate-90" />
             </a>
           </div>
-        </motion.div>
+        </div>
 
         {/* massive headline (2/3) */}
         <div className="flex flex-col justify-between lg:col-span-8">
@@ -69,6 +64,7 @@ export default function Hero() {
 
           <RevealText
             as="h1"
+            trigger="load"
             align="end"
             lines={t.hero.headline}
             className="font-display fluid-xl display-tight mt-8 font-extrabold uppercase text-ink"

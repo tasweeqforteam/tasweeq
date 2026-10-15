@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { MotionConfig } from "framer-motion";
 import { translations, type Dict, type Lang } from "@/lib/i18n";
 
 type Theme = "light" | "dark";
@@ -83,7 +84,10 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <ThemeContext.Provider value={themeValue}>
-      <LanguageContext.Provider value={languageValue}>{children}</LanguageContext.Provider>
+      <LanguageContext.Provider value={languageValue}>
+        {/* Reduced-motion users get instant transform/layout changes in every Framer animation. */}
+        <MotionConfig reducedMotion="user">{children}</MotionConfig>
+      </LanguageContext.Provider>
     </ThemeContext.Provider>
   );
 }

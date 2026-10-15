@@ -58,11 +58,14 @@ export default function Showcase() {
     const track = trackRef.current;
     if (!section || !track) return;
 
+    // The track follows the reading direction: in RTL it starts at the right edge and
+    // overflows to the left, so the pinned scroll must move it right (positive x).
+    const sign = dir === "rtl" ? 1 : -1;
     const mm = gsap.matchMedia();
     mm.add("(min-width: 1024px) and (prefers-reduced-motion: no-preference)", () => {
       const amount = () => track.scrollWidth - window.innerWidth;
       const tween = gsap.to(track, {
-        x: () => -amount(),
+        x: () => sign * amount(),
         ease: "none",
         scrollTrigger: {
           trigger: section,
@@ -81,7 +84,7 @@ export default function Showcase() {
     });
 
     return () => mm.revert();
-  }, []);
+  }, [dir]);
 
   useEffect(() => {
     const id = window.setTimeout(() => ScrollTrigger.refresh(), 120);
@@ -92,8 +95,8 @@ export default function Showcase() {
     <section id="work" ref={sectionRef} className="relative bg-paper lg:h-dvh lg:overflow-hidden">
       <div
         ref={trackRef}
-        dir="ltr"
-        className="flex h-full gap-5 overflow-x-auto px-[clamp(1.25rem,4vw,4.5rem)] py-[clamp(4rem,9vw,7rem)] [scroll-snap-type:x_mandatory] lg:items-center lg:overflow-visible lg:py-0 lg:[scroll-snap-type:none]"
+        dir={dir}
+        className="flex h-full gap-5 overflow-x-auto px-[clamp(1.25rem,4vw,4.5rem)] py-[clamp(4rem,9vw,7rem)] [scroll-padding-inline:clamp(1.25rem,4vw,4.5rem)] [scroll-snap-type:x_mandatory] lg:items-center lg:overflow-visible lg:py-0 lg:[scroll-snap-type:none]"
       >
         {/* intro panel */}
         <div
@@ -153,7 +156,7 @@ export default function Showcase() {
               <div className="relative z-10 flex items-center justify-between">
                 <span className={`eyebrow ${hasCover ? "text-white/70" : "text-gray-1"}`}>{p.tag}</span>
                 <span
-                  className={`font-display text-sm font-medium tabular-nums ${hasCover ? "text-white/70" : "text-gray-2"}`}
+                  className={`font-display text-sm font-medium tabular-nums ${hasCover ? "text-white/70" : "text-gray-1"}`}
                 >
                   0{i + 1}
                 </span>
@@ -170,7 +173,7 @@ export default function Showcase() {
                 </p>
                 <Link
                   href={`/work/${PROJECT_SLUGS[i]}`}
-                  className={`group/link mt-6 inline-flex items-center gap-2 text-sm font-semibold ${hasCover ? "text-white" : "text-ink"}`}
+                  className={`group/link mt-5 inline-flex items-center gap-2 py-1 text-sm font-semibold ${hasCover ? "text-white" : "text-ink"}`}
                 >
                   <span className="link-reveal">{t.showcase.caseStudy}</span>
                   <ArrowUpRight

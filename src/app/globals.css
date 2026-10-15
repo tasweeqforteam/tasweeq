@@ -15,6 +15,7 @@
   --black: #0a0a0a; /* text on cyan */
   --cyan: #00d9f5;
   --cyan-bright: #22e4ff;
+  --cyan-deep: #00717f; /* cyan for TEXT on light surfaces (5.1:1 on #f2f2ef) */
 
   /* flipping tokens — LIGHT */
   --paper: #f5f5f2; /* page surface / text-on-dark */
@@ -141,13 +142,14 @@ html.lenis body {
 
 .eyebrow {
   font-family: var(--font-display), sans-serif;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   font-weight: 500;
 }
+/* Never letter-space Arabic: tracking breaks the cursive joins between letters. */
 html[lang="ar"] .eyebrow {
-  letter-spacing: 0.08em;
+  letter-spacing: 0;
   font-family: var(--font-arabic), sans-serif;
 }
 
@@ -183,6 +185,70 @@ html[lang="ar"] .eyebrow {
 }
 .animate-marquee {
   animation: marquee 22s linear infinite;
+}
+/* RTL: the strip is anchored to the right edge, so it must travel right
+   (in the reading direction) — moving left would empty the band. */
+@keyframes marquee-rtl {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(50%);
+  }
+}
+[dir="rtl"] .animate-marquee {
+  animation-name: marquee-rtl;
+}
+
+/* First-paint reveals (no JS needed). Content is visible by default;
+   motion is opt-in, so reduced-motion and no-JS users see the final state. */
+@keyframes line-rise {
+  from {
+    transform: translateY(110%);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-line {
+    animation: line-rise 0.95s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(0.05s + var(--i, 0) * 0.08s);
+  }
+  .rise-in {
+    animation: rise-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+  }
+}
+
+/* Dark theme inverts .bg-ink sections to a light surface, where bright cyan text
+   drops to ~1.5:1. Text-only override; cyan backgrounds stay bright. */
+[data-theme="dark"] .bg-ink :is(.text-cyan, .hover\:text-cyan:hover, .group:hover .group-hover\:text-cyan) {
+  color: var(--cyan-deep);
+}
+
+/* Case-study accent text: contrast-safe shades computed in lib/contrast.ts.
+   --paper/--ink surfaces swap in dark theme, so the shade swaps with them. */
+.accent-on-paper {
+  color: var(--accent-on-light);
+}
+.accent-on-ink {
+  color: var(--accent-on-dark);
+}
+[data-theme="dark"] .accent-on-paper {
+  color: var(--accent-on-dark);
+}
+[data-theme="dark"] .accent-on-ink {
+  color: var(--accent-on-light);
 }
 
 /* Focus visibility */

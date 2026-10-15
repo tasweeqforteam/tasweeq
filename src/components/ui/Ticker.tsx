@@ -6,8 +6,9 @@ type TickerProps = {
 };
 
 /**
- * Infinite CSS marquee. Content is duplicated once and translated -50% so the
- * loop is seamless. Pauses under prefers-reduced-motion (handled in globals).
+ * Infinite CSS marquee. Content is duplicated once and translated 50% so the
+ * loop is seamless — leftward in LTR, rightward in RTL (see globals.css).
+ * Pauses under prefers-reduced-motion (handled in globals).
  */
 export default function Ticker({
   text,
@@ -16,8 +17,8 @@ export default function Ticker({
   repeat = 6,
 }: TickerProps) {
   const items = Array.from({ length: repeat });
-  const Row = () => (
-    <div className="flex shrink-0 items-center" aria-hidden="true">
+  const row = (key: string) => (
+    <div key={key} className="flex shrink-0 items-center" aria-hidden="true">
       {items.map((_, i) => (
         <span key={i} className="flex items-center">
           <span className={className}>{text}</span>
@@ -29,9 +30,11 @@ export default function Ticker({
 
   return (
     <div className="flex w-full overflow-hidden">
+      {/* The moving copies are decorative; screen readers get the message once. */}
+      <span className="sr-only">{text}</span>
       <div className="flex animate-marquee whitespace-nowrap">
-        <Row />
-        <Row />
+        {row("a")}
+        {row("b")}
       </div>
     </div>
   );

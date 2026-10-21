@@ -10,6 +10,7 @@ export const PROJECTS = [
     accent: "#3f71e4",
     cover: "/work/sakan-cover.png",
     gallery: { count: 27, ext: "png" },
+    bookCover: "/work/sakan/sakan-book-cover.jpg",
   },
   {
     slug: "neemo",
@@ -18,6 +19,7 @@ export const PROJECTS = [
     accent: "#7F59B0",
     cover: "/work/neemo-cover.png",
     gallery: { count: 34, ext: "png" },
+    bookCover: "/work/neemo/neemo-02.png",
   },
   {
     slug: "mawaeidk",
@@ -26,6 +28,7 @@ export const PROJECTS = [
     accent: "#004D43",
     cover: "/work/mawaeidk-cover.png",
     gallery: { count: 21, ext: "png" },
+    bookCover: "/work/mawaeidk/mawaeidk-book-cover.jpg",
   },
   {
     slug: "loop",
@@ -52,6 +55,13 @@ export const SLUGS = PROJECTS.map((p) => p.slug) as ProjectSlug[];
 
 export function getProject(slug: string): Project | undefined {
   return PROJECTS.find((p) => p.slug === slug);
+}
+
+/** Pages of the case-study flipbook: the brand-book cover first (when set), then the deck. */
+export function bookPages(p: Project): string[] {
+  const slides = gallerySlides(p);
+  const cover = "bookCover" in p ? p.bookCover : undefined;
+  return cover ? [cover, ...slides.filter((s) => s !== cover)] : slides;
 }
 
 export function gallerySlides(p: Project): string[] {

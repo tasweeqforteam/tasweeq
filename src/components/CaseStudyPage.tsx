@@ -1,20 +1,19 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useMemo } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Logo from "@/components/ui/Logo";
-import RevealText from "@/components/ui/RevealText";
 import { useLanguage } from "@/components/Providers";
 import { useBrief, WHATSAPP } from "@/components/Brief";
+import Flipbook from "@/components/Flipbook";
 import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
 import { gtmEvent } from "@/lib/gtm";
 import { caseStudies, caseStudyI18n } from "@/lib/case-studies";
 import { fadeUp, stagger } from "@/lib/motion";
-import { PROJECTS, gallerySlides, getProject, type ProjectSlug } from "@/lib/projects";
-import { useEffect, useRef, useState } from "react";
+import { PROJECTS, bookPages, getProject, type ProjectSlug } from "@/lib/projects";
 
 type Props = { slug: ProjectSlug };
 
@@ -28,7 +27,7 @@ export default function CaseStudyPage({ slug }: Props) {
   const studyIndex = PROJECTS.findIndex((p) => p.slug === slug);
   const nextProject = PROJECTS[(studyIndex + 1) % PROJECTS.length];
   const otherStudy = studies.find((s) => s.slug === nextProject.slug)!;
-  const slides = gallerySlides(project);
+  const slides = useMemo(() => bookPages(project), [project]);
 
   const metaEntries = [
     { label: dict.deliverableCol === "Deliverable" ? "Project Type" : "نوع المشروع", value: study.meta.type },
@@ -42,109 +41,80 @@ export default function CaseStudyPage({ slug }: Props) {
   return (
     <>
       <Navbar />
-      <main className="min-h-dvh pt-[84px]">
-        {/* ─── Hero ─── */}
-        <section className="relative overflow-hidden bg-paper">
-          {/* giant letter watermark */}
-          <span
-            aria-hidden="true"
-            data-font-en
-            className="pointer-events-none absolute -bottom-[10%] end-[-4%] select-none font-display text-[clamp(20rem,45vw,42rem)] font-extrabold leading-none tracking-[-0.06em] text-ink/[0.03]"
-          >
-            {study.letter}
-          </span>
-
-          <div className="container-editorial relative z-10 pb-16 pt-10">
-            {/* back link */}
+      <main className="min-h-dvh bg-black pt-[84px]">
+        {/* ─── Stage: the brand book is the first thing you see ─── */}
+        <section className="relative overflow-hidden bg-black text-white">
+          <div className="container-editorial pb-[clamp(2.5rem,5vw,4rem)] pt-5">
             <Link
               href="/#work"
-              className="group mb-12 inline-flex items-center gap-2 text-sm font-medium text-gray-1 transition-colors hover:text-ink"
+              className="group inline-flex items-center gap-2 text-sm font-medium text-white/55 transition-colors hover:text-white"
             >
               <BackArrow size={16} className="transition-transform duration-300 group-hover:-translate-x-1 rtl:group-hover:translate-x-1" />
               {dict.backLabel}
             </Link>
 
-            {/* eyebrow */}
-            <motion.span
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="eyebrow block"
-              style={{ color: study.accentColor }}
-            >
-              {lang === "en" ? `CASE STUDY 0${studyIndex + 1}` : `دراسة حالة 0${studyIndex + 1}`}
-            </motion.span>
-
-            {/* title */}
-            <RevealText
-              as="h1"
-              forceEn
-              lines={[project.title]}
-              className="font-display fluid-xl display-tight mt-4 font-extrabold uppercase text-ink"
-            />
-
-            {/* Arabic name */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="mt-2 text-3xl font-black"
-              style={{ color: study.accentColor, fontFamily: "var(--font-serif), serif" }}
-            >
-              {project.titleAr}
-            </motion.p>
-
-            {/* subtitle */}
-            <motion.p
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="mt-3 text-sm text-gray-1"
-            >
-              {study.meta.industry}
-            </motion.p>
-
-            {/* meta grid */}
-            <motion.div
-              variants={stagger}
-              initial="hidden"
-              animate="show"
-              className={`mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 ${metaEntries.length === 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"}`}
-            >
-              {metaEntries.map((m) => (
-                <motion.div
-                  key={m.label}
-                  variants={fadeUp}
-                  className="rounded-[2px] border border-line bg-paper p-5"
-                >
-                  <span className="eyebrow text-gray-2">{m.label}</span>
-                  <p className="mt-2 text-sm font-semibold text-ink">{m.value}</p>
-                </motion.div>
-              ))}
-            </motion.div>
-
-            {/* action link */}
-            {study.brandBookUrl && <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.7 }}
-              className="mt-8"
-            >
-              <a
-                href={study.brandBookUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-paper transition-colors hover:opacity-90"
-                style={{ backgroundColor: study.accentColor }}
+            <div className="mb-7 mt-5 flex flex-wrap items-end justify-between gap-4">
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
               >
-                {dict.viewBrandbook}
-                <ArrowUpRight size={14} />
-              </a>
-            </motion.div>}
-          </div>
+                <span className="eyebrow inline-flex items-center gap-2 text-white/55">
+                  <span className="h-2 w-2 rounded-full" style={{ backgroundColor: study.accentColor }} />
+                  {lang === "en" ? `CASE STUDY 0${studyIndex + 1}` : `دراسة حالة 0${studyIndex + 1}`} · {study.meta.industry}
+                </span>
+                <h1 className="font-display mt-2 flex flex-wrap items-baseline gap-x-4 text-[clamp(2rem,4vw,3.4rem)] font-extrabold">
+                  <span data-font-en>{project.title}</span>
+                  <span className="text-[0.55em] text-white/70" style={{ fontFamily: "var(--font-serif), serif" }}>
+                    {project.titleAr}
+                  </span>
+                </h1>
+              </motion.div>
+              {study.brandBookUrl && (
+                <a
+                  href={study.brandBookUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/25 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:border-white"
+                >
+                  {dict.viewBrandbook}
+                  <ArrowUpRight size={14} />
+                </a>
+              )}
+            </div>
 
-          {/* accent divider */}
+            {slides.length > 0 && (
+              <Flipbook
+                key={project.slug}
+                slides={slides}
+                title={`${project.title} brand identity`}
+                labels={
+                  lang === "en"
+                    ? { prev: "Previous page", next: "Next page", hint: "Drag the page corner or swipe to flip" }
+                    : { prev: "الصفحة السابقة", next: "الصفحة التالية", hint: "اسحب طرف الصفحة أو مرّر بإصبعك لتقليبها" }
+                }
+              />
+            )}
+          </div>
           <div className="h-[3px]" style={{ backgroundColor: study.accentColor }} />
+        </section>
+
+        {/* ─── Project facts ─── */}
+        <section className="bg-paper py-10">
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className={`container-editorial grid grid-cols-1 gap-4 sm:grid-cols-2 ${metaEntries.length === 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"}`}
+          >
+            {metaEntries.map((m) => (
+              <motion.div key={m.label} variants={fadeUp} className="rounded-[2px] border border-line bg-paper p-5">
+                <span className="eyebrow text-gray-2">{m.label}</span>
+                <p className="mt-2 text-sm font-semibold text-ink">{m.value}</p>
+              </motion.div>
+            ))}
+          </motion.div>
         </section>
 
         {/* ─── Brief ─── */}
@@ -235,30 +205,6 @@ export default function CaseStudyPage({ slug }: Props) {
             </p>
           </div>
         </section>
-
-        {/* ─── Presentation Gallery ─── */}
-        {slides.length > 0 && (
-          <section className="bg-ink py-[clamp(3rem,6vw,5rem)]">
-            <div className="container-editorial mb-10">
-              <span className="eyebrow text-gray-2">
-                {lang === "en" ? "Brand Presentation" : "عرض الهوية البصرية"}
-              </span>
-              <h2 className="font-display mt-3 text-[clamp(1.6rem,3vw,2.2rem)] font-extrabold tracking-[-0.03em] text-paper">
-                {lang === "en" ? "Full Slide Deck" : "ملف العرض الكامل"}
-              </h2>
-            </div>
-            <div className="container-editorial flex flex-col gap-8">
-              {slides.map((src, i) => (
-                <GallerySlide
-                  key={src}
-                  src={src}
-                  alt={`${study.slug} brand presentation slide ${i + 1}`}
-                  priority={i < 2}
-                />
-              ))}
-            </div>
-          </section>
-        )}
 
         {/* ─── Brandbook CTA ─── */}
         {study.brandBookUrl && <section className="border-t border-line bg-paper py-[clamp(3rem,6vw,5rem)]">
@@ -373,53 +319,5 @@ function Section({
         {children}
       </div>
     </section>
-  );
-}
-
-/* ─── Gallery slide: scroll-reveal image ─── */
-function GallerySlide({
-  src,
-  alt,
-  priority = false,
-}: {
-  src: string;
-  alt: string;
-  priority?: boolean;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setInView(entry.isIntersecting),
-      { threshold: 0.15 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      className="relative w-full overflow-hidden rounded-[4px]"
-      style={{
-        opacity: inView ? 1 : 0,
-        transform: inView ? "translateY(0) scale(1)" : "translateY(48px) scale(0.97)",
-        transition:
-          "opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1)",
-      }}
-    >
-      <Image
-        src={src}
-        alt={alt}
-        width={1920}
-        height={1080}
-        sizes="(min-width: 1600px) 1600px, 100vw"
-        className="h-auto w-full object-contain"
-        priority={priority}
-      />
-    </div>
   );
 }

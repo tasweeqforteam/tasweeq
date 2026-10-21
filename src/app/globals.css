@@ -102,6 +102,25 @@ html:not([lang="ar"]) .font-display {
   letter-spacing: -0.015em !important;
 }
 
+/* Flipbook pages (page-flip owns this DOM) */
+.flipbook,
+.flipbook * {
+  /* vertical scrolling stays the page's; horizontal drags go to the book (keeps touchmove cancelable) */
+  touch-action: pan-y;
+}
+.flipbook .flip-page {
+  background: #141414;
+  overflow: hidden;
+}
+.flipbook .flip-page img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
 /* Lenis */
 html.lenis,
 html.lenis body {

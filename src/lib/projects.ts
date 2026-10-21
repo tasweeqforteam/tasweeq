@@ -32,7 +32,7 @@ export const PROJECTS = [
     title: "LOOP",
     titleAr: "لووب",
     accent: "#DA7B29",
-    cover: "/work/loop-cover.jpg",
+    cover: "/work/loop-cover-v2.jpg",
     gallery: { count: 25, ext: "jpg" },
   },
   {

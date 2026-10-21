@@ -1,7 +1,16 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import {
+  AnimatePresence,
+  animate,
+  motion,
+  useMotionValue,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -47,18 +56,84 @@ export default function Hero() {
   const copyY = useTransform(scrollYProgress, [0, 0.6], [0, -90]);
   const copyOpacity = useTransform(scrollYProgress, [0, 0.45], [1, 0]);
 
-  const half = Math.floor(RING_SLOTS / 2);
-  const slots = Array.from({ length: RING_SLOTS }, (_, i) => {
-    const k = i - half;
-    const project = PROJECTS[(((CENTER_PROJECT + k) % PROJECTS.length) + PROJECTS.length) % PROJECTS.length];
-    return { k, project };
+  // ── wheel rotation (in card steps): drag/swipe, horizontal trackpad scroll, auto-advance ──
+  const rotMV = useMotionValue(0);
+  const [rot, setRot] = useState(0);
+  useMotionValueEvent(rotMV, "change", setRot);
+  const paused = useRef(false);
+  const drag = useRef({ down: false, x: 0, start: 0, moved: 0 });
+  const snapTimer = useRef<number | undefined>(undefined);
+  const stepPx = w + 22;
+
+  const snap = (to = Math.round(rotMV.get())) =>
+    animate(rotMV, to, { type: "spring", stiffness: 70, damping: 18 });
+
+  useEffect(() => {
+    if (reduced) return;
+    const id = window.setInterval(() => {
+      if (!paused.current && !drag.current.down) snap(Math.round(rotMV.get()) - 1);
+    }, 3000);
+    return () => window.clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reduced]);
+
+  const onPointerDown = (e: React.PointerEvent) => {
+    rotMV.stop();
+    drag.current = { down: true, x: e.clientX, start: rotMV.get(), moved: 0 };
+  };
+  const onPointerMove = (e: React.PointerEvent) => {
+    if (!drag.current.down) return;
+    const dx = e.clientX - drag.current.x;
+    drag.current.moved = Math.max(drag.current.moved, Math.abs(dx));
+    if (drag.current.moved > 6) (e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId);
+    rotMV.set(drag.current.start + dx / stepPx);
+  };
+  const onPointerUp = () => {
+    if (!drag.current.down) return;
+    drag.current.down = false;
+    snap();
+  };
+  const onWheel = (e: React.WheelEvent) => {
+    if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return; // vertical scroll stays the page's
+    rotMV.stop();
+    rotMV.set(rotMV.get() - e.deltaX / stepPx);
+    window.clearTimeout(snapTimer.current);
+    snapTimer.current = window.setTimeout(() => snap(), 140);
+  };
+
+  // the project at the top of the wheel also tints the frame background
+  const topProject =
+    PROJECTS[(((CENTER_PROJECT + Math.round(-rot)) % PROJECTS.length) + PROJECTS.length) % PROJECTS.length];
+
+  // cards are indexed by an absolute position n, so the wheel loops forever
+  const half = Math.floor(RING_SLOTS / 2) + 1;
+  const first = Math.ceil(-rot - half);
+  const last = Math.floor(-rot + half);
+  const slots = Array.from({ length: last - first + 1 }, (_, i) => {
+    const n = first + i;
+    const project = PROJECTS[(((CENTER_PROJECT + n) % PROJECTS.length) + PROJECTS.length) % PROJECTS.length];
+    return { n, k: n + rot, project };
   });
 
   return (
     <section id="top" ref={sectionRef} className="relative pt-[92px]">
       <div className="px-3 sm:px-4">
         {/* framed canvas */}
-        <div className="relative overflow-hidden rounded-[28px] bg-ink text-paper">
+        <div className="relative overflow-hidden rounded-[28px] bg-black text-white">
+          {/* faint backdrop: the project currently on top of the wheel, ~20% */}
+          <AnimatePresence initial={false}>
+            <motion.div
+              key={topProject.slug}
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.2 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.1, ease: EASE }}
+            >
+              <Image src={topProject.cover} alt="" fill sizes="100vw" className="object-cover" />
+            </motion.div>
+          </AnimatePresence>
           <motion.div
             style={reduced ? undefined : { y: copyY, opacity: copyOpacity }}
             className="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 pt-[clamp(4.5rem,7vw,6rem)] text-center"
@@ -80,7 +155,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: EASE, delay: 0.32 }}
-              className="mt-4 text-[13px] font-medium leading-[1.5] text-paper/60 sm:mt-[18px] sm:text-[14px]"
+              className="mt-4 text-[13px] font-medium leading-[1.5] text-white/60 sm:mt-[18px] sm:text-[14px]"
             >
               {t.hero.leftCopy}
             </motion.p>
@@ -103,17 +178,27 @@ export default function Hero() {
               </button>
               <a
                 href="#work"
-                className="inline-flex h-12 items-center justify-center rounded-full border border-paper/20 px-5 text-sm font-semibold text-paper transition-colors hover:border-paper/60"
+                className="inline-flex h-12 items-center justify-center rounded-full border border-white/20 px-5 text-sm font-semibold text-white transition-colors hover:border-white/60"
               >
                 {t.hero.seeWork}
               </a>
             </motion.div>
           </motion.div>
 
-          {/* the wheel of work */}
+          {/* the wheel of work — drag / swipe / horizontal scroll to turn it */}
           <div
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={onPointerUp}
+            onPointerCancel={onPointerUp}
+            onPointerEnter={(e) => e.pointerType === "mouse" && (paused.current = true)}
+            onPointerLeave={(e) => {
+              if (e.pointerType === "mouse") paused.current = false;
+              onPointerUp();
+            }}
+            onWheel={onWheel}
             dir="ltr"
-            className="relative mt-[clamp(2rem,5vw,3.5rem)]"
+            className="relative mt-[clamp(2rem,5vw,3.5rem)] cursor-grab touch-pan-y select-none active:cursor-grabbing"
             style={{ height: h + Math.round(h * 0.45) }}
           >
             <motion.div
@@ -126,9 +211,9 @@ export default function Hero() {
                 animate={{ rotate: 0, y: 0, opacity: 1 }}
                 transition={{ duration: 1.15, ease: EASE, delay: 0.45 }}
               >
-                {slots.map(({ k, project }, i) => (
+                {slots.map(({ n, k, project }) => (
                   <div
-                    key={`${project.slug}-${i}`}
+                    key={n}
                     className="absolute"
                     style={{
                       width: w,
@@ -142,16 +227,19 @@ export default function Hero() {
                       href={`/work/${project.slug}`}
                       aria-label={project.title}
                       tabIndex={Math.abs(k) > 2 ? -1 : 0}
+                      draggable={false}
+                      onClick={(e) => drag.current.moved > 6 && e.preventDefault()}
                       className="group block h-full transition-transform duration-500 ease-[var(--ease-editorial)] hover:-translate-y-3"
                     >
-                      <div className="relative h-full overflow-hidden rounded-[18px] border border-paper/10 bg-black">
+                      <div className="relative h-full overflow-hidden rounded-[18px] border border-white/10 bg-black">
                         <Image
                           src={project.cover}
                           alt={project.title}
                           fill
                           priority={Math.abs(k) <= 2}
+                          draggable={false}
                           sizes="240px"
-                          className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+                          className="pointer-events-none object-cover transition-transform duration-700 group-hover:scale-[1.05]"
                         />
                         <span
                           dir={dir}

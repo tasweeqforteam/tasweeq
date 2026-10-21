@@ -81,8 +81,8 @@ export const translations: Record<Lang, Dict> = {
       leftCopy: "Strategy · Identity · Content · Campaigns · Advertising",
       details: "Details",
       tag: "Marketing & Brand Studio",
-      est: "EST. 2022 · Mansoura, EG",
-      headline: ["We build brands and marketing campaigns", "for ambitious companies in Egypt & the Gulf"],
+      est: "EST. 2022",
+      headline: ["We build brands and marketing campaigns", "for ambitious companies"],
       start: "Start",
       baseline: "Branding · Creative Direction · Social Systems · Paid Media · Growth",
       scroll: "Scroll to explore ↓",
@@ -151,7 +151,7 @@ export const translations: Record<Lang, Dict> = {
     },
     statement: {
       label: "About the studio",
-      text: "We're a marketing studio from Mansoura building brands, strategy, content and campaigns as one system",
+      text: "We're a marketing studio building brands, strategy, content and campaigns as one system",
     },
     intro: {
       lead: "Marketing studio",
@@ -222,8 +222,8 @@ export const translations: Record<Lang, Dict> = {
       leftCopy: "استراتيجية · هوية · محتوى · حملات · إعلانات",
       details: "التفاصيل",
       tag: "استوديو تسويق وبناء علامات تجارية",
-      est: "تأسّس 2022 · المنصورة، مصر",
-      headline: ["نبني علامات تجارية وحملات تسويقية", "للشركات الطموحة في مصر والخليج"],
+      est: "تأسّس 2022",
+      headline: ["نبني علامات تجارية وحملات تسويقية", "للشركات الطموحة"],
       start: "ابدأ",
       baseline: "الهوية · الإدارة الإبداعية · أنظمة التواصل · الإعلانات · النمو",
       scroll: "مرّر للاستكشاف ↓",
@@ -292,7 +292,7 @@ export const translations: Record<Lang, Dict> = {
     },
     statement: {
       label: "عن الاستوديو",
-      text: "نحن استوديو تسويق من المنصورة نبني العلامات والاستراتيجيات والمحتوى والحملات كنظام واحد",
+      text: "نحن استوديو تسويق نبني العلامات والاستراتيجيات والمحتوى والحملات كنظام واحد",
     },
     intro: {
       lead: "استوديو تسويق",

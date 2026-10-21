@@ -1,86 +1,196 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { Plus } from "lucide-react";
-import RevealText from "@/components/ui/RevealText";
+import { useEffect, useRef, useState } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useBrief } from "@/components/Brief";
 import { useLanguage } from "@/components/Providers";
+import { PROJECTS } from "@/lib/projects";
+
+const EASE = [0.22, 1, 0.36, 1] as const;
+
+/** Cards sit on one large circle whose centre is below the frame (the "wheel"). */
+const RING_SLOTS = 9;
+const CENTER_PROJECT = 2; // which project sits at the top of the wheel
+
+function useRingGeometry() {
+  const [g, setG] = useState({ w: 230, r: 1200 });
+  useEffect(() => {
+    const update = () => {
+      const vw = window.innerWidth;
+      const w = Math.round(Math.min(230, Math.max(140, vw * 0.155)));
+      const r = Math.round(Math.min(1300, Math.max(560, vw * 0.85)));
+      setG({ w, r });
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+  const h = Math.round(g.w * 1.25);
+  const stepDeg = (((g.w + 22) / g.r) * 180) / Math.PI;
+  return { ...g, h, stepDeg };
+}
 
 export default function Hero() {
-  const ref = useRef<HTMLElement>(null);
-  const { t } = useLanguage();
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
+  const { t, dir, lang } = useLanguage();
+  const { openBrief } = useBrief();
+  const reduced = useReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
+  const { w, h, r, stepDeg } = useRingGeometry();
+
+  // On scroll the wheel turns a little and rises, while the copy leaves first (ref: 2.8–3.6 s).
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
+  const ringTurn = useTransform(scrollYProgress, [0, 1], [0, -9]);
+  const ringLift = useTransform(scrollYProgress, [0, 1], [0, -70]);
+  const copyY = useTransform(scrollYProgress, [0, 0.6], [0, -90]);
+  const copyOpacity = useTransform(scrollYProgress, [0, 0.45], [1, 0]);
+
+  const half = Math.floor(RING_SLOTS / 2);
+  const slots = Array.from({ length: RING_SLOTS }, (_, i) => {
+    const k = i - half;
+    const project = PROJECTS[(((CENTER_PROJECT + k) % PROJECTS.length) + PROJECTS.length) % PROJECTS.length];
+    return { k, project };
   });
 
-  const watermarkX = useTransform(scrollYProgress, [0, 1], [0, -160]);
-  const watermarkOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-  const contentY = useTransform(scrollYProgress, [0, 1], [0, 120]);
-
   return (
-    <section
-      id="top"
-      ref={ref}
-      className="relative flex min-h-dvh flex-col justify-center overflow-hidden pt-[84px]"
-    >
-      {/* Ultra-faint watermark */}
-      <motion.span
-        aria-hidden="true"
-        style={{ x: watermarkX, opacity: watermarkOpacity }}
-        data-font-en
-        className="pointer-events-none absolute left-1/2 top-1/2 z-0 -translate-x-1/2 -translate-y-1/2 select-none font-display text-[34vw] font-extrabold leading-none tracking-[-0.05em] text-ink/[0.035] whitespace-nowrap"
-      >
-        TASWEEQ
-      </motion.span>
-
-      <motion.div
-        style={{ y: contentY }}
-        className="container-editorial relative z-10 grid grid-cols-1 gap-8 py-12 lg:grid-cols-12 lg:items-stretch lg:gap-6"
-      >
-        {/* strategic cyan block (1/3) */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-          className="relative flex flex-col justify-between rounded-[2px] bg-cyan p-7 text-black lg:col-span-4 lg:min-h-[clamp(340px,42vw,560px)]"
-        >
-          <span className="eyebrow text-black/70">{t.hero.studio}</span>
-          <div className="mt-10 lg:mt-0">
-            <p className="font-display text-[1.55rem] font-medium leading-[1.12] tracking-[-0.02em] sm:text-[1.8rem]">
-              {t.hero.leftCopy}
-            </p>
-            <a
-              href="#services"
-              className="group mt-8 inline-flex items-center gap-2 text-sm font-semibold"
+    <section id="top" ref={sectionRef} className="relative pt-[92px]">
+      <div className="px-3 sm:px-4">
+        {/* framed canvas */}
+        <div className="relative overflow-hidden rounded-[28px] bg-ink text-paper">
+          <motion.div
+            style={reduced ? undefined : { y: copyY, opacity: copyOpacity }}
+            className="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 pt-[clamp(3.5rem,8vw,6rem)] text-center"
+          >
+            <motion.span
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: EASE, delay: 0.2 }}
+              className="inline-flex items-center gap-2 rounded-full border border-paper/15 px-4 py-1.5 text-[0.78rem] font-medium text-paper/70"
             >
-              <span className="link-reveal">{t.hero.details}</span>
-              <Plus size={16} className="transition-transform duration-500 group-hover:rotate-90" />
-            </a>
-          </div>
-        </motion.div>
+              <span className="h-1.5 w-1.5 rounded-full bg-cyan" />
+              {t.hero.tag}
+            </motion.span>
 
-        {/* massive headline (2/3) */}
-        <div className="flex flex-col justify-between lg:col-span-8">
-          <div className="flex items-start justify-between">
-            <span className="eyebrow text-gray-1">{t.hero.tag}</span>
-            <span className="eyebrow hidden text-gray-1 sm:block">{t.hero.est}</span>
-          </div>
+            <motion.h1
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: EASE, delay: 0.3 }}
+              className={`font-display mt-6 text-[clamp(1.7rem,3.5vw,3.3rem)] font-extrabold ${
+                lang === "ar" ? "" : "leading-[1.08] tracking-[-0.035em]"
+              }`}
+            >
+              <span className="block">{t.hero.headline[0]}</span>
+              <span className={`block text-cyan ${lang === "ar" ? "mt-2" : "mt-1"}`}>{t.hero.headline[1]}</span>
+            </motion.h1>
 
-          <RevealText
-            as="h1"
-            align="end"
-            lines={t.hero.headline}
-            className="font-display fluid-xl display-tight mt-8 font-extrabold uppercase text-ink"
-          />
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: EASE, delay: 0.4 }}
+              className="mt-7 max-w-xl text-[1rem] leading-[1.8] text-paper/70"
+            >
+              {t.hero.leftCopy}
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: EASE, delay: 0.5 }}
+              className="mt-8 flex flex-wrap items-center justify-center gap-3"
+            >
+              <button
+                type="button"
+                onClick={() => openBrief({ source: "hero" })}
+                className="group inline-flex items-center gap-2 rounded-full bg-cyan py-1.5 pe-1.5 ps-5 text-sm font-semibold text-black transition-transform duration-300 hover:scale-[1.03]"
+              >
+                {t.cta.start}
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-black text-cyan">
+                  <ArrowUpRight size={15} />
+                </span>
+              </button>
+              <a
+                href="#work"
+                className="inline-flex items-center rounded-full border border-paper/20 px-5 py-2.5 text-sm font-semibold text-paper transition-colors hover:border-paper/60"
+              >
+                {t.hero.seeWork}
+              </a>
+            </motion.div>
+          </motion.div>
+
+          {/* the wheel of work */}
+          <div
+            dir="ltr"
+            className="relative mt-[clamp(2rem,5vw,3.5rem)]"
+            style={{ height: h + Math.round(h * 0.45) }}
+          >
+            <motion.div
+              className="absolute left-1/2 h-0 w-0"
+              style={{ top: r + h / 2 + 18, rotate: reduced ? 0 : ringTurn, y: reduced ? 0 : ringLift }}
+            >
+              <motion.div
+                className="absolute left-0 top-0 h-0 w-0"
+                initial={reduced ? false : { rotate: 22, y: h * 0.9, opacity: 0 }}
+                animate={{ rotate: 0, y: 0, opacity: 1 }}
+                transition={{ duration: 1.15, ease: EASE, delay: 0.45 }}
+              >
+                {slots.map(({ k, project }, i) => (
+                  <div
+                    key={`${project.slug}-${i}`}
+                    className="absolute"
+                    style={{
+                      width: w,
+                      height: h,
+                      left: -w / 2,
+                      top: -h / 2,
+                      transform: `rotate(${k * stepDeg}deg) translateY(${-r}px)`,
+                    }}
+                  >
+                    <Link
+                      href={`/work/${project.slug}`}
+                      aria-label={project.title}
+                      tabIndex={Math.abs(k) > 2 ? -1 : 0}
+                      className="group block h-full transition-transform duration-500 ease-[var(--ease-editorial)] hover:-translate-y-3"
+                    >
+                      <div className="relative h-full overflow-hidden rounded-[18px] border border-paper/10 bg-black">
+                        <Image
+                          src={project.cover}
+                          alt={project.title}
+                          fill
+                          priority={Math.abs(k) <= 2}
+                          sizes="240px"
+                          className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+                        />
+                        <span
+                          dir={dir}
+                          className="absolute bottom-3 start-3 rounded-full bg-white px-3 py-1 text-[0.72rem] font-semibold text-black"
+                        >
+                          {lang === "ar" ? project.titleAr : project.title}
+                        </span>
+                      </div>
+                    </Link>
+                  </div>
+                ))}
+              </motion.div>
+            </motion.div>
+          </div>
         </div>
-      </motion.div>
+      </div>
 
-
-      {/* baseline meta row */}
-      <div className="container-editorial relative z-10 mt-auto flex items-end justify-between border-t border-line pt-5 pb-8">
-        <p className="max-w-xs text-[0.8rem] leading-relaxed text-gray-1">{t.hero.baseline}</p>
-        <span className="hidden text-[0.8rem] text-gray-1 sm:block">{t.hero.scroll}</span>
+      {/* client strip */}
+      <div className="relative mt-8 overflow-hidden" dir="ltr">
+        <div className="animate-marquee flex w-max gap-14 py-2">
+          {[...PROJECTS, ...PROJECTS, ...PROJECTS, ...PROJECTS].map((p, i) => (
+            <span
+              key={`${p.slug}-${i}`}
+              className="flex shrink-0 items-center gap-2.5 font-display text-lg font-bold tracking-[-0.02em] text-gray-2"
+            >
+              <span className="h-2 w-2 rounded-full" style={{ backgroundColor: p.accent }} />
+              {p.title}
+            </span>
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -7,18 +7,19 @@ import Logo from "@/components/ui/Logo";
 import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
 import { useLanguage, useTheme } from "@/components/Providers";
 import { gtmEvent } from "@/lib/gtm";
+import { useBrief } from "@/components/Brief";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const { t, lang, toggleLang } = useLanguage();
   const { theme, toggleTheme } = useTheme();
+  const { openBrief } = useBrief();
 
   const LINKS = [
     { label: t.nav.services, href: "/#services" },
     { label: t.nav.work, href: "/#work" },
     { label: t.nav.process, href: "/#process" },
-    { label: t.nav.insights, href: "/#insights" },
     { label: t.nav.contact, href: "/#contact" },
   ];
 
@@ -50,16 +51,12 @@ export default function Navbar() {
 
   return (
     <>
-      <header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-[var(--ease-editorial)] ${
-          scrolled
-            ? "border-b border-line/70 bg-paper/70 backdrop-blur-xl"
-            : "border-b border-transparent bg-paper/0"
-        }`}
-      >
+      <header className="fixed inset-x-0 top-3 z-50 px-3 sm:px-4">
         <div
-          className={`container-editorial flex items-center justify-between transition-all duration-500 ease-[var(--ease-editorial)] ${
-            scrolled ? "h-[58px]" : "h-[84px]"
+          className={`mx-auto flex h-[64px] max-w-[1180px] items-center justify-between rounded-full border ps-6 pe-2 transition-all duration-500 ease-[var(--ease-editorial)] ${
+            scrolled
+              ? "border-line bg-paper/90 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.18)] backdrop-blur-xl"
+              : "border-line bg-paper"
           }`}
         >
           <a href="/" aria-label="TASWEEQ — home" className="text-ink">
@@ -85,13 +82,9 @@ export default function Navbar() {
             <IconBtn onClick={toggleLang} label="Toggle language">
               {lang === "en" ? "ع" : "EN"}
             </IconBtn>
-            <a
-              href="https://wa.me/201014300054"
-              target="_blank"
-              rel="noopener noreferrer"
-              data-gtm="whatsapp_click"
-              data-gtm-location="nav_cta"
-              onClick={() => gtmEvent("whatsapp_click", { location: "nav_cta" })}
+            <button
+              type="button"
+              onClick={() => openBrief({ source: "nav_cta" })}
               className="group ms-1 hidden items-center gap-2 rounded-full bg-cyan px-5 py-2.5 text-[0.82rem] font-semibold text-black transition-transform duration-300 hover:scale-[1.03] sm:inline-flex"
             >
               {t.cta.start}
@@ -99,7 +92,7 @@ export default function Navbar() {
                 size={16}
                 className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 rtl:group-hover:-translate-x-0.5"
               />
-            </a>
+            </button>
             <button
               type="button"
               onClick={() => setOpen(true)}
@@ -127,7 +120,7 @@ export default function Navbar() {
             exit={{ scale: 0, opacity: 0 }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             aria-label="WhatsApp"
-            className="fixed bottom-6 end-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#29a71a] text-white shadow-[0_8px_30px_-6px_rgba(41,167,26,0.6)] transition-transform duration-300 hover:scale-110"
+            className="fixed bottom-6 end-6 z-40 hidden h-14 w-14 lg:flex items-center justify-center rounded-full bg-[#29a71a] text-white shadow-[0_8px_30px_-6px_rgba(41,167,26,0.6)] transition-transform duration-300 hover:scale-110"
           >
             <WhatsAppIcon size={28} />
           </motion.a>
@@ -170,17 +163,13 @@ export default function Navbar() {
                   {l.label}
                 </motion.a>
               ))}
-              <a
-                href="https://wa.me/201014300054"
-                target="_blank"
-                rel="noopener noreferrer"
-                data-gtm="whatsapp_click"
-                data-gtm-location="mobile_menu"
-                onClick={() => { gtmEvent("whatsapp_click", { location: "mobile_menu" }); setOpen(false); }}
+              <button
+                type="button"
+                onClick={() => { setOpen(false); openBrief({ source: "mobile_menu" }); }}
                 className="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-cyan px-6 py-3 text-sm font-semibold text-black"
               >
                 {t.cta.start} <ArrowUpRight size={16} />
-              </a>
+              </button>
             </nav>
           </motion.div>
         )}

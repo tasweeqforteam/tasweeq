@@ -83,10 +83,12 @@ html[lang="ar"] body {
 html[lang="ar"] .font-display {
   font-family: var(--font-serif), var(--font-arabic), serif;
   letter-spacing: 0 !important;
+  /* thmanyah's tall ascenders/descenders collide at Latin leading */
+  line-height: 1.35 !important;
 }
 html[lang="ar"] .display-tight {
   letter-spacing: 0 !important;
-  line-height: 1.04;
+  line-height: 1.25 !important;
 }
 
 /* Keep NewBlack for English-only elements in Arabic mode */

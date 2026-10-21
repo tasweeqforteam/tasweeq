@@ -1,15 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import CountUp from "@/components/ui/CountUp";
+import Image from "next/image";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useLanguage } from "@/components/Providers";
-
-const VALUES: { value: number; decimals?: number; suffix: string }[] = [
-  { value: 15, suffix: "+" },
-  { value: 4, suffix: "+" },
-  { value: 90, suffix: "%" },
-  { value: 0, suffix: "" }, // 24/7 is static
-];
+import { PROJECTS } from "@/lib/projects";
 
 function FadeInOnScroll({
   children,
@@ -54,54 +49,103 @@ function FadeInOnScroll({
   );
 }
 
+/** Crossfades through every project cover so the card shows the whole body of work. */
+function ProjectCycle() {
+  const { lang } = useLanguage();
+  const reduced = useReducedMotion();
+  const [i, setI] = useState(0);
+
+  useEffect(() => {
+    if (reduced) return;
+    const id = window.setInterval(() => setI((n) => (n + 1) % PROJECTS.length), 2600);
+    return () => window.clearInterval(id);
+  }, [reduced]);
+
+  const p = PROJECTS[i];
+  return (
+    <>
+      <AnimatePresence initial={false}>
+        <motion.div
+          key={p.slug}
+          className="absolute inset-0"
+          initial={{ opacity: 0, scale: 1.06 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <Image src={p.cover} alt={p.title} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover" />
+        </motion.div>
+      </AnimatePresence>
+      <div className="absolute start-4 top-4 z-10 flex items-center gap-2">
+        <span className="rounded-full bg-white px-3 py-1 text-[0.72rem] font-semibold text-black">
+          {lang === "ar" ? p.titleAr : p.title}
+        </span>
+        <span className="flex gap-1">
+          {PROJECTS.map((x, k) => (
+            <span
+              key={x.slug}
+              className={`h-1.5 rounded-full bg-white transition-all duration-500 ${k === i ? "w-5" : "w-1.5 opacity-50"}`}
+            />
+          ))}
+        </span>
+      </div>
+    </>
+  );
+}
+
+const TITLE_CLASS = "font-display text-[clamp(1.7rem,2.8vw,2.5rem)] font-extrabold leading-[1.1] tracking-[-0.03em]";
+
+/** "Why TASWEEQ" bento — strengths in words, no unverifiable numbers. */
 export default function Metrics() {
   const { t } = useLanguage();
+  const items = t.metrics.items;
 
   return (
-    <section id="services" className="bg-paper py-[clamp(5rem,11vw,9rem)]">
+    <section id="results" className="bg-paper py-[clamp(4rem,9vw,7rem)]">
       <div className="container-editorial">
-        {/* header row */}
-        <div className="flex flex-col gap-6 border-t border-line pt-8 md:flex-row md:items-end md:justify-between">
-          <span className="eyebrow text-gray-1">{t.metrics.label}</span>
-          <h2 className="font-display max-w-xl text-end text-[clamp(1.6rem,3.2vw,2.6rem)] font-medium leading-[1.08] tracking-[-0.03em] md:text-balance">
+        <div className="flex flex-col items-center text-center">
+          <span className="eyebrow inline-flex items-center gap-2 text-gray-1">
+            <span className="h-1.5 w-1.5 rounded-full bg-cyan" />
+            {t.metrics.label}
+          </span>
+          <h2 className="font-display mt-5 max-w-2xl text-[clamp(1.8rem,3.6vw,3rem)] font-bold leading-[1.08] tracking-[-0.03em] text-ink">
             {t.metrics.heading}
           </h2>
         </div>
 
-        {/* metrics grid */}
-        <div className="mt-16 grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
-          {t.metrics.items.map((m, i) => (
-            <FadeInOnScroll key={m.title} className="border-t border-ink pt-5" delay={i * 0.1}>
-              <div className="font-display fluid-stat display-tight font-extrabold tracking-[-0.04em] text-ink">
-                {VALUES[i].value > 0 ? (
-                  <CountUp
-                    value={VALUES[i].value}
-                    decimals={VALUES[i].decimals}
-                    suffix={VALUES[i].suffix}
-                  />
-                ) : (
-                  <span>24/7</span>
-                )}
-              </div>
-              <h3 className="mt-5 text-base font-semibold text-ink">{m.title}</h3>
-              <p className="mt-1.5 max-w-[20ch] text-sm leading-relaxed text-gray-1">{m.copy}</p>
-            </FadeInOnScroll>
-          ))}
-        </div>
-
-        {/* operational pillars */}
-        <div className="mt-20 grid grid-cols-2 border-t border-line md:grid-cols-4">
-          {t.metrics.pillars.map((p, i) => (
-            <div
-              key={p}
-              className="flex items-baseline gap-3 border-b border-line py-6 md:border-b-0 md:border-e md:last:border-e-0 md:pe-6"
-            >
-              <span className="eyebrow text-gray-2">0{i + 1}</span>
-              <span className="font-display text-xl font-semibold tracking-[-0.02em] text-ink">
-                {p}
-              </span>
+        <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-3 md:grid-rows-2">
+          {/* work card — cycles through every project */}
+          <FadeInOnScroll className="relative min-h-[420px] overflow-hidden rounded-[20px] bg-ink md:row-span-2">
+            <ProjectCycle />
+            <div className="absolute inset-x-4 bottom-4 z-10 rounded-[14px] bg-white p-5 text-black">
+              <h3 className={TITLE_CLASS}>{items[0].title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-black/60">{items[0].copy}</p>
             </div>
-          ))}
+          </FadeInOnScroll>
+
+          {/* neutral card */}
+          <FadeInOnScroll
+            delay={0.08}
+            className="flex min-h-[200px] flex-col justify-end rounded-[20px] border border-line bg-ink/[0.03] p-7"
+          >
+            <h3 className={`${TITLE_CLASS} text-ink`}>{items[2].title}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-gray-1">{items[2].copy}</p>
+          </FadeInOnScroll>
+
+          {/* cyan card */}
+          <FadeInOnScroll delay={0.16} className="flex min-h-[200px] flex-col justify-end rounded-[20px] bg-cyan p-7 text-black">
+            <h3 className={TITLE_CLASS}>{items[1].title}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-black/70">{items[1].copy}</p>
+          </FadeInOnScroll>
+
+          {/* ink card */}
+          <FadeInOnScroll
+            delay={0.24}
+            className="flex min-h-[200px] flex-col justify-end rounded-[20px] bg-ink p-7 text-paper md:col-span-2"
+          >
+            <h3 className={TITLE_CLASS}>{items[3].title}</h3>
+            <p className="mt-2 max-w-md text-sm leading-relaxed text-paper/60">{items[3].copy}</p>
+          </FadeInOnScroll>
         </div>
       </div>
     </section>

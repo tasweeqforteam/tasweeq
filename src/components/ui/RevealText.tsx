@@ -39,7 +39,8 @@ export default function RevealText({
         style={{ textAlign: align }}
       >
         {lines.map((line, i) => (
-          <span key={i} className="block overflow-hidden pb-[0.06em]">
+          // extra bottom room so Arabic descenders aren't clipped by the reveal mask
+          <span key={i} className="-mb-[0.14em] block overflow-hidden pb-[0.2em]">
             <motion.span variants={lineReveal} className={`block ${lineClassName}`}>
               {line}
             </motion.span>

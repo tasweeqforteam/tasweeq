@@ -2,7 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { newBlack, inter, plexArabic, thmanyah } from "@/lib/fonts";
 import SmoothScroll from "@/components/SmoothScroll";
 import Providers, { themeInitScript } from "@/components/Providers";
-import "./globals.css";
+import BriefProvider from "@/components/Brief";
+import MobileBar from "@/components/MobileBar";import "./globals.css";
 
 const SITE = "https://tasweeq-agency.com";
 
@@ -152,7 +153,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <Providers>
-          <SmoothScroll>{children}</SmoothScroll>
+          <BriefProvider>
+            <SmoothScroll>{children}</SmoothScroll>
+            <MobileBar />
+          </BriefProvider>
         </Providers>
       </body>
     </html>

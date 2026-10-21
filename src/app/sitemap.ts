@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
+import { SLUGS as CASE_STUDY_SLUGS } from "@/lib/projects";
 
 const SITE = "https://tasweeq-agency.com";
-const CASE_STUDY_SLUGS = ["sakan", "neemo", "mawaeidk"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

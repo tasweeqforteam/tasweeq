@@ -17,13 +17,8 @@ export default function Process() {
         <div className="lg:col-span-5">
           <div className="lg:sticky lg:top-28">
             <span className="eyebrow text-cyan">{t.process.label}</span>
-            <h2 className="font-display fluid-lg display-tight mt-6 font-extrabold uppercase tracking-[-0.04em]">
-              {t.process.headLines.map((l) => (
-                <span key={l} className="block">
-                  {l}
-                </span>
-              ))}
-              <span className="block text-cyan">{t.process.headHighlight}</span>
+            <h2 className="font-display mt-6 text-[clamp(2.2rem,4.4vw,4rem)] font-extrabold uppercase leading-[0.98] tracking-[-0.04em]">
+              {t.process.headLines.join(" ")} <span className="text-cyan">{t.process.headHighlight}</span>
             </h2>
             <p className="mt-8 max-w-sm text-sm leading-relaxed text-paper/60">{t.process.intro}</p>
           </div>

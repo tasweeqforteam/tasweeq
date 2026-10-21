@@ -1,205 +1,116 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
+import { useBrief, WHATSAPP } from "@/components/Brief";
 import { useLanguage } from "@/components/Providers";
-
-gsap.registerPlugin(ScrollTrigger);
-
-type ProjectMeta = {
-  letter: string;
-  href: string;
-  linkLabel: string;
-  accentHover: string;
-  shadowHover: string;
-  cover?: string;
-};
-
-const PROJECT_META: ProjectMeta[] = [
-  {
-    letter: "S",
-    href: "https://sakansa.com",
-    linkLabel: "sakansa.com",
-    accentHover: "group-hover:border-[#3f71e4] group-hover:shadow-[0_30px_80px_-30px_rgba(63,113,228,0.45)]",
-    shadowHover: "group-hover:text-[#3f71e4]/[0.12]",
-    cover: "/work/sakan-cover.png",
-  },
-  {
-    letter: "N",
-    href: "https://www.neemo-store.com",
-    linkLabel: "neemo-store.com",
-    accentHover: "group-hover:border-[#7F59B0] group-hover:shadow-[0_30px_80px_-30px_rgba(127,89,176,0.45)]",
-    shadowHover: "group-hover:text-[#7F59B0]/[0.12]",
-    cover: "/work/neemo-cover.png",
-  },
-  {
-    letter: "M",
-    href: "/work/mawaeidk",
-    linkLabel: "View Case Study",
-    accentHover: "group-hover:border-[#004D43] group-hover:shadow-[0_30px_80px_-30px_rgba(0,77,67,0.45)]",
-    shadowHover: "group-hover:text-[#004D43]/[0.12]",
-    cover: "/work/mawaeidk-cover.png",
-  },
-];
-
-const PROJECT_SLUGS = ["sakan", "neemo", "mawaeidk"];
+import { gtmEvent } from "@/lib/gtm";
+import { fadeUp, stagger } from "@/lib/motion";
+import { PROJECTS } from "@/lib/projects";
 
 export default function Showcase() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const { t, dir } = useLanguage();
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    const track = trackRef.current;
-    if (!section || !track) return;
-
-    const mm = gsap.matchMedia();
-    mm.add("(min-width: 1024px) and (prefers-reduced-motion: no-preference)", () => {
-      const amount = () => track.scrollWidth - window.innerWidth;
-      const tween = gsap.to(track, {
-        x: () => -amount(),
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: () => `+=${amount()}`,
-          scrub: 1,
-          pin: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        },
-      });
-      return () => {
-        tween.scrollTrigger?.kill();
-        tween.kill();
-      };
-    });
-
-    return () => mm.revert();
-  }, []);
-
-  useEffect(() => {
-    const id = window.setTimeout(() => ScrollTrigger.refresh(), 120);
-    return () => window.clearTimeout(id);
-  }, [t]);
+  const { t } = useLanguage();
+  const { openBrief } = useBrief();
 
   return (
-    <section id="work" ref={sectionRef} className="relative bg-paper lg:h-dvh lg:overflow-hidden">
-      <div
-        ref={trackRef}
-        dir="ltr"
-        className="flex h-full gap-5 overflow-x-auto px-[clamp(1.25rem,4vw,4.5rem)] py-[clamp(4rem,9vw,7rem)] [scroll-snap-type:x_mandatory] lg:items-center lg:overflow-visible lg:py-0 lg:[scroll-snap-type:none]"
-      >
-        {/* intro panel */}
-        <div
-          dir={dir}
-          className="flex w-[78vw] shrink-0 snap-start flex-col justify-center pe-6 [scroll-snap-align:start] sm:w-[420px] lg:w-[34vw] lg:pe-12"
-        >
-          <span className="eyebrow text-gray-1">{t.showcase.label}</span>
-          <h2 className="font-display fluid-lg display-tight mt-6 font-extrabold uppercase tracking-[-0.04em] text-ink">
-            {t.showcase.headLines.map((l) => (
-              <span key={l} className="block">
-                {l}
-              </span>
-            ))}
-          </h2>
-          <p className="mt-8 max-w-sm text-sm leading-relaxed text-gray-1">{t.showcase.intro}</p>
+    <section id="work" className="relative bg-paper pb-[clamp(4rem,9vw,7rem)] pt-[clamp(3rem,6vw,5rem)]">
+      <div className="container-editorial">
+        {/* header */}
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <span className="eyebrow inline-flex items-center gap-2 text-gray-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-cyan" />
+              {t.showcase.label}
+            </span>
+            <h2 className="font-display mt-4 text-[clamp(2rem,4.4vw,3.6rem)] font-extrabold uppercase leading-[0.95] tracking-[-0.04em] text-ink">
+              {t.showcase.headLines.join(" ")}
+            </h2>
+          </div>
+          <p className="max-w-sm text-sm leading-relaxed text-gray-1">{t.showcase.intro}</p>
         </div>
 
-        {/* case cards */}
-        {t.showcase.projects.map((p, i) => {
-          const meta = PROJECT_META[i];
-          const hasCover = Boolean(meta.cover);
-          return (
-            <article
-              key={p.title}
-              dir={dir}
-              className={`group relative flex h-[clamp(420px,70vh,640px)] w-[82vw] shrink-0 snap-center flex-col justify-between overflow-hidden rounded-[3px] border p-7 transition-all duration-500 ease-[var(--ease-editorial)] [scroll-snap-align:center] sm:w-[460px] lg:w-[42vw] lg:max-w-[640px] ${
-                hasCover ? "border-white/10" : "border-line bg-paper"
-              } ${meta.accentHover}`}
-            >
-              {/* cover image + scrim */}
-              {hasCover && (
-                <>
-                  <Image
-                    src={meta.cover!}
-                    alt=""
-                    fill
-                    sizes="(min-width: 1024px) 42vw, 82vw"
-                    className="object-cover"
-                    priority={i < 2}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/10" />
-                </>
-              )}
-
-              {/* giant letter */}
-              {!hasCover && (
-                <span
-                  aria-hidden="true"
-                  dir="ltr"
-                  data-font-en
-                  className={`pointer-events-none absolute -bottom-[6%] end-[-2%] select-none font-display text-[clamp(16rem,34vw,30rem)] font-extrabold leading-none tracking-[-0.06em] text-ink/[0.04] transition-all duration-700 ease-[var(--ease-editorial)] ${meta.shadowHover}`}
-                >
-                  {meta.letter}
-                </span>
-              )}
-
-              <div className="relative z-10 flex items-center justify-between">
-                <span className={`eyebrow ${hasCover ? "text-white/70" : "text-gray-1"}`}>{p.tag}</span>
-                <span
-                  className={`font-display text-sm font-medium tabular-nums ${hasCover ? "text-white/70" : "text-gray-2"}`}
-                >
-                  0{i + 1}
-                </span>
-              </div>
-
-              <div className="relative z-10">
-                <h3
-                  className={`font-display text-[clamp(2rem,4.5vw,3.25rem)] font-extrabold tracking-[-0.04em] ${hasCover ? "text-white" : "text-ink"}`}
-                >
-                  {p.title}
-                </h3>
-                <p className={`mt-4 max-w-md text-[0.95rem] leading-relaxed ${hasCover ? "text-white/80" : "text-gray-1"}`}>
-                  {p.copy}
-                </p>
-                <Link
-                  href={`/work/${PROJECT_SLUGS[i]}`}
-                  className={`group/link mt-6 inline-flex items-center gap-2 text-sm font-semibold ${hasCover ? "text-white" : "text-ink"}`}
-                >
-                  <span className="link-reveal">{t.showcase.caseStudy}</span>
-                  <ArrowUpRight
-                    size={16}
-                    className="transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
-                  />
-                </Link>
-              </div>
-            </article>
-          );
-        })}
-
-        {/* end panel */}
-        <div
-          dir={dir}
-          className="flex w-[70vw] shrink-0 snap-center flex-col justify-center ps-2 [scroll-snap-align:center] sm:w-[360px] lg:w-[30vw]"
+        {/* bento */}
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.1 }}
+          className="mt-10 grid grid-cols-1 gap-x-5 gap-y-10 md:grid-cols-2 lg:grid-cols-6"
         >
-          <a href="#contact" className="group inline-flex flex-col gap-4">
-            <span className="font-display text-[clamp(1.8rem,3.6vw,2.6rem)] font-extrabold uppercase leading-[0.95] tracking-[-0.03em] text-ink">
-              {t.showcase.endLines.map((l) => (
-                <span key={l} className="block">
-                  {l}
-                </span>
-              ))}
-            </span>
-            <span className="inline-flex w-fit items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-paper transition-transform duration-300 group-hover:scale-[1.03]">
+          {PROJECTS.map((meta, i) => {
+            const p = t.showcase.projects[i];
+            const big = i < 2;
+            return (
+              <motion.article
+                key={meta.slug}
+                variants={fadeUp}
+                className={`group ${big ? "lg:col-span-3" : "lg:col-span-2"}`}
+              >
+                <Link href={`/work/${meta.slug}`} className="block">
+                  <div
+                    className={`relative overflow-hidden rounded-[20px] bg-ink ${big ? "aspect-[5/4]" : "aspect-[4/5]"}`}
+                  >
+                    <Image
+                      src={meta.cover}
+                      alt={p.title}
+                      fill
+                      sizes={big ? "(min-width: 1024px) 50vw, 100vw" : "(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"}
+                      className="object-cover transition-transform duration-700 ease-[var(--ease-editorial)] group-hover:scale-[1.04]"
+                    />
+                    <span className="absolute start-4 top-4 rounded-full bg-white px-3 py-1 text-[0.72rem] font-semibold text-black">
+                      {p.tag}
+                    </span>
+                    <span className="absolute end-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-cyan text-black transition-transform duration-500 group-hover:rotate-45">
+                      <ArrowUpRight size={18} />
+                    </span>
+                  </div>
+
+                  <div className="mt-5 flex items-start justify-between gap-6">
+                    <div>
+                      <h3 className="font-display flex items-center gap-3 text-[clamp(1.5rem,2.2vw,2rem)] font-extrabold tracking-[-0.04em] text-ink">
+                        <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ backgroundColor: meta.accent }} />
+                        {p.title}
+                      </h3>
+                      <p className={`mt-2 text-[0.92rem] leading-relaxed text-gray-1 ${big ? "line-clamp-2 max-w-lg" : "line-clamp-3"}`}>
+                        {p.copy}
+                      </p>
+                    </div>
+                    <span className="font-display shrink-0 pt-2 text-sm font-medium tabular-nums text-gray-2">
+                      0{i + 1}
+                    </span>
+                  </div>
+                </Link>
+              </motion.article>
+            );
+          })}
+        </motion.div>
+
+        {/* end CTA */}
+        <div className="mt-16 flex flex-col items-start justify-between gap-6 rounded-[20px] bg-cyan p-8 text-black sm:flex-row sm:items-center">
+          <p className="font-display text-[clamp(1.5rem,3vw,2.4rem)] font-extrabold uppercase leading-[0.95] tracking-[-0.03em]">
+            {t.showcase.endLines.join(" ")}
+          </p>
+          <div className="flex shrink-0 flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={() => openBrief({ source: "work_cta" })}
+              className="inline-flex items-center gap-2 rounded-full bg-black px-5 py-2.5 text-sm font-semibold text-white transition-transform duration-300 hover:scale-[1.03]"
+            >
               {t.showcase.startProject} <ArrowUpRight size={16} />
-            </span>
-          </a>
+            </button>
+            <a
+              href={`https://wa.me/${WHATSAPP}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => gtmEvent("whatsapp_click", { location: "work_cta" })}
+              className="inline-flex items-center gap-2 rounded-full border border-black/25 px-5 py-2.5 text-sm font-semibold transition-colors hover:border-black"
+            >
+              <WhatsAppIcon size={16} /> {t.intro.whatsapp}
+            </a>
+          </div>
         </div>
       </div>
     </section>

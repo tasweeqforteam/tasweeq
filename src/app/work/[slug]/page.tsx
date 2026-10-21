@@ -1,55 +1,42 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { caseStudies } from "@/lib/case-studies";
+import { SLUGS, getProject } from "@/lib/projects";
 import CaseStudyPage from "@/components/CaseStudyPage";
 
 const SITE = "https://tasweeq-agency.com";
-
-const VALID_SLUGS = ["sakan", "neemo", "mawaeidk"] as const;
-
-const TITLES: Record<(typeof VALID_SLUGS)[number], string> = {
-  sakan: "Sakan",
-  neemo: "Neemo",
-  mawaeidk: "Mawaeidk",
-};
-
-const ARABIC_TITLES: Record<(typeof VALID_SLUGS)[number], string> = {
-  sakan: "سكن",
-  neemo: "نيمو",
-  mawaeidk: "مواعيدك",
-};
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
 export function generateStaticParams() {
-  return VALID_SLUGS.map((slug) => ({ slug }));
+  return SLUGS.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
+  const project = getProject(slug);
   const study = caseStudies.ar.find((s) => s.slug === slug);
-  if (!study) return {};
+  if (!project || !study) return {};
 
-  const key = study.slug as (typeof VALID_SLUGS)[number];
-  const title = `${ARABIC_TITLES[key]} (${TITLES[key]})`;
+  const title = `${project.titleAr} (${project.title})`;
   const description = study.brief[0].slice(0, 160);
-  const coverUrl = `${SITE}/work/${key}-cover.png`;
+  const coverUrl = `${SITE}${project.cover}`;
 
   return {
     title: `${title} - دراسة حالة`,
     description,
-    keywords: [ARABIC_TITLES[key], TITLES[key], study.meta.industry, study.meta.type, "دراسة حالة", "هوية بصرية"],
+    keywords: [project.titleAr, project.title, study.meta.industry, study.meta.type, "دراسة حالة", "هوية بصرية"],
     alternates: {
-      canonical: `${SITE}/work/${key}`,
+      canonical: `${SITE}/work/${project.slug}`,
     },
     openGraph: {
       title: `${title} - دراسة حالة TASWEEQ`,
       description,
-      url: `${SITE}/work/${key}`,
+      url: `${SITE}/work/${project.slug}`,
       type: "article",
-      images: [{ url: coverUrl, width: 1200, height: 1200, alt: title }],
+      images: [{ url: coverUrl, alt: title }],
     },
     twitter: {
       card: "summary_large_image",
@@ -62,11 +49,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Page({ params }: Props) {
   const { slug } = await params;
-  if (!VALID_SLUGS.includes(slug as (typeof VALID_SLUGS)[number])) {
-    notFound();
-  }
-
-  const key = slug as (typeof VALID_SLUGS)[number];
+  const project = getProject(slug);
+  if (!project) notFound();
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -74,16 +58,16 @@ export default async function Page({ params }: Props) {
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "الرئيسية", item: SITE },
       { "@type": "ListItem", position: 2, name: "الأعمال", item: `${SITE}/#work` },
-      { "@type": "ListItem", position: 3, name: ARABIC_TITLES[key], item: `${SITE}/work/${key}` },
+      { "@type": "ListItem", position: 3, name: project.titleAr, item: `${SITE}/work/${project.slug}` },
     ],
   };
 
   const creativeWorkJsonLd = {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
-    name: `${ARABIC_TITLES[key]} (${TITLES[key]})`,
-    url: `${SITE}/work/${key}`,
-    image: `${SITE}/work/${key}-cover.png`,
+    name: `${project.titleAr} (${project.title})`,
+    url: `${SITE}/work/${project.slug}`,
+    image: `${SITE}${project.cover}`,
     creator: { "@type": "Organization", name: "TASWEEQ" },
   };
 
@@ -97,7 +81,7 @@ export default async function Page({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(creativeWorkJsonLd) }}
       />
-      <CaseStudyPage slug={key} />
+      <CaseStudyPage slug={project.slug} />
     </>
   );
 }

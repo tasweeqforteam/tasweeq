@@ -8,59 +8,34 @@ import Navbar from "@/components/Navbar";
 import Logo from "@/components/ui/Logo";
 import RevealText from "@/components/ui/RevealText";
 import { useLanguage } from "@/components/Providers";
+import { useBrief, WHATSAPP } from "@/components/Brief";
+import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
+import { gtmEvent } from "@/lib/gtm";
 import { caseStudies, caseStudyI18n } from "@/lib/case-studies";
 import { fadeUp, stagger } from "@/lib/motion";
+import { PROJECTS, gallerySlides, getProject, type ProjectSlug } from "@/lib/projects";
 import { useEffect, useRef, useState } from "react";
 
-const NEEMO_SLIDES = Array.from({ length: 34 }, (_, i) => {
-  const n = String(i + 1).padStart(2, "0");
-  return `/work/neemo/neemo-${n}.png`;
-});
-
-const SAKAN_SLIDES = Array.from({ length: 27 }, (_, i) => {
-  const n = String(i + 1).padStart(2, "0");
-  return `/work/sakan/sakan-${n}.png`;
-});
-
-const MAWAEIDK_SLIDES = Array.from({ length: 21 }, (_, i) => {
-  const n = String(i + 1).padStart(2, "0");
-  return `/work/mawaeidk/mawaeidk-${n}.png`;
-});
-
-const GALLERY_SLIDES: Record<string, string[]> = {
-  neemo: NEEMO_SLIDES,
-  sakan: SAKAN_SLIDES,
-  mawaeidk: MAWAEIDK_SLIDES,
-};
-
-const TITLES: Record<"sakan" | "neemo" | "mawaeidk", string> = {
-  sakan: "Sakan",
-  neemo: "Neemo",
-  mawaeidk: "Mawaeidk",
-};
-
-const ARABIC_NAMES: Record<"sakan" | "neemo" | "mawaeidk", string> = {
-  sakan: "سكن",
-  neemo: "نيمو",
-  mawaeidk: "مواعيدك",
-};
-
-type Props = { slug: "sakan" | "neemo" | "mawaeidk" };
+type Props = { slug: ProjectSlug };
 
 export default function CaseStudyPage({ slug }: Props) {
-  const { lang, dir } = useLanguage();
+  const { lang, dir, t } = useLanguage();
+  const { openBrief } = useBrief();
   const dict = caseStudyI18n[lang];
   const studies = caseStudies[lang];
   const study = studies.find((s) => s.slug === slug)!;
-  const studyIndex = studies.findIndex((s) => s.slug === slug);
-  const otherStudy = studies[(studyIndex + 1) % studies.length];
+  const project = getProject(slug)!;
+  const studyIndex = PROJECTS.findIndex((p) => p.slug === slug);
+  const nextProject = PROJECTS[(studyIndex + 1) % PROJECTS.length];
+  const otherStudy = studies.find((s) => s.slug === nextProject.slug)!;
+  const slides = gallerySlides(project);
 
   const metaEntries = [
     { label: dict.deliverableCol === "Deliverable" ? "Project Type" : "نوع المشروع", value: study.meta.type },
     { label: dict.deliverableCol === "Deliverable" ? "Industry" : "القطاع", value: study.meta.industry },
     { label: dict.deliverableCol === "Deliverable" ? "Scope" : "النطاق", value: study.meta.scope },
     { label: dict.deliverableCol === "Deliverable" ? "Duration" : "المدة", value: study.meta.duration },
-  ];
+  ].filter((m) => m.value);
 
   const BackArrow = dir === "rtl" ? ArrowRight : ArrowLeft;
 
@@ -104,7 +79,7 @@ export default function CaseStudyPage({ slug }: Props) {
             <RevealText
               as="h1"
               forceEn
-              lines={[TITLES[slug]]}
+              lines={[project.title]}
               className="font-display fluid-xl display-tight mt-4 font-extrabold uppercase text-ink"
             />
 
@@ -116,7 +91,7 @@ export default function CaseStudyPage({ slug }: Props) {
               className="mt-2 text-3xl font-black"
               style={{ color: study.accentColor, fontFamily: "var(--font-serif), serif" }}
             >
-              {ARABIC_NAMES[slug]}
+              {project.titleAr}
             </motion.p>
 
             {/* subtitle */}
@@ -134,7 +109,7 @@ export default function CaseStudyPage({ slug }: Props) {
               variants={stagger}
               initial="hidden"
               animate="show"
-              className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
+              className={`mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 ${metaEntries.length === 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"}`}
             >
               {metaEntries.map((m) => (
                 <motion.div
@@ -149,7 +124,7 @@ export default function CaseStudyPage({ slug }: Props) {
             </motion.div>
 
             {/* action link */}
-            <motion.div
+            {study.brandBookUrl && <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.7 }}
@@ -165,7 +140,7 @@ export default function CaseStudyPage({ slug }: Props) {
                 {dict.viewBrandbook}
                 <ArrowUpRight size={14} />
               </a>
-            </motion.div>
+            </motion.div>}
           </div>
 
           {/* accent divider */}
@@ -262,7 +237,7 @@ export default function CaseStudyPage({ slug }: Props) {
         </section>
 
         {/* ─── Presentation Gallery ─── */}
-        {GALLERY_SLIDES[slug] && (
+        {slides.length > 0 && (
           <section className="bg-ink py-[clamp(3rem,6vw,5rem)]">
             <div className="container-editorial mb-10">
               <span className="eyebrow text-gray-2">
@@ -273,7 +248,7 @@ export default function CaseStudyPage({ slug }: Props) {
               </h2>
             </div>
             <div className="container-editorial flex flex-col gap-8">
-              {GALLERY_SLIDES[slug].map((src, i) => (
+              {slides.map((src, i) => (
                 <GallerySlide
                   key={src}
                   src={src}
@@ -286,7 +261,7 @@ export default function CaseStudyPage({ slug }: Props) {
         )}
 
         {/* ─── Brandbook CTA ─── */}
-        <section className="border-t border-line bg-paper py-[clamp(3rem,6vw,5rem)]">
+        {study.brandBookUrl && <section className="border-t border-line bg-paper py-[clamp(3rem,6vw,5rem)]">
           <div className="container-editorial flex flex-col items-center gap-6 text-center">
             <span className="eyebrow text-gray-2">{lang === "en" ? "Full Brand System" : "نظام العلامة الكامل"}</span>
             <a
@@ -300,6 +275,38 @@ export default function CaseStudyPage({ slug }: Props) {
               <ArrowUpRight size={18} />
             </a>
           </div>
+        </section>}
+
+        {/* ─── Conversion CTA ─── */}
+        <section className="bg-paper py-[clamp(3rem,6vw,5rem)]">
+          <div className="container-editorial">
+            <div className="flex flex-col items-start justify-between gap-6 rounded-[20px] bg-cyan p-8 text-black md:flex-row md:items-center md:p-10">
+              <div>
+                <h2 className="font-display text-[clamp(1.6rem,3.2vw,2.6rem)] font-extrabold leading-[1.1] tracking-[-0.03em]">
+                  {t.caseCta.title}
+                </h2>
+                <p className="mt-3 text-[0.95rem] leading-relaxed text-black/70">{t.caseCta.body}</p>
+              </div>
+              <div className="flex shrink-0 flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={() => openBrief({ source: `case_${slug}` })}
+                  className="inline-flex items-center gap-2 rounded-full bg-black px-6 py-3 text-sm font-semibold text-white transition-transform duration-300 hover:scale-[1.03]"
+                >
+                  {t.cta.start} <ArrowUpRight size={16} />
+                </button>
+                <a
+                  href={`https://wa.me/${WHATSAPP}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => gtmEvent("whatsapp_click", { location: `case_${slug}` })}
+                  className="inline-flex items-center gap-2 rounded-full border border-black/25 px-5 py-3 text-sm font-semibold transition-colors hover:border-black"
+                >
+                  <WhatsAppIcon size={17} /> {t.intro.whatsapp}
+                </a>
+              </div>
+            </div>
+          </div>
         </section>
 
         {/* ─── Next Project ─── */}
@@ -312,7 +319,7 @@ export default function CaseStudyPage({ slug }: Props) {
             >
               <div>
                 <h3 data-font-en className="font-display text-[clamp(2.5rem,6vw,5rem)] font-extrabold uppercase leading-[0.9] tracking-[-0.04em] text-ink transition-colors group-hover:text-gray-1">
-                  {TITLES[otherStudy.slug]}
+                  {nextProject.title}
                 </h3>
                 <p className="mt-3 text-sm text-gray-1">{otherStudy.meta.industry}</p>
               </div>

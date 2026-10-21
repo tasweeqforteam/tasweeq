@@ -5,6 +5,8 @@ import RevealText from "@/components/ui/RevealText";
 import Logo from "@/components/ui/Logo";
 import { useLanguage } from "@/components/Providers";
 import { gtmEvent } from "@/lib/gtm";
+import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
+import { useBrief } from "@/components/Brief";
 
 const SOCIAL_HREFS = [
   "https://www.instagram.com/tasweeq_agency/",
@@ -15,6 +17,7 @@ const SOCIAL_HREFS = [
 
 export default function FinalCTA() {
   const { t } = useLanguage();
+  const { openBrief } = useBrief();
 
   return (
     <>
@@ -25,12 +28,20 @@ export default function FinalCTA() {
           <RevealText
             as="h2"
             align="start"
-            lines={t.footer.headline}
-            className="font-display fluid-mega display-tight font-extrabold uppercase tracking-[-0.05em]"
+            lines={[t.footer.headline.slice(0, 2).join(" "), t.footer.headline.slice(2).join(" ")]}
+            className="font-display text-[clamp(2.6rem,7vw,6.5rem)] font-extrabold uppercase leading-[0.95] tracking-[-0.045em]"
           />
 
           {/* primary CTA */}
           <div className="mt-12">
+            <button
+              type="button"
+              onClick={() => openBrief({ source: "footer_cta" })}
+              className="group inline-flex items-center gap-3 rounded-full bg-cyan px-8 py-4 text-base font-semibold text-black transition-transform duration-300 hover:scale-[1.02]"
+            >
+              {t.cta.start}
+              <ArrowUpRight size={20} />
+            </button>
             <a
               href="https://wa.me/201014300054"
               target="_blank"
@@ -38,10 +49,9 @@ export default function FinalCTA() {
               data-gtm="whatsapp_click"
               data-gtm-location="footer_cta"
               onClick={() => gtmEvent("whatsapp_click", { location: "footer_cta" })}
-              className="group inline-flex items-center gap-3 rounded-full bg-cyan px-8 py-4 text-base font-semibold text-black transition-transform duration-300 hover:scale-[1.02]"
+              className="ms-3 inline-flex items-center gap-2 rounded-full border border-paper/25 px-6 py-4 text-base font-semibold text-paper transition-colors hover:border-paper"
             >
-              {t.footer.cta}
-              <ArrowUpRight size={20} />
+              <WhatsAppIcon size={20} /> {t.intro.whatsapp}
             </a>
           </div>
 

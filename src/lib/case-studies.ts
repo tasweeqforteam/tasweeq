@@ -1,10 +1,11 @@
 import type { Lang } from "./i18n";
+import type { ProjectSlug } from "./projects";
 
 export type CaseStudy = {
-  slug: "sakan" | "neemo" | "mawaeidk";
+  slug: ProjectSlug;
   letter: string;
   accentColor: string;
-  meta: { type: string; industry: string; scope: string; duration: string };
+  meta: { type: string; industry: string; scope: string; duration?: string };
   brief: string[];
   challenge: string[];
   thinking: { intro: string; points: string[] };
@@ -52,7 +53,7 @@ export const caseStudyI18n: Record<Lang, CaseStudyDict> = {
     challengeTitle: "التحدّي",
     thinkingTitle: "تفكيرنا",
     deliveredTitle: "ما سلّمناه",
-    deliverableCol: "المُخرج",
+    deliverableCol: "ما قدّمناه",
     detailCol: "ما يتضمّنه",
     outcomeTitle: "النتيجة",
     designDecisionLabel: "القرار التصميمي الأهم",
@@ -111,7 +112,7 @@ export const caseStudies: Record<Lang, CaseStudy[]> = {
         ],
       },
       designDecision: {
-        title: "Using blue instead of the expected gold/green.",
+        title: "Using blue instead of the expected gold/green",
         body: "It was a deliberate break from category convention that made Sakan instantly recognizable. The client was initially cautious, but once they saw the full system applied, the differentiation spoke for itself.",
       },
       brandBookUrl: "https://drive.google.com/file/d/1s6a3XMJvgHKt9DqJ1OcyAy2R93HA1WYd/view?usp=sharing",
@@ -164,7 +165,7 @@ export const caseStudies: Record<Lang, CaseStudy[]> = {
         ],
       },
       designDecision: {
-        title: "The four-color palette.",
+        title: "The four-color palette",
         body: "Most branding guidelines tell you to stick to two colors. We deliberately broke that rule because Neemo's personality demanded it - 'happy' doesn't come from one color, it comes from the energy of many. The key was building strict usage ratios so the variety creates excitement, not chaos.",
       },
       brandBookUrl: "https://drive.google.com/file/d/1hyov3jDWJbzqqfgP1vQ71H0ji8SJwYtc/view?usp=sharing",
@@ -210,19 +211,127 @@ export const caseStudies: Record<Lang, CaseStudy[]> = {
       ],
       outcome: {
         intro:
-          "Mawaeidk emerged with an identity that finally matches its product - modern, calm, and unmistakably human in a category that defaults to cold and corporate. The new mark and color system give the brand a visual language it can grow into as it expands from appointment booking into a fuller healthcare ecosystem.",
+          "The new identity gives Mawaeidk a clearer, warmer visual and verbal foundation across its digital touchpoints — modern, calm and human in a category that often feels cold and corporate.",
         points: [
-          "A complete identity system built around a single, disciplined archetype - the Caregiver - across every touchpoint",
-          "A logo redesign that traded a busy, ornamental mark for a confident, simplified symbol built for app icons and small-scale digital use",
-          "A tone-of-voice framework the team can apply consistently across app copy, notifications, and marketing without sounding clinical",
-          "A visual foundation designed to scale as Mawaeidk grows into telemedicine and medical records, not just appointment booking",
+          "An identity built around one brand character — the Caregiver — applied across the system",
+          "A redesigned logo: a simplified, confident symbol in place of the earlier busy mark, sized for app icons and small digital use",
+          "Tone-of-voice guidelines for app copy, notifications and marketing that avoid clinical language",
+          "A deep teal and lime color system with KO Sans typography for Arabic and English",
         ],
       },
       designDecision: {
-        title: "Choosing warmth over clinical convention.",
+        title: "Choosing warmth over clinical convention",
         body: "Every instinct in healthcare branding pulls toward sterile blues and medical iconography. We went the other way - deep teal and lime, rounded shapes, human language - because Mawaeidk's real competitor isn't another app, it's the anxiety of booking healthcare at all. The brand had to feel like a Caregiver before it felt like software.",
       },
       brandBookUrl: "https://drive.google.com/file/d/1d2ukuLoNKJCnyRC_U5WsveJiDcPfAdz1/view?usp=sharing",
+      siteUrl: "",
+      siteLabel: "",
+    },
+    {
+      slug: "loop",
+      letter: "L",
+      accentColor: "#DA7B29",
+      meta: {
+        type: "Brand Identity Design",
+        industry: "Marketing / Creative Services",
+        scope: "Full identity system + social media direction",
+      },
+      brief: [
+        "LOOP is a marketing and creative company offering integrated solutions in digital marketing, design and advertising. Its whole business is helping other brands get seen — which meant its own identity had to prove the point before a single pitch.",
+        "The founders needed a brand that felt confident, modern and bilingual from day one, and a line that sums up what they sell: presence.",
+      ],
+      challenge: [
+        "Marketing agencies are the hardest category to brand. Every agency claims creativity, every agency uses the same bold sans-serif and the same 'we grow brands' promise. A marketing company with a forgettable identity loses the argument before it starts.",
+        "LOOP needed a system distinctive enough to be recognised from a single shape, yet flexible enough to carry campaigns, social content and physical spaces without feeling repetitive.",
+      ],
+      thinking: {
+        intro:
+          "We built the identity around one idea: be where people see you. Everything in the system is designed to be noticed at a glance and remembered after it.",
+        points: [
+          "We turned the four letters of the name into a modular logomark — L, O, O, P stacked into a compact square that works as a symbol on its own",
+          "We paired the mark with a bilingual wordmark, so لووب and LOOP carry equal weight instead of one translating the other",
+          "We chose a confident orange against deep black and warm cream: energetic enough to stop the scroll, grounded enough to feel professional",
+          "We broke the logomark into its geometric parts to create a pattern and graphic language that runs across every touchpoint",
+          "We wrote the brand line in both languages — 'Be Where People See You' / «خلّك حاضر وين الناس تشوفك» — as the promise every application has to deliver",
+        ],
+      },
+      deliverables: [
+        { name: "Logo System", detail: "Logomark, bilingual wordmark, lockups, clear space and minimum sizing rules" },
+        { name: "Color & Typography", detail: "Orange, black and cream palette with usage ratios, Arabic and English typefaces" },
+        { name: "Graphic Language", detail: "Patterns built from the logomark geometry, custom icon set" },
+        { name: "Social Media Direction", detail: "Post and story directions in the brand's visual language" },
+        { name: "Brand Applications", detail: "Stationery, business cards, signage, billboard, merchandise, storefront and office mockups" },
+        { name: "Brand Guidelines", detail: "Complete usage document covering every element of the system" },
+      ],
+      outcome: {
+        intro:
+          "The modular identity works as a standalone mark and extends into patterns, social content, signage and physical applications — from a business card to a storefront.",
+        points: [
+          "A logomark built from the four letters of the name, designed to work on its own — on a mug, an app icon or a 3D sign",
+          "A bilingual system where Arabic and English are designed together, not translated",
+          "Patterns and icons drawn from the logomark geometry for social content and print",
+          "A brand line in both languages: «خلّك حاضر وين الناس تشوفك» / Be Where People See You",
+        ],
+      },
+      designDecision: {
+        title: "Building the symbol from the name itself",
+        body: "Instead of adding an abstract icon next to the name, we made the four letters become the icon. It means the brand is always present — even when there's only room for a small square, people still read LOOP.",
+      },
+      brandBookUrl: "https://drive.google.com/file/d/1IcekhQbs8MGoBDVpiBLxCVXouuCIYb62/view?usp=sharing",
+      siteUrl: "",
+      siteLabel: "",
+    },
+    {
+      slug: "mh-stud",
+      letter: "M",
+      accentColor: "#841641",
+      meta: {
+        type: "Brand Identity Design",
+        industry: "Equestrian / Arabian Horse Breeding",
+        scope: "Full identity system + brand applications",
+      },
+      brief: [
+        "MH Stud is a Qatari stud farm dedicated to breeding Arabian horses. In a world where lineage, heritage and beauty are everything, the stud needed an identity worthy of the horses it raises.",
+        "The brand had to speak to owners, breeders and show audiences — people who recognise quality instantly and expect a stud's identity to carry the same prestige as its bloodlines.",
+      ],
+      challenge: [
+        "Equestrian brands often fall into two extremes: generic horse silhouettes that could belong to any stable, or heavy ornamental crests that feel dated. Neither communicates the elegance of the Arabian horse.",
+        "MH Stud needed a mark that felt heritage-rich and Arabian at heart, yet refined enough to sit on a business card, a saddle pad and an embroidered polo with the same authority.",
+      ],
+      thinking: {
+        intro:
+          "We started from the brand's line — «حيث يبدأ الجمال», where beauty begins — and treated the identity as a portrait of the Arabian horse rather than a logo about horses.",
+        points: [
+          "We drew a hand-crafted horse head that flows into the MH monogram, crossed by a sword stroke that adds pride and Arabian character",
+          "We chose a deep burgundy and royal navy on warm cream — colours of heritage, prestige and calm confidence",
+          "We paired TS Zunburk's calligraphic Arabic with a classic serif in English, so both languages feel equally refined",
+          "We designed a dedicated equestrian icon set and horseshoe-based patterns to extend the identity beyond the logo",
+          "We photographed the brand in its real world — stables, straw, saddles and riders — so every application feels lived-in, not staged",
+        ],
+      },
+      deliverables: [
+        { name: "Logo System", detail: "Primary mark, monogram, construction, clear space, minimum size and background rules" },
+        { name: "Color & Typography", detail: "Burgundy, navy and cream palette; TS Zunburk Arabic with a serif English pairing" },
+        { name: "Brand Icons", detail: "Custom equestrian icon set for signage, digital and print" },
+        { name: "Patterns", detail: "Two horseshoe-based pattern systems for textiles and print" },
+        { name: "Brand Applications", detail: "Business cards, stable banners, polo shirts, horse blankets, saddle pads and embroidered labels" },
+        { name: "Social Media Direction", detail: "Profile and post templates in Arabic" },
+      ],
+      outcome: {
+        intro:
+          "The identity combines the horse, the MH monogram and an equestrian visual language across print, textiles, signage and social media.",
+        points: [
+          "A signature mark that unites the horse, the monogram and a sword stroke in one gesture",
+          "A burgundy, navy and cream palette applied across fabric, paper and screen",
+          "A bilingual typographic voice with calligraphic character in Arabic",
+          "Equestrian icons, horseshoe patterns and applications for stables, shows and social media",
+        ],
+      },
+      designDecision: {
+        title: "Letting the horse draw the monogram",
+        body: "Rather than placing a horse next to the letters, we let the horse's mane and neck flow into the MH monogram. The result reads as one confident signature — the stud and its horses are the same story.",
+      },
+      brandBookUrl: "https://drive.google.com/file/d/1w7JUcR5KyCPUe2_xLCKdrLw5BboiV8L6/view?usp=sharing",
       siteUrl: "",
       siteLabel: "",
     },
@@ -250,7 +359,7 @@ export const caseStudies: Record<Lang, CaseStudy[]> = {
       thinking: {
         intro: "بدأنا بدراسة المشهد التنافسي - ليس منافسي سَكَن المباشرين فقط، بل اللغة البصرية الأوسع لعلامات السفر والضيافة التي يتعامل معها الحُجّاج. حدّدنا المساحة البيضاء: علامة تبدو نظيفة وحديثة وواثقة، تستخدم إشارات الثقة من صناعة الضيافة بدلاً من فئة السفر الديني.",
         points: [
-          "اخترنا لوحة ألوان تهيمن عليها الأزرق للدلالة على الموثوقية والهدوء - متجنّبين عمدًا كليشيه الذهبي/الأخضر في الفئة",
+          "اخترنا لوحة ألوان تهيمن عليها الأزرق للدلالة على الموثوقية والهدوء - متجنّبين عمدًا القالب الذهبي/الأخضر المكرّر في الفئة",
           "صمّمنا شعارًا عربيًّا أولاً يبدو معاصرًا لكنّه متجذّر ثقافيًّا، وليس شعارًا لاتينيًّا أُضيفت إليه العربية كفكرة لاحقة",
           "أنشأنا نظامًا بصريًّا مبنيًّا حول فكرة الوضوح والتوجيه - لأن وعد سَكَن الأساسي هو إزالة الحيرة من البحث عن الإقامة",
           'طوّرنا رسائل العلامة بالعربية والإنجليزية تركّز على تجربة الحاج: "نختار معك، لا بدلاً عنك"',
@@ -274,7 +383,7 @@ export const caseStudies: Record<Lang, CaseStudy[]> = {
         ],
       },
       designDecision: {
-        title: "استخدام الأزرق بدلاً من الذهبي/الأخضر المتوقّع.",
+        title: "استخدام الأزرق بدلاً من الذهبي/الأخضر المتوقّع",
         body: "كان كسرًا متعمّدًا لعُرف الفئة جعل سَكَن معروفة فورًا. كان العميل حذرًا في البداية، لكن حين رأى النظام الكامل مُطبّقًا، التميّز تكلّم عن نفسه.",
       },
       brandBookUrl: "https://drive.google.com/file/d/1s6a3XMJvgHKt9DqJ1OcyAy2R93HA1WYd/view?usp=sharing",
@@ -326,7 +435,7 @@ export const caseStudies: Record<Lang, CaseStudy[]> = {
         ],
       },
       designDecision: {
-        title: "لوحة الألوان الرباعية.",
+        title: "لوحة الألوان الرباعية",
         body: "معظم أدلّة العلامات تخبرك بالالتزام بلونين. كسرنا هذه القاعدة عمدًا لأن شخصية نيمو تتطلّبها - 'السعادة' لا تأتي من لون واحد، بل من طاقة الألوان المتعدّدة. المفتاح كان بناء نسب استخدام صارمة حتى يخلق التنوّع حماسًا، لا فوضى.",
       },
       brandBookUrl: "https://drive.google.com/file/d/1hyov3jDWJbzqqfgP1vQ71H0ji8SJwYtc/view?usp=sharing",
@@ -349,10 +458,10 @@ export const caseStudies: Record<Lang, CaseStudy[]> = {
       ],
       challenge: [
         "علامات الرعاية الصحية غالبًا ما تقع في أحد فخّين: باردة وسريرية بإفراط، أو رسمية وترويجية بإفراط. لا شيء منهما يبني نوع الثقة التي تحتاجها منصّة رعاية صحية فعليًّا - ثقة شخص يحجز أشعة لطفله أو فحصًا لوالد مسنّ.",
-        "احتاجت مواعيدك هوية تبدو إنسانية وهادئة وموثوقة دون الاتّكاء على كليشيهات طبية مُتعبة - بلا صلبان، بلا سمّاعات طبية، بلا أزرق معقّم. كان عليها أن تُقرأ كعلامة تقنية حديثة أولاً، وعلامة رعاية صحية ثانيًا، دون أن تفقد الدفء أو الوضوح في هذه العملية.",
+        "احتاجت مواعيدك هوية تبدو إنسانية وهادئة وموثوقة دون الاتّكاء على الرموز الطبية المكرّرة - بلا صلبان، بلا سمّاعات طبية، بلا أزرق معقّم. كان عليها أن تُقرأ كعلامة تقنية حديثة أولاً، وعلامة رعاية صحية ثانيًا، دون أن تفقد الدفء أو الوضوح في هذه العملية.",
       ],
       thinking: {
-        intro: "أرسينا الهوية بأكملها على أرشيتايب واحد: الراعي، مدعومًا بالحكيم. كل قرار - اللون، الخط، النبرة - كان عليه أن يجيب سؤالًا واحدًا: هل يبدو هذا كشخص يريد مساعدتك فعلاً، لا بيعك شيئًا؟",
+        intro: "أرسينا الهوية بأكملها على شخصية واحدة: الراعي، مدعومًا بالحكيم. كل قرار - اللون، الخط، النبرة - كان عليه أن يجيب سؤالًا واحدًا: هل يبدو هذا كشخص يريد مساعدتك فعلاً، لا بيعك شيئًا؟",
         points: [
           "أعدنا بناء الشعار من الصفر - متخلّين عن الأيقونة التركوازية الداكنة القديمة وشعارها العربي وإشارة الصح البرتقالية لصالح علامة تركوازية واثقة مقترنة برمز أحادي مجرّد أخضر ليموني",
           "اخترنا التركوازي الغامق كلون أساسي للدلالة على الهدوء والثقة، مقترنًا بلمسة أخضر ليموني تُبقي النظام يبدو حديثًا وحيويًّا لا سريريًّا",
@@ -365,24 +474,128 @@ export const caseStudies: Record<Lang, CaseStudy[]> = {
         { name: "نظام الشعار", detail: "علامة رئيسية مُعاد تصميمها، رمز أحادي، صياغات عربية وإنجليزية، تنويعات متجاوبة" },
         { name: "الألوان والطباعة", detail: "نظام ألوان تركوازي وأخضر ليموني بنسب استخدام، عائلة خط KO Sans، قواعد تناسق عربي/لاتيني" },
         { name: "دليل العلامة", detail: "وثيقة استخدام شاملة - بناء الشعار، أكواد الألوان، تسلسل الخطوط، نبرة الصوت، الصواب والخطأ" },
-        { name: "استراتيجية العلامة", detail: "التموضع، أرشيتايب العلامة (الراعي/الحكيم)، ركائز الرسائل، اتجاه الشعار الترويجي" },
+        { name: "استراتيجية العلامة", detail: "التموضع، شخصية العلامة (الراعي/الحكيم)، ركائز الرسائل، اتجاه الشعار الترويجي" },
         { name: "الهوية اللفظية", detail: "إرشادات نبرة الصوت، ركائز الرسائل (توفير الوقت، حجز سهل، تنظيم، الشعور بالثقة)، خيارات الشعار الترويجي" },
         { name: "تطبيقات العلامة", detail: "اتجاه واجهة التطبيق، قوالب تواصل اجتماعي، نماذج مواد رقمية" },
       ],
       outcome: {
-        intro: "خرجت مواعيدك بهوية تُطابق منتجها أخيرًا - حديثة، هادئة، وإنسانية بلا لبس في فئة تميل افتراضيًّا للبرود والرسمية. يمنح النظام اللوني والشعار الجديد العلامة لغة بصرية يمكنها النموّ معها مع توسّعها من حجز المواعيد إلى منظومة رعاية صحية أشمل.",
+        intro: "تمنح الهوية الجديدة مواعيدك أساساً بصرياً ولفظياً أوضح وأدفأ عبر كل واجهاتها الرقمية — حديثة وهادئة وإنسانية في فئة تبدو غالباً باردة ورسمية.",
         points: [
-          "نظام هوية كامل مبني حول أرشيتايب واحد منضبط - الراعي - عبر كل نقطة تماس",
-          "إعادة تصميم شعار استبدلت علامة مزدحمة وزخرفية برمز واثق ومبسّط مُصمّم لأيقونات التطبيقات والاستخدام الرقمي الصغير",
-          "إطار نبرة صوت يمكن للفريق تطبيقه باتساق عبر نصوص التطبيق والإشعارات والتسويق دون أن يبدو سريريًّا",
-          "أساس بصري مُصمّم للتوسّع مع نموّ مواعيدك نحو الطب عن بُعد والسجلّات الطبية، لا حجز المواعيد فقط",
+          "هوية مبنية حول شخصية واحدة للعلامة — الراعي — ومطبّقة على النظام كله",
+          "شعار مُعاد تصميمه: رمز مبسّط وواثق بدلاً من العلامة المزدحمة السابقة، مناسب لأيقونات التطبيقات والاستخدام الرقمي الصغير",
+          "إرشادات نبرة صوت لنصوص التطبيق والإشعارات والتسويق تتجنّب اللغة الطبية الجافة",
+          "نظام ألوان تركوازي غامق وأخضر ليموني مع خط KO Sans للعربية والإنجليزية",
         ],
       },
       designDecision: {
-        title: "اختيار الدفء بدلاً من العُرف السريري.",
+        title: "اختيار الدفء بدلاً من العُرف السريري",
         body: "كل غريزة في هوية الرعاية الصحية تجذب نحو الأزرق المعقّم والأيقونات الطبية. اتّجهنا للعكس - تركوازي غامق وأخضر ليموني، أشكال مستديرة، لغة إنسانية - لأن منافس مواعيدك الحقيقي ليس تطبيقًا آخر، بل قلق حجز الرعاية الصحية أصلاً. كان على العلامة أن تشعر كراعٍ قبل أن تشعر كبرنامج.",
       },
       brandBookUrl: "https://drive.google.com/file/d/1d2ukuLoNKJCnyRC_U5WsveJiDcPfAdz1/view?usp=sharing",
+      siteUrl: "",
+      siteLabel: "",
+    },
+    {
+      slug: "loop",
+      letter: "L",
+      accentColor: "#DA7B29",
+      meta: {
+        type: "تصميم هوية بصرية",
+        industry: "التسويق / الخدمات الإبداعية",
+        scope: "نظام هوية كامل + اتجاه التواصل الاجتماعي",
+      },
+      brief: [
+        "لووب شركة تسويق وإبداع تقدّم حلولاً متكاملة في التسويق الرقمي والتصميم والإعلان. عملها كله أن تجعل العلامات الأخرى مرئية — ولذلك كان على هويتها أن تُثبت ذلك قبل أي عرض تقديمي.",
+        "احتاج المؤسّسون علامة واثقة وحديثة وثنائية اللغة من اليوم الأول، وجملة تلخّص ما يبيعونه فعلاً: الحضور.",
+      ],
+      challenge: [
+        "وكالات التسويق هي أصعب فئة في بناء الهوية. كل وكالة تدّعي الإبداع، وكلها تستخدم نفس الخط العريض ونفس وعد «ننمّي العلامات». وشركة تسويق بهوية تُنسى تخسر النقاش قبل أن يبدأ.",
+        "احتاجت لووب نظاماً مميّزاً بما يكفي ليُعرف من شكل واحد، ومرناً بما يكفي ليحمل الحملات والمحتوى والمساحات الفعلية دون أن يبدو متكرّراً.",
+      ],
+      thinking: {
+        intro: "بنينا الهوية حول فكرة واحدة: كن حيث يراك الناس. كل عنصر في النظام مصمّم ليُلاحظ من النظرة الأولى ويُتذكّر بعدها.",
+        points: [
+          "حوّلنا حروف الاسم الأربعة إلى علامة معيارية — L وO وO وP مرصوصة في مربّع مدمج يعمل كرمز مستقل",
+          "صمّمنا شعاراً نصياً ثنائي اللغة، لتحمل «لووب» و«LOOP» نفس الوزن بدلاً من أن تكون إحداهما ترجمة للأخرى",
+          "اخترنا برتقالياً واثقاً مع أسود عميق وكريمي دافئ: طاقة توقف التمرير، ورصانة تبدو احترافية",
+          "فكّكنا العلامة إلى أجزائها الهندسية لنبني منها أنماطاً ولغة بصرية تمتدّ عبر كل نقاط التماس",
+          "كتبنا جملة العلامة باللغتين — «خلّك حاضر وين الناس تشوفك» / Be Where People See You — كوعد يجب أن يحقّقه كل تطبيق",
+        ],
+      },
+      deliverables: [
+        { name: "نظام الشعار", detail: "العلامة، الشعار النصي ثنائي اللغة، التركيبات، المسافات الآمنة وقواعد الأحجام" },
+        { name: "الألوان والطباعة", detail: "لوحة البرتقالي والأسود والكريمي بنسب استخدام، وخطوط عربية وإنجليزية" },
+        { name: "اللغة البصرية", detail: "أنماط مبنية من هندسة العلامة، ومجموعة أيقونات مخصّصة" },
+        { name: "اتجاه التواصل الاجتماعي", detail: "اتجاهات للمنشورات والقصص بلغة العلامة البصرية" },
+        { name: "تطبيقات العلامة", detail: "قرطاسية، بطاقات أعمال، لافتات، لوحة إعلانية، منتجات، واجهة محل ومكتب" },
+        { name: "دليل العلامة", detail: "وثيقة استخدام شاملة تغطي كل عناصر النظام" },
+      ],
+      outcome: {
+        intro: "تعمل الهوية المعيارية كعلامة مستقلة، وتمتدّ إلى الأنماط ومحتوى التواصل الاجتماعي واللافتات والتطبيقات الفعلية — من بطاقة الأعمال إلى واجهة المحل.",
+        points: [
+          "علامة مبنية من حروف الاسم الأربعة، مصمّمة لتعمل وحدها — على كوب، أيقونة تطبيق أو لافتة ثلاثية الأبعاد",
+          "نظام ثنائي اللغة صُمّمت فيه العربية والإنجليزية معاً، لا ترجمةً",
+          "أنماط وأيقونات مستمدّة من هندسة العلامة للمحتوى والمطبوعات",
+          "جملة علامة باللغتين: «خلّك حاضر وين الناس تشوفك» / Be Where People See You",
+        ],
+      },
+      designDecision: {
+        title: "بناء الرمز من الاسم نفسه",
+        body: "بدلاً من إضافة أيقونة مجرّدة بجوار الاسم، جعلنا الحروف الأربعة هي الأيقونة. هكذا تبقى العلامة حاضرة دائماً — حتى حين لا يتّسع المكان إلا لمربّع صغير، يقرأ الناس LOOP.",
+      },
+      brandBookUrl: "https://drive.google.com/file/d/1IcekhQbs8MGoBDVpiBLxCVXouuCIYb62/view?usp=sharing",
+      siteUrl: "",
+      siteLabel: "",
+    },
+    {
+      slug: "mh-stud",
+      letter: "M",
+      accentColor: "#841641",
+      meta: {
+        type: "تصميم هوية بصرية",
+        industry: "الفروسية / تربية الخيل العربية",
+        scope: "نظام هوية كامل + تطبيقات العلامة",
+      },
+      brief: [
+        "إم إتش ستد مربط قطري متخصّص في تربية الخيل العربية. في عالم تعني فيه السلالة والإرث والجمال كل شيء، احتاج المربط هوية تليق بالخيول التي يربّيها.",
+        "كان على العلامة أن تخاطب الملّاك والمربّين وجمهور البطولات — أشخاص يميّزون الجودة فوراً، ويتوقّعون أن تحمل هوية المربط نفس هيبة سلالاته.",
+      ],
+      challenge: [
+        "علامات الفروسية تقع غالباً في طرفين: صور ظلّية عامة لخيول يمكن أن تنتمي لأي إسطبل، أو شعارات مزخرفة ثقيلة تبدو قديمة. لا هذا ولا ذاك ينقل أناقة الخيل العربية.",
+        "احتاج إم إتش ستد علامة غنية بالإرث وعربية الروح، لكنها راقية بما يكفي لتظهر على بطاقة أعمال ومفرش سرج وقميص مطرّز بنفس الحضور.",
+      ],
+      thinking: {
+        intro: "بدأنا من جملة العلامة — «حيث يبدأ الجمال» — وتعاملنا مع الهوية كبورتريه للخيل العربية، لا كشعار عن الخيول.",
+        points: [
+          "رسمنا رأس حصان يدوياً ينساب داخل المونوجرام MH، يعبره خط سيف يضيف الفخر والطابع العربي",
+          "اخترنا العنابي العميق والكحلي الملكي على كريمي دافئ — ألوان الإرث والهيبة والثقة الهادئة",
+          "قرنّا خط TS Zunburk العربي ذا الروح الخطّية بخط سيريف كلاسيكي بالإنجليزية، لتبدو اللغتان بنفس الرقي",
+          "صمّمنا مجموعة أيقونات فروسية خاصة وأنماطاً مبنية على حدوة الحصان لتمتدّ الهوية أبعد من الشعار",
+          "صوّرنا العلامة في عالمها الحقيقي — الإسطبلات والقش والسروج والفرسان — ليبدو كل تطبيق حقيقياً لا مصطنعاً",
+        ],
+      },
+      deliverables: [
+        { name: "نظام الشعار", detail: "العلامة الرئيسية، المونوجرام، البناء، المسافات الآمنة، الحدّ الأدنى للحجم وقواعد الخلفيات" },
+        { name: "الألوان والطباعة", detail: "لوحة العنابي والكحلي والكريمي؛ خط TS Zunburk العربي مع خط سيريف إنجليزي" },
+        { name: "أيقونات العلامة", detail: "مجموعة أيقونات فروسية مخصّصة للافتات والرقمي والمطبوعات" },
+        { name: "الأنماط", detail: "نظاما أنماط مبنيان على حدوة الحصان للأقمشة والمطبوعات" },
+        { name: "تطبيقات العلامة", detail: "بطاقات أعمال، لافتات إسطبل، قمصان بولو، أغطية خيل، مفارش سروج وملصقات مطرّزة" },
+        { name: "اتجاه التواصل الاجتماعي", detail: "قوالب للملف الشخصي والمنشورات بالعربية" },
+      ],
+      outcome: {
+        intro: "تجمع الهوية بين الحصان ومونوجرام MH ولغة بصرية فروسية عبر المطبوعات والأقمشة واللافتات والتواصل الاجتماعي.",
+        points: [
+          "علامة توقيع تجمع الحصان والمونوجرام وخط السيف في حركة واحدة",
+          "لوحة عنابية وكحلية وكريمية مطبّقة على القماش والورق والشاشة",
+          "صوت طباعي ثنائي اللغة بروح خطّية في العربية",
+          "أيقونات فروسية وأنماط حدوة الحصان وتطبيقات للإسطبلات والبطولات والتواصل الاجتماعي",
+        ],
+      },
+      designDecision: {
+        title: "ترك الحصان يرسم المونوجرام",
+        body: "بدلاً من وضع حصان بجوار الحروف، جعلنا عرف الحصان ورقبته ينسابان داخل المونوجرام MH. النتيجة توقيع واحد واثق — المربط وخيوله قصة واحدة.",
+      },
+      brandBookUrl: "https://drive.google.com/file/d/1w7JUcR5KyCPUe2_xLCKdrLw5BboiV8L6/view?usp=sharing",
       siteUrl: "",
       siteLabel: "",
     },

@@ -61,35 +61,26 @@ export default function Hero() {
         <div className="relative overflow-hidden rounded-[28px] bg-ink text-paper">
           <motion.div
             style={reduced ? undefined : { y: copyY, opacity: copyOpacity }}
-            className="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 pt-[clamp(3.5rem,8vw,6rem)] text-center"
+            className="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 pt-[clamp(4.5rem,7vw,6rem)] text-center"
           >
-            <motion.span
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: EASE, delay: 0.2 }}
-              className="inline-flex items-center gap-2 rounded-full border border-paper/15 px-4 py-1.5 text-[0.78rem] font-medium text-paper/70"
-            >
-              <span className="h-1.5 w-1.5 rounded-full bg-cyan" />
-              {t.hero.tag}
-            </motion.span>
-
+            {/* headline → service line → CTA (no chip, no paragraph: one message, then the work) */}
             <motion.h1
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: EASE, delay: 0.3 }}
-              className={`font-display mt-6 text-[clamp(1.7rem,3.5vw,3.3rem)] font-extrabold ${
-                lang === "ar" ? "" : "leading-[1.08] tracking-[-0.035em]"
+              transition={{ duration: 0.8, ease: EASE, delay: 0.2 }}
+              className={`font-display mx-auto max-w-[340px] text-[clamp(1.75rem,2.2vw+0.85rem,2.75rem)] font-extrabold sm:max-w-[680px] lg:max-w-[820px] ${
+                lang === "ar" ? "[html[lang=ar]_&]:leading-[1.28]!" : "leading-[1.1]"
               }`}
             >
               <span className="block">{t.hero.headline[0]}</span>
-              <span className={`block text-cyan ${lang === "ar" ? "mt-2" : "mt-1"}`}>{t.hero.headline[1]}</span>
+              <span className="block text-cyan">{t.hero.headline[1]}</span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: EASE, delay: 0.4 }}
-              className="mt-7 max-w-xl text-[1rem] leading-[1.8] text-paper/70"
+              transition={{ duration: 0.7, ease: EASE, delay: 0.32 }}
+              className="mt-4 text-[13px] font-medium leading-[1.5] text-paper/60 sm:mt-[18px] sm:text-[14px]"
             >
               {t.hero.leftCopy}
             </motion.p>
@@ -97,13 +88,13 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: EASE, delay: 0.5 }}
-              className="mt-8 flex flex-wrap items-center justify-center gap-3"
+              transition={{ duration: 0.7, ease: EASE, delay: 0.42 }}
+              className="mt-6 flex w-full max-w-[340px] flex-col items-stretch gap-2 sm:mt-7 sm:w-auto sm:max-w-none sm:flex-row sm:items-center sm:gap-2.5"
             >
               <button
                 type="button"
                 onClick={() => openBrief({ source: "hero" })}
-                className="group inline-flex items-center gap-2 rounded-full bg-cyan py-1.5 pe-1.5 ps-5 text-sm font-semibold text-black transition-transform duration-300 hover:scale-[1.03]"
+                className="group inline-flex h-12 items-center justify-center gap-2.5 rounded-full bg-cyan pe-2 ps-5 text-sm font-semibold text-black transition-transform duration-300 hover:scale-[1.03]"
               >
                 {t.cta.start}
                 <span className="flex h-8 w-8 items-center justify-center rounded-full bg-black text-cyan">
@@ -112,7 +103,7 @@ export default function Hero() {
               </button>
               <a
                 href="#work"
-                className="inline-flex items-center rounded-full border border-paper/20 px-5 py-2.5 text-sm font-semibold text-paper transition-colors hover:border-paper/60"
+                className="inline-flex h-12 items-center justify-center rounded-full border border-paper/20 px-5 text-sm font-semibold text-paper transition-colors hover:border-paper/60"
               >
                 {t.hero.seeWork}
               </a>

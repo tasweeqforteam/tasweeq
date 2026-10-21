@@ -78,7 +78,7 @@ export const translations: Record<Lang, Dict> = {
     cta: { start: "Start Project", growth: "Start Your Growth System" },
     hero: {
       studio: "001 — Studio",
-      leftCopy: "From strategy and identity to campaigns and execution — we help brands build a stronger presence and grow with confidence.",
+      leftCopy: "Strategy · Identity · Content · Campaigns · Advertising",
       details: "Details",
       tag: "Marketing & Brand Studio",
       est: "EST. 2022 · Mansoura, EG",
@@ -219,7 +219,7 @@ export const translations: Record<Lang, Dict> = {
     cta: { start: "ابدأ مشروعك", growth: "ابدأ نظام نموّك" },
     hero: {
       studio: "001 — الاستوديو",
-      leftCopy: "من الاستراتيجية والهوية إلى الحملات والتنفيذ، نساعد العلامات على بناء حضور أقوى والنمو بثقة.",
+      leftCopy: "استراتيجية · هوية · محتوى · حملات · إعلانات",
       details: "التفاصيل",
       tag: "استوديو تسويق وبناء علامات تجارية",
       est: "تأسّس 2022 · المنصورة، مصر",

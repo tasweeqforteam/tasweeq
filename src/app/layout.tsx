@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { newBlack, inter, plexArabic, thmanyah } from "@/lib/fonts";
+import { interTight, plexArabic, thmanyah } from "@/lib/fonts";
 import SmoothScroll from "@/components/SmoothScroll";
 import Providers, { themeInitScript } from "@/components/Providers";
 import BriefProvider from "@/components/Brief";
@@ -123,7 +123,7 @@ export default function RootLayout({
       lang="ar"
       dir="rtl"
       suppressHydrationWarning
-      className={`${newBlack.variable} ${inter.variable} ${plexArabic.variable} ${thmanyah.variable} antialiased`}
+      className={`${interTight.variable} ${plexArabic.variable} ${thmanyah.variable} antialiased`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />

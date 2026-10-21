@@ -46,7 +46,7 @@
   --color-line-dark: var(--line-dark);
 
   --font-display: var(--font-display);
-  --font-body: var(--font-body);
+  --font-body: var(--font-display);
   --font-arabic: var(--font-arabic);
   --font-serif: var(--font-serif);
 
@@ -91,10 +91,15 @@ html[lang="ar"] .display-tight {
   line-height: 1.25 !important;
 }
 
-/* Keep NewBlack for English-only elements in Arabic mode */
+/* Keep the Latin face for English-only elements in Arabic mode */
 html[lang="ar"] [data-font-en] {
   font-family: var(--font-display), system-ui, sans-serif !important;
-  letter-spacing: -0.04em !important;
+  letter-spacing: -0.015em !important;
+}
+
+/* Inter Tight is already narrow — the old -0.04em (tuned for NewBlack) jams words together */
+html:not([lang="ar"]) .font-display {
+  letter-spacing: -0.015em !important;
 }
 
 /* Lenis */
@@ -114,8 +119,8 @@ html.lenis body {
   font-family: var(--font-display), system-ui, sans-serif;
 }
 .display-tight {
-  letter-spacing: -0.04em;
-  line-height: 0.86;
+  letter-spacing: -0.015em;
+  line-height: 0.92;
 }
 .text-balance {
   text-wrap: balance;

@@ -1,16 +1,17 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { PROJECTS } from "@/lib/projects";
 
 const N = PROJECTS.length;
 const DRAG_STEP = 50; // px of horizontal drag per card
+const AUTO_MS = 2600; // time each card stays in front
 
 /**
  * Fan of real project covers. Drag/swipe to rotate the deck, tap a side card to bring it
- * forward, tap the front card to open that case study.
+ * forward, tap the front card to open that case study. Turns by itself while on screen.
  */
 export default function ProjectFan() {
   const router = useRouter();
@@ -19,6 +20,24 @@ export default function ProjectFan() {
   const suppressClick = useRef(false);
 
   const go = (i: number) => setFront(((i % N) + N) % N);
+
+  // the deck turns by itself while it's on screen; hover/drag pauses it, and any manual
+  // change restarts the wait so it never jumps right after the visitor picks a card
+  const deck = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  const [paused, setPaused] = useState(false);
+  useEffect(() => {
+    const el = deck.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting), { threshold: 0.5 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  useEffect(() => {
+    if (!visible || paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = window.setTimeout(() => setFront((f) => (f + 1) % N), AUTO_MS);
+    return () => window.clearTimeout(id);
+  }, [visible, paused, front]);
 
   const onPointerDown = (e: React.PointerEvent) => {
     drag.current = { x: e.clientX, start: front, moved: false };
@@ -51,8 +70,11 @@ export default function ProjectFan() {
   return (
     <div className="mb-12 flex flex-col items-center">
       <div
+        ref={deck}
         className="relative h-[clamp(6rem,11vw,8.5rem)] w-[clamp(18rem,40vw,30rem)] cursor-grab touch-pan-y select-none active:cursor-grabbing"
         dir="ltr"
+        onPointerEnter={(e) => e.pointerType === "mouse" && setPaused(true)}
+        onPointerLeave={() => setPaused(false)}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}

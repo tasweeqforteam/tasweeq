@@ -1,5 +1,6 @@
 "use client";
 
+import ProjectFan from "@/components/ProjectFan";
 import { ArrowUpRight } from "lucide-react";
 import RevealText from "@/components/ui/RevealText";
 import Logo from "@/components/ui/Logo";
@@ -24,20 +25,24 @@ export default function FinalCTA() {
       <span id="insights" className="block" aria-hidden="true" />
       <footer id="contact" className="bg-ink text-paper">
         <div className="container-editorial py-[clamp(5rem,12vw,10rem)]">
-          {/* massive headline */}
-          <RevealText
-            as="h2"
-            align="start"
-            lines={[t.footer.headline.slice(0, 2).join(" "), t.footer.headline.slice(2).join(" ")]}
-            className="font-display text-[clamp(2.6rem,7vw,6.5rem)] font-extrabold uppercase leading-[0.95] tracking-[-0.045em]"
-          />
+          <div className="flex flex-col items-center text-center">
+            {/* the work itself: an interactive deck of real project covers */}
+            <ProjectFan />
+
+            <RevealText
+              as="h2"
+              align="center"
+              lines={[t.footer.headline.join(" ")]}
+              className="font-display text-[clamp(2.1rem,4.6vw,4.25rem)] font-extrabold leading-[1.1]"
+            />
+            <p className="mt-5 max-w-md text-base text-paper/60">{t.caseCta.body}</p>
 
           {/* primary CTA */}
-          <div className="mt-12">
+          <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-center">
             <button
               type="button"
               onClick={() => openBrief({ source: "footer_cta" })}
-              className="group inline-flex items-center gap-3 rounded-full bg-cyan px-8 py-4 text-base font-semibold text-black transition-transform duration-300 hover:scale-[1.02]"
+              className="group inline-flex h-14 items-center justify-center gap-3 rounded-full bg-cyan px-8 text-base font-semibold text-black transition-transform duration-300 hover:scale-[1.02]"
             >
               {t.cta.start}
               <ArrowUpRight size={20} />
@@ -49,10 +54,11 @@ export default function FinalCTA() {
               data-gtm="whatsapp_click"
               data-gtm-location="footer_cta"
               onClick={() => gtmEvent("whatsapp_click", { location: "footer_cta" })}
-              className="ms-3 inline-flex items-center gap-2 rounded-full border border-paper/25 px-6 py-4 text-base font-semibold text-paper transition-colors hover:border-paper"
+              className="inline-flex h-14 items-center justify-center gap-2 rounded-full border border-paper/25 px-7 text-base font-semibold text-paper transition-colors hover:border-paper"
             >
               <WhatsAppIcon size={20} /> {t.intro.whatsapp}
             </a>
+          </div>
           </div>
 
           {/* supporting columns */}

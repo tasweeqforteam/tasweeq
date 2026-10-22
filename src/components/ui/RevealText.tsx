@@ -9,7 +9,7 @@ type RevealTextProps = {
   className?: string;
   lineClassName?: string;
   as?: "h1" | "h2" | "h3" | "p" | "div";
-  align?: "start" | "end";
+  align?: "start" | "end" | "center";
   forceEn?: boolean;
 };
 
